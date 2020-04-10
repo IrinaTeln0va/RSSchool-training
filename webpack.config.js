@@ -11,12 +11,12 @@ module.exports = (env, options) => {
     mode: isProduction ? 'production' : 'development',
     devtool: isProduction ? 'none' : 'source-map',
     watch: !isProduction,
-    entry: ['./src/index.js', './src/sass/style.scss'],
+    entry: ['./src/js/index.js', './src/sass/style.scss'],
     output: {
       path: path.join(__dirname, '/dist'),
       filename: 'script.js',
     },
-    
+
     module: {
       rules: [
         {
