@@ -1,8 +1,8 @@
-const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, options) => {
   const isProduction = options.mode === 'production';
@@ -13,10 +13,15 @@ module.exports = (env, options) => {
     watch: !isProduction,
     entry: ['./src/js/index.js', './src/sass/style.scss'],
     output: {
-      path: path.join(__dirname, '/dist'),
+      path: path.join(__dirname, 'dist'),
       filename: 'script.js',
     },
-
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      publicPath: 'http://localhost:8080/',
+      hot: true,
+      compress: true,
+    },
     module: {
       rules: [
         {
@@ -54,7 +59,11 @@ module.exports = (env, options) => {
       }),
       new MiniCssExtractPlugin({
         filename: 'style.css'
-      })
+      }),
+      new CopyWebpackPlugin([
+        { from: './src/assets', to: 'assets' },
+        { from: './src/assets/img/favicon.ico', to: 'favicon.ico' },
+      ])
     ]
   }
 

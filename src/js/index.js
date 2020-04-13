@@ -1,3 +1,8 @@
-import cards from './cards.js';
+import { appConfig } from './app-config.js';
+import { Container } from './container.js';
+import { CategoriesList } from './categories-list.js';
+import { Header } from './header.js';
 
-console.log(cards);
+const container = new Container();
+container._addHeader(new Header());
+container.addContent(new CategoriesList());
