@@ -1,5 +1,6 @@
 import { appConfig } from './app-config.js';
 import { WordsListTrain } from './words-list-train.js';
+import { WordsListPlay } from './words-list-play.js';
 // import { PageNavigator } from './page-navigator.js';
 
 export class Container {
@@ -13,7 +14,9 @@ export class Container {
     const pageFrom = evt.detail.triggerObj.pageName;
     let content;
     if (pageFrom === 'categoriesList') {
-      content = new WordsListTrain(evt.detail.cardsListId);
+      content = (appConfig.mode === 'train')
+      ? new WordsListTrain(evt.detail.cardsListId)
+      : new WordsListPlay(evt.detail.cardsListId);
     }
     this._removeContent();
     this.addContent(content);
@@ -22,6 +25,7 @@ export class Container {
   addContent(content) {
     this.content = content;
     this.content.render();
+    this.currentPage = this.content.pageName;
   }
 
   _removeContent() {

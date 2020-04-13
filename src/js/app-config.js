@@ -4,7 +4,7 @@ class AppConfig {
     constructor() {
         this.mode = 'train',
         this.pageContainer = document.querySelector('.container'),
-        this.currentPage = null,
+        // this.currentPage = null,
         this.pages = ['categoriesList', 'wordsListTrain', 'wordsListPlay'];
     }
 }

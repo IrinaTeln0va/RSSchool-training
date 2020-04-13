@@ -74,9 +74,12 @@ export class WordsListPlay {
   }
 
   _createGameBtnElement() {
-    const startGameBtn = document.createElement('button');
-    startGameBtn.classList.add('btn', 'startGameBtn');
-    return startGameBtn;
+    const gameBtnWrapper = document.createElement('div');
+    gameBtnWrapper.classList.add('game-btn-wrap');
+    gameBtnWrapper.innerHTML = `<button class='btn start-game-btn'></button>`;
+    // const startGameBtn = document.createElement('button');
+    // startGameBtn.classList.add('btn', 'start-game-btn');
+    return gameBtnWrapper;
   }
 
   _startBtnClickHandler() {
