@@ -29,9 +29,24 @@
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #2572ee;
-  transition: 0.7s;
+  transition: transform 0.7s, background 0.2s;
 }
 
 .start-game-btn:hover {
   transform: rotate(360deg);
+}
+
+.repeat {
+  background-image: url('../assets/img/icon-repeat.svg');
+  transform: none;
+  background-size: 82%;
+}
+
+.repeat:hover {
+  transform: none;
+  background-size: 107%;
+}
+
+.repeat:focus {
+  outline: none;
 }

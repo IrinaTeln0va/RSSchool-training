@@ -18,18 +18,19 @@ export class Menu {
   }
   _createElement() {
     const wrap = document.createElement('div');
+    wrap.classList.add('menu');
     wrap.innerHTML = this.markup;
     return wrap;
   }
   _bind() {
-    this.domElement.addEventListener('click', this.burgerClickHandler.bind(this));
+    this.menuBtn.addEventListener('click', this.burgerClickHandler.bind(this));
   }
   _open() {
-    this.menuBtn.classList.add('open');
+    this.domElement.classList.add('open');
     this.state = 'open';
   }
   _close() {
-    this.menuBtn.classList.remove('open');
+    this.domElement.classList.remove('open');
     this.state = 'close';
   }
 }

@@ -25,7 +25,7 @@ export class WordsListTrain {
 
   unrender() {
     this.unbind();
-    appConfig.pageContainer.remove(this.domElement);
+    this.domElement.remove();
   }
 
   bind() {
@@ -53,6 +53,9 @@ export class WordsListTrain {
     }
 
     if (targetType === 'card') {
+      if (targetElement.classList.contains('active')) {
+        return;
+      }
       const card = this.cardsList.find(x => x.word === targetElement.dataset.cardId)
       card.audioCardElement.play();
     }

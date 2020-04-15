@@ -28,8 +28,12 @@ export class Toggle {
   }
   onModeChange() {
   }
+  switchState() {
+    this.toggleClickHandler();
+  }
   _createElement() {
     const wrap = document.createElement('div');
+    wrap.classList.add('toggler-wrapper');
     wrap.innerHTML = this.markup;
     return wrap;
   }

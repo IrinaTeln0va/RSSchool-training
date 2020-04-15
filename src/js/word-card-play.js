@@ -15,7 +15,6 @@ export class WordCardPlay {
         <img src="${this.img}" alt="${this.word}">
       </div>
       <div class="category-content">
-        <audio src="${this.audio}"></audio>
       </div>`;
   }
 

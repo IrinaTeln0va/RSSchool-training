@@ -1,10 +1,12 @@
 .cards-list {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: 0;
   margin-left: -20px;
   padding: 0;
+  padding-top: 65px;
 }
 
 .category {
@@ -12,6 +14,7 @@
   display: block;
   width: 250px;
   min-width: 200px;
+  min-height: 270px;
   flex-shrink: 0;
   margin-bottom: 20px;
   line-height: 1.4;
@@ -90,6 +93,10 @@
   outline: none;
 }
 
+.word-card.active:hover {
+  cursor: default;
+}
+
 .word-card.active .flip-card-btn {
   display: none;
 }
@@ -129,4 +136,13 @@
 
 .word-card.active .back {
   transform: rotateY(360deg);
+}
+
+.word-card.disabled {
+  opacity: 0.5;
+}
+
+.word-card.disabled:hover {
+  cursor: default;
+  transform: none;
 }

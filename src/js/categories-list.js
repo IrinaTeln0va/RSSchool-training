@@ -45,7 +45,7 @@ export class CategoriesList {
     data.categories.forEach((categoryTitle, index) => {
       if (category === categoryTitle) {
         const cardsListId = index;
-        this.domElement.dispatchEvent(new CustomEvent('changePage', { bubbles: true, detail: { triggerObj: this, cardsListId: cardsListId} }));
+        window.location.hash = `category-${cardsListId}`;
       }
     })
   }

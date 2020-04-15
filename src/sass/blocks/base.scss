@@ -6,9 +6,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fff;
-  // background: url('../assets/img/bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-y: scroll;
 }
 
 a {
@@ -46,4 +46,51 @@ img {
     // @media (min-width: $desctop) {
     //   max-width: 940px;
     // }
+}
+
+.win-game::after,
+.lose-game::after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url('../assets/img/win.jpg');
+  content: '';
+  background-size: cover;
+  background-position: top -200px center;
+  background-repeat: no-repeat;
+}
+
+.lose-game::after {
+  background-image: url('../assets/img/lose.jpg');
+  background-size: 58%;
+  background-position: top;
+}
+
+.lose-game-message {
+  position: fixed;
+  box-sizing: border-box;
+  padding: 6px 10px;
+  font-size: 16px;
+  box-shadow: 2px 2px 0px 0px #062e8f7a;
+  top: 22px;
+  left: 13%;
+  z-index: 6;
+  color: #05112e;
+    @media (min-width: $tablet) {
+      padding: 12px 21px;
+      font-size: 21px;
+      top: 41px;
+      left: 10%;
+    }
+    @media (min-width: $desctop) {
+      padding: 23px 40px;
+      font-size: 25px;
+      top: 48px;
+      left: 18%;
+    }
 }
