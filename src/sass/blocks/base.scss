@@ -53,7 +53,7 @@ img {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
   display: block;
   width: 100%;
   height: 100%;
@@ -79,7 +79,7 @@ img {
   box-shadow: 2px 2px 0px 0px #062e8f7a;
   top: 22px;
   left: 13%;
-  z-index: 6;
+  z-index: 11;
   color: #05112e;
     @media (min-width: $tablet) {
       padding: 12px 21px;

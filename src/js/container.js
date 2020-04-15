@@ -12,17 +12,32 @@ export class Container {
   }
 
   _onPageChange(evt) {
-    const pageFrom = this.currentPage;
+    // const pageFrom = this.currentPage;
     let content;
-    if (this.currentPage === appConfig.pages[0]) {
+    const pageTo = window.location.hash;
+
+    if (pageTo.startsWith('#category')) {
       content = (appConfig.mode === 'train')
       ? new WordsListTrain(window.location.hash.slice(10))
       : new WordsListPlay(window.location.hash.slice(10));
     }
-    if (this.currentPage === appConfig.pages[1] || this.currentPage === appConfig.pages[2]) {
+    if (pageTo === 'statistic') {
+
+    } 
+    if (pageTo === '' || pageTo === '#') {
       content = new CategoriesList();
     }
+
     this._switchScreen(content);
+    // if (this.currentPage === appConfig.pages[0]) {
+    //   content = (appConfig.mode === 'train')
+    //   ? new WordsListTrain(window.location.hash.slice(10))
+    //   : new WordsListPlay(window.location.hash.slice(10));
+    // }
+    // if (this.currentPage === appConfig.pages[1] || this.currentPage === appConfig.pages[2]) {
+    //   content = new CategoriesList();
+    // }
+    // this._switchScreen(content);
   }
 
   _switchScreen(content) {
@@ -66,18 +81,5 @@ export class Container {
         this._switchScreen(content);
       }
     }
-    // if (this.currentPage === appConfig.pages[1]) {
-    //   content = new WordsListPlay(this.content.categoryId);
-    // }
-    // if (this.currentPage === appConfig.pages[2]) {
-    //   content = new WordsListTrain(this.content.categoryId);
-    // }
-
-    // if (this.currentPage === appConfig.pages[1]) {
-    //   window.location.hash = 'word-play';
-    // }
-    // if (this.currentPage === appConfig.pages[2]) {
-    //   window.location.hash = 'word-train';
-    // }
   } 
 }

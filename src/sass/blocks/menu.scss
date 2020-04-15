@@ -1,3 +1,8 @@
+.menu {
+  min-width: 80px;
+  min-height: 80px;
+}
+
 .menu-btn {
   position: relative;
   display: flex;
@@ -6,9 +11,10 @@
   width: 80px;
   height: 80px;
   cursor: pointer;            
-  transition: all .5s ease-in-out;
-  transition: opacity .1s ease-in-out;
+  // transition: all .5s ease-in-out;
+  transition: left 1s ease-in-out, opacity .1s ease-in-out;
   background: transparent;
+  z-index: 6;
 }
 
 .menu-btn:hover {
@@ -54,16 +60,94 @@
   transform: translateY(16px);
 }
 
+.open .menu-btn {
+  position: fixed;
+  z-index: 6;
+}
+
 /* Animation */
-.menu-btn.open .menu-btn__burger {
+.open .menu-btn__burger {
   transform: translateX(-50px);
   background: transparent;
 }
 
-.menu-btn.open .menu-btn__burger::before {
+.open .menu-btn__burger::before {
   transform: rotate(45deg) translate(35px, -35px);
 }
 
-.menu-btn.open .menu-btn__burger::after {
+.open .menu-btn__burger::after {
   transform: rotate(-45deg) translate(35px, 35px);
+}
+
+.navigation {
+  position: fixed;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: #fff;
+  box-shadow: 0 -40px 20px rgba(0, 0, 0, 0.27);
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  /* align-items: center; */
+  padding: 0;
+  padding-top: 123px;
+  padding-bottom: 131px;
+  list-style: none;
+  overflow: hidden;
+  width: 0;
+  min-width: 0;
+  height: 100vh;
+}
+
+.open .navigation {
+  min-width: 26%;
+}
+
+.menu-overlay {
+  display: none;
+}
+
+.open .menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #2d303a;
+  opacity: 0.3;
+}
+
+.navigation-item {
+  font-size: 24px;
+  white-space: nowrap;
+}
+
+.navigation-link {
+  display: block;
+  color: #a0a0a0;
+  font-size: 21px;
+  font-weight: 900;
+  padding: 16px 0;
+  padding-left: 16%;
+  transition: .3s;
+}
+
+.navigation-link:hover {
+  color: #090909;
+}
+
+.current-link {
+  color: #090909;
+  box-shadow: inset 5px 0px 0px 0px #d70a80;
+  background-image: linear-gradient(90deg, #d70a8029, #d70a8008);
+}
+
+.play-mode .current-link {
+  background-image: linear-gradient(90deg, #009aff29, #009aff08);
+  box-shadow: inset 5px 0px 0px 0px #009aff;
 }
