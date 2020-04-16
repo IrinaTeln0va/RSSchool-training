@@ -39,7 +39,6 @@ export class WordCardTrain {
   _createElement() {
     const domElement = document.createElement('li');
     domElement.dataset.cardId = this.word;
-    // domElement.setAttribute('cardId', this.word);
     domElement.classList.add('category', 'word-card');
     domElement.innerHTML = this.template;
     return domElement;

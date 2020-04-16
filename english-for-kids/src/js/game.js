@@ -1,5 +1,6 @@
 import { data } from './data.js';
 import { appConfig } from './app-config.js';
+import { statistic } from './statistic.js';
 
 export class Game {
   constructor(wordsListPlay) {
@@ -95,7 +96,11 @@ export class Game {
     if (!this.isGameStarted || targetElement.classList.contains('disabled')) {
       return;
     }
-    const isCorrect = this._checkAnswer(answer);
+    const correctAnswer = this.questionsRandomList[this.currentQuestionIndex - 1].answer;
+    const isCorrect = this._checkAnswer(answer, correctAnswer);
+
+    statistic.changeStat(correctAnswer, 'play', isCorrect);
+
     this.audioPlayer.src = isCorrect
     ? 'assets/audio/correct.mp3'
     : 'assets/audio/error.mp3';
@@ -120,8 +125,8 @@ export class Game {
     container.append(starElement);
   }
 
-  _checkAnswer(answer) {
-    const isCorrect = answer === this.questionsRandomList[this.currentQuestionIndex - 1].answer;
+  _checkAnswer(answer, correctAnswer) {
+    const isCorrect = answer === correctAnswer;
     this.answersCheckList.push(isCorrect);
     return isCorrect;
   }

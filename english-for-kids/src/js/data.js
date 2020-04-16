@@ -178,7 +178,7 @@ export const data = {
         },
         {
           word: 'giraffe',
-          translation: 'жирафа',
+          translation: 'жираф',
           image: 'assets/img/giraffe.jpg',
           audioSrc: 'assets/audio/giraffe.mp3'
         },

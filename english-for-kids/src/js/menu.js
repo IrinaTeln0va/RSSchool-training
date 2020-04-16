@@ -47,6 +47,7 @@ export class Menu {
             <a class='navigation-link' href='category-${index}'>${category}</a>
           </li>
         `).join('')}
+        <li class='navigation-item'><a class='navigation-link' href='statistic'>Statistic</a></li>
       </ul>`;
     return wrap;
   }

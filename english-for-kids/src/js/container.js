@@ -2,6 +2,7 @@ import { appConfig } from './app-config.js';
 import { WordsListTrain } from './words-list-train.js';
 import { WordsListPlay } from './words-list-play.js';
 import { CategoriesList } from './categories-list.js';
+import { statistic } from './statistic.js';
 
 export class Container {
   constructor() {
@@ -12,6 +13,7 @@ export class Container {
   }
 
   _onPageChange(evt) {
+    this.domElement.classList.remove('stat-page');
     // const pageFrom = this.currentPage;
     let content;
     const pageTo = window.location.hash;
@@ -21,8 +23,9 @@ export class Container {
       ? new WordsListTrain(window.location.hash.slice(10))
       : new WordsListPlay(window.location.hash.slice(10));
     }
-    if (pageTo === 'statistic') {
-
+    if (pageTo === '#statistic') {
+      content = statistic;
+      this.domElement.classList.add('stat-page');
     } 
     if (pageTo === '' || pageTo === '#') {
       content = new CategoriesList();

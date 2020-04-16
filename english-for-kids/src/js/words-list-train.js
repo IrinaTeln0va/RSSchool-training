@@ -1,6 +1,7 @@
 import { appConfig } from './app-config.js';
 import { data } from './data.js';
 import { WordCardTrain } from './word-card-train.js';
+import { statistic } from './statistic.js';
 
 export class WordsListTrain {
   constructor(categoryId) {
@@ -50,14 +51,19 @@ export class WordsListTrain {
       targetCard.addEventListener('mouseleave', (evt) => {
         evt.target.classList.remove('active');
       }, { once: true });
+
+      const word = targetElement.closest('.word-card').dataset.cardId;
+      statistic.changeStat(word, 'train');
     }
 
     if (targetType === 'card') {
       if (targetElement.classList.contains('active')) {
         return;
       }
-      const card = this.cardsList.find(x => x.word === targetElement.dataset.cardId)
+      const cardId = targetElement.dataset.cardId;
+      const card = this.cardsList.find(x => x.word === cardId)
       card.audioCardElement.play();
+      statistic.changeStat(cardId, 'train');
     }
   }
 
