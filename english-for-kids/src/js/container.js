@@ -28,6 +28,7 @@ export class Container {
       content = new CategoriesList();
     }
 
+    this.header.menu.highlightLink(pageTo);
     this._switchScreen(content);
     // if (this.currentPage === appConfig.pages[0]) {
     //   content = (appConfig.mode === 'train')

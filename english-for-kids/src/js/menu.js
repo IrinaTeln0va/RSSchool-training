@@ -6,6 +6,7 @@ export class Menu {
     this.domElement = this._createElement();
     this.menuBtn = this.domElement.querySelector('.menu-btn');
     this.menuLinkHandler = this.menuLinkHandler.bind(this);
+    this.linksList = this.domElement.querySelectorAll('.navigation-link');
   }
 
   render(container) {
@@ -18,6 +19,18 @@ export class Menu {
   menuLinkHandler(target) {
     window.location.hash = target.attributes.href.value;
     this._close();
+  }
+  highlightLink(pageName) {
+    pageName = pageName.replace('#', '');
+    let targetLink;
+    [...this.linksList].forEach((link) => {
+      const linkHref = link.attributes.href.value.replace('#', '');
+      link.classList.remove('current-link');
+      if (linkHref === pageName) {
+        targetLink = link;
+      }
+    });
+    targetLink.classList.add('current-link');
   }
   _createElement() {
     const wrap = document.createElement('div');
