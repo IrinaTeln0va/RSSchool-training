@@ -4,28 +4,32 @@
   flex-wrap: wrap;
   justify-content: center;
   margin: 0;
-  margin-left: -20px;
+  margin-left: -25px;
   padding: 0;
   padding-top: 65px;
 }
 
 .category {
-  margin-left: 20px;
+  margin-left: 25px;
   display: block;
   width: 250px;
   min-width: 200px;
   min-height: 270px;
   flex-shrink: 0;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   line-height: 1.4;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.08), 0 2px 10px 0 rgba(0, 0, 0, 0.08);
   transition: box-shadow .25s, transform .3s;
 }
 
+.play-mode .word-card {
+  min-height: 207px;
+}
+
 .category:hover {
-  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
   cursor: pointer;
   transform: translateY(-7px);
 }
@@ -59,6 +63,11 @@
 
 .play-mode .category-content {
   background-image: linear-gradient(180deg, $color-play 7px, #ffffff 7px);
+}
+
+.play-mode .word-card .category-content{
+  padding: 0;
+  padding-top: 7px;
 }
 
 .play-mode .flip-card-btn {

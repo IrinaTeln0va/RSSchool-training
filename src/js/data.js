@@ -3,6 +3,12 @@ export const data = {
     cards: [
       [
         {
+          word: 'hug',
+          translation: 'обнимать',
+          image: 'assets/img/hug.jpg',
+          audioSrc: 'assets/audio/hug.mp3'
+        },
+        {
           word: 'cry',
           translation: 'плакать',
           image: 'assets/img/cry.jpg',
@@ -39,12 +45,6 @@ export const data = {
           audioSrc: 'assets/audio/fly.mp3'
         },
         {
-          word: 'hug',
-          translation: 'обнимать',
-          image: 'assets/img/hug.jpg',
-          audioSrc: 'assets/audio/hug.mp3'
-        },
-        {
           word: 'jump',
           translation: 'прыгать',
           image: 'assets/img/jump.jpg',
@@ -53,16 +53,16 @@ export const data = {
       ],
       [
         {
-          word: 'open',
-          translation: 'открывать',
-          image: 'assets/img/open.jpg',
-          audioSrc: 'assets/audio/open.mp3'
-        },
-        {
           word: 'play',
           translation: 'играть',
           image: 'assets/img/play.jpg',
           audioSrc: 'assets/audio/play.mp3'
+        },
+        {
+          word: 'open',
+          translation: 'открывать',
+          image: 'assets/img/open.jpg',
+          audioSrc: 'assets/audio/open.mp3'
         },
         {
           word: 'point',
@@ -103,6 +103,12 @@ export const data = {
       ],
       [
         {
+          word: 'rabbit',
+          translation: 'кролик',
+          image: 'assets/img/rabbit.jpg',
+          audioSrc: 'assets/audio/rabbit.mp3'
+        },
+        {
           word: 'cat',
           translation: 'кот',
           image: 'assets/img/cat.jpg',
@@ -139,12 +145,6 @@ export const data = {
           audioSrc: 'assets/audio/pig.mp3'
         },
         {
-          word: 'rabbit',
-          translation: 'кролик',
-          image: 'assets/img/rabbit.jpg',
-          audioSrc: 'assets/audio/rabbit.mp3'
-        },
-        {
           word: 'sheep',
           translation: 'овца',
           image: 'assets/img/sheep.jpg',
@@ -152,6 +152,12 @@ export const data = {
         }
       ],
       [
+        {
+          word: 'lion',
+          translation: 'лев',
+          image: 'assets/img/lion.jpg',
+          audioSrc: 'assets/audio/lion.mp3'
+        },
         {
           word: 'bird',
           translation: 'птица',
@@ -177,12 +183,6 @@ export const data = {
           audioSrc: 'assets/audio/giraffe.mp3'
         },
         {
-          word: 'lion',
-          translation: 'лев',
-          image: 'assets/img/lion.jpg',
-          audioSrc: 'assets/audio/lion.mp3'
-        },
-        {
           word: 'mouse',
           translation: 'мышь',
           image: 'assets/img/mouse.jpg',
@@ -202,6 +202,12 @@ export const data = {
         }
       ],
       [
+        {
+          word: 'boot',
+          translation: 'ботинок',
+          image: 'assets/img/boot.jpg',
+          audioSrc: 'assets/audio/boot.mp3'
+        },
         {
           word: 'skirt',
           translation: 'юбка',
@@ -227,12 +233,6 @@ export const data = {
           audioSrc: 'assets/audio/dress.mp3'
         },
         {
-          word: 'boot',
-          translation: 'ботинок',
-          image: 'assets/img/boot.jpg',
-          audioSrc: 'assets/audio/boot.mp3'
-        },
-        {
           word: 'shirt',
           translation: 'рубашка',
           image: 'assets/img/shirt.jpg',
@@ -252,6 +252,12 @@ export const data = {
         }
       ],
       [
+        {
+          word: 'smile',
+          translation: 'улыбка',
+          image: 'assets/img/smile.jpg',
+          audioSrc: 'assets/audio/smile.mp3'
+        },
         {
           word: 'sad',
           translation: 'грустный',
@@ -289,12 +295,6 @@ export const data = {
           audioSrc: 'assets/audio/scared.mp3'
         },
         {
-          word: 'smile',
-          translation: 'улыбка',
-          image: 'assets/img/smile.jpg',
-          audioSrc: 'assets/audio/smile.mp3'
-        },
-        {
           word: 'laugh',
           translation: 'смех',
           image: 'assets/img/laugh.jpg',
@@ -303,16 +303,16 @@ export const data = {
       ],
       [
         {
-          word: 'courgette',
-          translation: 'кабачок',
-          image: 'assets/img/courgette.jpg',
-          audioSrc: 'assets/audio/courgette.mp3'
-        },
-        {
           word: 'squid',
           translation: 'кальмар',
           image: 'assets/img/squid.jpg',
           audioSrc: 'assets/audio/squid.mp3'
+        },
+        {
+          word: 'courgette',
+          translation: 'кабачок',
+          image: 'assets/img/courgette.jpg',
+          audioSrc: 'assets/audio/courgette.mp3'
         },
         {
           word: 'garlic',
@@ -353,6 +353,12 @@ export const data = {
       ],
       [
         {
+          word: 'get up',
+          translation: 'вставать',
+          image: 'assets/img/get-up.jpg',
+          audioSrc: 'assets/audio/get-up.mp3'
+        },
+        {
           word: 'bend',
           translation: 'наклоняться',
           image: 'assets/img/bend.jpg',
@@ -387,12 +393,6 @@ export const data = {
           translation: 'падать',
           image: 'assets/img/fall.jpg',
           audioSrc: 'assets/audio/fall.mp3'
-        },
-        {
-          word: 'get up',
-          translation: 'вставать',
-          image: 'assets/img/get-up.jpg',
-          audioSrc: 'assets/audio/get-up.mp3'
         },
         {
           word: 'kick',
