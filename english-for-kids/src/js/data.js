@@ -1,5 +1,6 @@
 export const data = {
     categories: ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Food', 'Movement'],
+  categoryColors: ['Purple', 'blue', 'Aqua', 'ForestGreen', 'MediumSpringGreen', 'orange', 'tomato', 'crimson'],
     cards: [
       [
         {
@@ -90,7 +91,7 @@ export const data = {
         },
         {
           word: 'skip',
-          translation: 'пропускать, прыгать',
+          translation: 'прыгать',
           image: 'assets/img/skip.jpg',
           audioSrc: 'assets/audio/skip.mp3'
         },

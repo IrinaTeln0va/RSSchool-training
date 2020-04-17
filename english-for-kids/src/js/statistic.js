@@ -44,29 +44,59 @@ class Statistic {
     this.domElement.remove();
   }
   _createDomElement() {
-    const domElement = document.createElement('table');
-    domElement.classList.add('statistic');
+    const domElement = document.createElement('div');
+    domElement.classList.add('statistic-wrap');
     domElement.innerHTML = `
-      <tr class='title'>
-        <th><strong>№</strong></th>
-        <th><strong>Категория</strong></th>
-        <th><strong>Слово</strong></th>
-        <th><strong>Перевод</strong></th>
-        <th><strong>Тренировки</strong></th>
-        <th><strong>Угадывания</strong></th>
-        <th><strong>Ошибки</strong></th>
-      </tr>
-      ${this.currentData.map((word, index) => `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${word.category}</td>
-          <td>${word.word}</td>
-          <td>${word.translate}</td>
-          <td>${word.trainClick}</td>
-          <td>${word.playClick}</td>
-          <td>${word.errors}</td>
-        </tr>`
-      ).join('')}`;
+      <div class='support-elements'>
+        <div class='support-legend'>
+          <h4 class='legend-title'>Обозначения категорий</h4>
+          <ul class="legend">
+            ${data.categories.map((category) => `
+              <li class='category-title'>
+                <em>${category}</em>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+        <div class='support-options'>
+          <button class='btn-stat train-difficult'>Train difficult</button>
+          <button class='btn-stat reset-stat'>Reset statistic</button>
+        </div>
+      </div>
+      <table class='statistic'>
+        <tr class='title'>
+          <th><strong>№</strong></th>
+          <th class='adaptive'><strong><span class='icon group' title='category'></span>Категория</strong></th>
+          <th><strong>Слово</strong></th>
+          <th><strong>Перевод</strong></th>
+          <th class='adaptive'><strong><span class='icon train' title='train'></span></strong></th>
+          <th class='adaptive'><strong><span class='icon play' title='play'></span></strong></th>
+          <th class='adaptive'><strong><span class='icon error' title='error'></span></strong></th>
+          <th class='adaptive'><strong><span class='icon percent' title='percent'></span></strong></th>
+        </tr>
+        ${this.currentData.map((word, index) => `
+          <tr>
+            <td>${index + 1}</td>
+            <td><span class='category-title'>${word.category}</td>
+            <td>${word.word}</span></td>
+            <td>${word.translate}</td>
+            <td>${word.trainClick}</td>
+            <td>${word.playClick}</td>
+            <td>${word.errors}</td>
+            <td>${word.errors == 0 ? 0 : Math.round(word.errors / word.playClick * 100)}</td>
+          </tr>`
+        ).join('')}
+      </table>`;
+
+      const legendItem = domElement.querySelectorAll('.legend li');
+      [...legendItem].forEach((item, index) => {
+        item.style.borderLeftColor = data.categoryColors[index];
+      });
+
+    const wordItem = domElement.querySelectorAll('.category-title');
+    [...wordItem].forEach((item) => {
+      item.style.borderLeftColor = data.categoryColors[data.categories.findIndex((category) => category === item.innerText)];
+    });
 
     return domElement;
   }
