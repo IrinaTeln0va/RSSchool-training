@@ -17,7 +17,6 @@ class Statistic {
     this.currentData = JSON.parse(localStorage.getItem('statistic'));
   }
   changeStat(word, mode, check) {
-    // const statistic = this.currentData;
     const wordItem = this.currentData.find((item) => item.word === word);
     switch(mode) {
       case 'train':
@@ -36,10 +35,11 @@ class Statistic {
     localStorage.statistic = JSON.stringify(this.initialData);
     this.currentData = this._getWordsList();
   }
-  render() {
-    this.domElement = this._createDomElement();
+  render(statData) {
+    this.domElement = this._createDomElement(statData);
     this.resetBtn = this.domElement.querySelector('.reset-stat');
     this.toDifficultBtn = this.domElement.querySelector('.train-difficult');
+    this.tableCaptions = this.domElement.querySelector('tr.title');
     appConfig.pageContainer.append(this.domElement);
     this._bind();
   }
@@ -49,6 +49,7 @@ class Statistic {
   _bind() {
     this.resetBtn.addEventListener('click', this.resetBtnClickHandler.bind(this));
     this.toDifficultBtn.addEventListener('click', this.toDifficultBtnClick.bind(this));
+    this.tableCaptions.addEventListener('click', this.sortStatisticHandler.bind(this));
   }
   resetBtnClickHandler() {
     this._resetStatistic();
@@ -59,7 +60,66 @@ class Statistic {
     this.difficultWords = this._getDifficultWords();
     window.location.hash = '#difficult';
   }
-  _createDomElement() {
+  sortStatisticHandler(evt) {
+    evt.preventDefault();
+    const target = evt.target;
+    if (!evt.target.classList.contains('sort')) {
+      return;
+    }
+    const targetTitle = target.closest('.sort-btn');
+    const sortTitle = targetTitle.dataset.title;
+    const isUpSort = target.classList.contains('sort-up');
+    if (targetTitle.classList.contains('active')) {
+      this._resetSort();
+      return;
+    }
+    const sortedList = this._getSortedList(sortTitle, isUpSort);
+    this.unrender();
+    this.render(sortedList);
+    document.querySelector(`[data-title=${sortTitle}]`).classList.add('active');
+  }
+
+  _resetSort() {
+    const sortedList = this._getSortedList('index', true);
+    this.unrender();
+    this.render(sortedList);
+    [...document.querySelectorAll('.sort-btn')].forEach((elem) => {
+      elem.classList.remove('active');
+    });
+  }
+
+  _getSortedList(sortTitle, isUpSort) {
+    const statData = [...this.currentData];
+    if (isUpSort) {
+      switch (sortTitle) {
+        case 'index':
+          return statData.sort((a, b) => statData.indexOf(a) > statData.indexOf(b) ? 1 : -1);
+        case 'percent':
+          return statData.sort((a, b) => {
+            const percentage1 = a.playClick == 0 ? 0 : a.errors / a.playClick;
+            const percentage2 = b.playClick == 0 ? 0 : b.errors / b.playClick;
+            return percentage1 > percentage2 ? 1 : -1;
+          });
+        default:
+          return statData.sort((a, b) => a[sortTitle] > b[sortTitle] ? 1 : -1);
+      }
+    } else {
+      switch (sortTitle) {
+        case 'index':
+          return statData.sort((a, b) => statData.indexOf(b) > statData.indexOf(a) ? 1 : -1);
+        case 'percent':
+          return statData.sort((a, b) => {
+            const percentage1 = a.playClick == 0 ? 0 : a.errors / a.playClick;
+            const percentage2 = b.playClick == 0 ? 0 : b.errors / b.playClick;
+            return percentage1 < percentage2 ? 1 : -1;
+          });
+        default:
+          return statData.sort((a, b) => a[sortTitle] < b[sortTitle] ? 1 : -1);
+      }
+    }
+  }
+
+  _createDomElement(statData = this.currentData) {
     const domElement = document.createElement('div');
     domElement.classList.add('statistic-wrap');
     domElement.innerHTML = `
@@ -81,16 +141,91 @@ class Statistic {
       </div>
       <table class='statistic'>
         <tr class='title'>
-          <th><strong>№</strong></th>
-          <th class='adaptive'><strong><span class='icon group' title='category'></span>Категория</strong></th>
-          <th><strong>Слово</strong></th>
-          <th><strong>Перевод</strong></th>
-          <th class='adaptive'><strong><span class='icon train' title='train'></span></strong></th>
-          <th class='adaptive'><strong><span class='icon play' title='play'></span></strong></th>
-          <th class='adaptive'><strong><span class='icon error' title='errors amount'></span></strong></th>
-          <th class='adaptive'><strong><span class='icon percent' title='percentage of error'></span></strong></th>
+          <th data-title='index' class='sort-btn'>
+            <strong>№</strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='category' class='adaptive sort-btn'>
+            <strong>
+              <span class='icon group' title='category'></span>
+              Категория
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='word' class='sort-btn'>
+            <strong>
+              Слово
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='translate' class='sort-btn'>
+            <strong>
+              Перевод
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='trainClick' class='adaptive sort-btn'>
+            <strong>
+              <span class='icon train' title='train'>
+              </span>
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='playClick' class='adaptive sort-btn'>
+            <strong>
+              <span class='icon play' title='play'>
+              </span>
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='errors' class='adaptive sort-btn'>
+            <strong>
+              <span class='icon error' title='errors amount'>
+              </span>
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
+          <th data-title='percent' class='adaptive sort-btn'>
+            <strong>
+              <span class='icon percent' title='percentage of error'>
+              </span>
+            </strong>
+            <ul>
+                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
+                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
+                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+            </ul>
+          </th>
         </tr>
-        ${this.currentData.map((word, index) => `
+        ${statData.map((word, index) => `
           <tr>
             <td>${index + 1}</td>
             <td><span class='category-title'>${word.category}</td>
