@@ -12,7 +12,7 @@ class Statistic {
   init() {
     if (!localStorage.statistic) {
       localStorage.setItem('statistic', JSON.stringify(this.initialData));
-      this.currentData = this.initialData;
+      this.currentData = this._getWordsList();
     }
     this.currentData = JSON.parse(localStorage.getItem('statistic'));
   }
@@ -34,14 +34,30 @@ class Statistic {
   }
   _resetStatistic() {
     localStorage.statistic = JSON.stringify(this.initialData);
-    this.currentData = this.initialData;
+    this.currentData = this._getWordsList();
   }
   render() {
     this.domElement = this._createDomElement();
+    this.resetBtn = this.domElement.querySelector('.reset-stat');
+    this.toDifficultBtn = this.domElement.querySelector('.train-difficult');
     appConfig.pageContainer.append(this.domElement);
+    this._bind();
   }
   unrender() {
     this.domElement.remove();
+  }
+  _bind() {
+    this.resetBtn.addEventListener('click', this.resetBtnClickHandler.bind(this));
+    this.toDifficultBtn.addEventListener('click', this.toDifficultBtnClick.bind(this));
+  }
+  resetBtnClickHandler() {
+    this._resetStatistic();
+    this.unrender();
+    this.render();
+  }
+  toDifficultBtnClick() {
+    this.difficultWords = this._getDifficultWords();
+    window.location.hash = '#difficult';
   }
   _createDomElement() {
     const domElement = document.createElement('div');
@@ -71,8 +87,8 @@ class Statistic {
           <th><strong>Перевод</strong></th>
           <th class='adaptive'><strong><span class='icon train' title='train'></span></strong></th>
           <th class='adaptive'><strong><span class='icon play' title='play'></span></strong></th>
-          <th class='adaptive'><strong><span class='icon error' title='error'></span></strong></th>
-          <th class='adaptive'><strong><span class='icon percent' title='percent'></span></strong></th>
+          <th class='adaptive'><strong><span class='icon error' title='errors amount'></span></strong></th>
+          <th class='adaptive'><strong><span class='icon percent' title='percentage of error'></span></strong></th>
         </tr>
         ${this.currentData.map((word, index) => `
           <tr>
@@ -118,6 +134,30 @@ class Statistic {
       }
     }
     return wordsList;
+  }
+
+  _getDifficultWords() {
+    let errorWords = this.currentData.filter((wordItem) => (wordItem.errors > 0));
+    errorWords.sort((a, b) => {
+      return (b.errors / b.playClick) - (a.errors / a.playClick);
+    });
+    if (errorWords.length === 0) {
+      return false;
+    }
+    errorWords = errorWords.filter((item, index) => (index < 8));
+
+    const cardList = errorWords.map((statisticWordItem, index) => {
+      for(let i = 0; i < data.cards.length; i++) {
+        const category = data.cards[i];
+        for (let j = 0; j < category.length; j++) {
+          const wordItem = category[j];
+          if (wordItem.word === statisticWordItem.word) {
+            return wordItem;
+          }
+        }
+      }
+    });
+    return cardList;
   }
 }
 

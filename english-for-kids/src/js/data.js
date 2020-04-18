@@ -1,6 +1,6 @@
 export const data = {
     categories: ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Food', 'Movement'],
-  categoryColors: ['Purple', 'blue', 'Aqua', 'ForestGreen', 'MediumSpringGreen', 'orange', 'tomato', 'crimson'],
+  categoryColors: ['#ba0091', 'blue', '#00a9ff', 'MediumSpringGreen', 'ForestGreen', 'orange', 'tomato', 'crimson'],
     cards: [
       [
         {
@@ -34,8 +34,8 @@ export const data = {
           audioSrc: 'assets/audio/draw.mp3'
         },
         {
-          word: 'fish',
-          translation: 'ловить рыбу',
+          word: 'fishing',
+          translation: 'рыбалка',
           image: 'assets/img/fish.jpg',
           audioSrc: 'assets/audio/fish.mp3'
         },

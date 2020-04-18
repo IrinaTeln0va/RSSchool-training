@@ -30,18 +30,17 @@ export class Container {
     if (pageTo === '' || pageTo === '#') {
       content = new CategoriesList();
     }
+    if (pageTo === '#difficult') {
+      if (appConfig.mode !== 'train') {
+        const toggler = appConfig.pageContainer.querySelector('.toggler-wrapper');
+        let event = new Event("click");
+        toggler.dispatchEvent(event);
+      }
+      content = new WordsListTrain('difficult');
+    }
 
     this.header.menu.highlightLink(pageTo);
     this._switchScreen(content);
-    // if (this.currentPage === appConfig.pages[0]) {
-    //   content = (appConfig.mode === 'train')
-    //   ? new WordsListTrain(window.location.hash.slice(10))
-    //   : new WordsListPlay(window.location.hash.slice(10));
-    // }
-    // if (this.currentPage === appConfig.pages[1] || this.currentPage === appConfig.pages[2]) {
-    //   content = new CategoriesList();
-    // }
-    // this._switchScreen(content);
   }
 
   _switchScreen(content) {

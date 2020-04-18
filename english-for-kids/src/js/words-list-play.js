@@ -2,6 +2,7 @@ import { appConfig } from './app-config.js';
 import { data } from './data.js';
 import { WordCardPlay } from './word-card-play.js';
 import { Game } from './game.js';
+import { statistic } from './statistic.js';
 
 export class WordsListPlay {
   constructor(categoryId) {
@@ -26,6 +27,9 @@ export class WordsListPlay {
     this._fillWithContent();
     this._bind();
     appConfig.pageContainer.append(this.domElement);
+    if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
+      return;
+    }
     appConfig.pageContainer.append(this.gameControls);
     this.domElement.append(this.ratingElement);
   }
@@ -71,6 +75,9 @@ export class WordsListPlay {
   }
 
   _fillWithContent() {
+    if (this.cardsList === false) {
+      return;
+    }
     this.cardsList.forEach((card) => {
       this.domElement.append(card.domElement);
     });
@@ -96,8 +103,18 @@ export class WordsListPlay {
   }
 
   _getCardsList() {
-    const cardsList = new Array(data.cards[this.categoryId].length).fill().map((card, index) => {
-      const cardsData = data.cards[this.categoryId][index];
+    if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
+      this.domElement.classList.add('empty-page');
+      return false;
+    }
+    let cardsDataList;
+    if (this.categoryId === 'difficult') {
+      cardsDataList = statistic.difficultWords;
+    } else {
+      cardsDataList = data.cards[this.categoryId];
+    }
+    const cardsList = new Array(cardsDataList.length).fill().map((card, index) => {
+      const cardsData = cardsDataList[index];
       return new WordCardPlay(cardsData);
     });
     return cardsList;

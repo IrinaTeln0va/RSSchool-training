@@ -38,7 +38,12 @@ export class Game {
 
   _getQuestionsRandomList() {
     const categoryId = this.wordsListPlay.categoryId;
-    const questionsList = data.cards[categoryId].map((cardData) => ({
+    let cardsOfCategory;
+    cardsOfCategory = (categoryId === 'difficult')
+    ? statistic.difficultWords
+    : data.cards[categoryId];
+
+    const questionsList = cardsOfCategory.map((cardData) => ({
       audio: cardData.audioSrc,
       answer: cardData.word
     }));

@@ -30,6 +30,9 @@ export class Menu {
         targetLink = link;
       }
     });
+    if (pageName === 'difficult') {
+      return;
+    }
     targetLink.classList.add('current-link');
   }
   _createElement() {

@@ -84,14 +84,27 @@ export class WordsListTrain {
   // }
 
   _fillWithContent() {
+    if (this.cardsList === false) {
+      return;
+    }
     this.cardsList.forEach((card) => {
       this.domElement.append(card.domElement);
     });
   }
 
   _getCardsList() {
-    const cardsList = new Array(data.cards[this.categoryId].length).fill().map((card, index) => {
-      const cardsData = data.cards[this.categoryId][index];
+    if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
+      this.domElement.classList.add('empty-page');
+      return false;
+    }
+    let cardsDataList;
+    if (this.categoryId === 'difficult') {
+      cardsDataList = statistic.difficultWords;
+    } else {
+      cardsDataList = data.cards[this.categoryId];
+    }
+    const cardsList = new Array(cardsDataList.length).fill().map((card, index) => {
+      const cardsData = cardsDataList[index];
       return new WordCardTrain(cardsData);
     });
     return cardsList;
