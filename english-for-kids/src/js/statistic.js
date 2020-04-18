@@ -69,7 +69,7 @@ class Statistic {
     const targetTitle = target.closest('.sort-btn');
     const sortTitle = targetTitle.dataset.title;
     const isUpSort = target.classList.contains('sort-up');
-    if (targetTitle.classList.contains('active')) {
+    if (targetTitle.classList.contains('active') && target.classList.contains('reset')) {
       this._resetSort();
       return;
     }
@@ -146,7 +146,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='category' class='adaptive sort-btn'>
@@ -157,7 +157,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='word' class='sort-btn'>
@@ -167,7 +167,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='translate' class='sort-btn'>
@@ -177,7 +177,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='trainClick' class='adaptive sort-btn'>
@@ -188,7 +188,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='playClick' class='adaptive sort-btn'>
@@ -199,7 +199,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='errors' class='adaptive sort-btn'>
@@ -210,7 +210,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
             </ul>
           </th>
           <th data-title='percent' class='adaptive sort-btn'>
@@ -221,7 +221,7 @@ class Statistic {
             <ul>
                 <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
                 <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li class="reset"><a class='sort sort-down' href="#">Сбросить</a></li>
+                <li><a class='sort sort-down reset' href="#">Сбросить фильтр</a></li>
             </ul>
           </th>
         </tr>
