@@ -19,7 +19,9 @@ export class WordsListPlay {
 
   _createElement() {
     const domElement = document.createElement('ul');
+
     domElement.classList.add('cards-list');
+
     return domElement;
   }
 
@@ -27,9 +29,11 @@ export class WordsListPlay {
     this._fillWithContent();
     this._bind();
     appConfig.pageContainer.append(this.domElement);
+
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
       return;
     }
+
     appConfig.pageContainer.append(this.gameControls);
     this.domElement.append(this.ratingElement);
   }
@@ -43,7 +47,7 @@ export class WordsListPlay {
 
   _bind() {
     this.domElement.addEventListener('click', this._onCardsClick);
-    this.gameControls.addEventListener('click', this._startBtnClickHandler, {once: true});
+    this.gameControls.addEventListener('click', this._startBtnClickHandler, { once: true });
   }
 
   _unbind() {
@@ -55,22 +59,28 @@ export class WordsListPlay {
     if (this._getTargetElement(target) === false) {
       return;
     }
+
     const { targetType, targetElement } = this._getTargetElement(target);
+
     if (targetType === 'card') {
-      const card = this.cardsList.find(x => x.word === targetElement.dataset.cardId);
+      const card = this.cardsList.find((x) => x.word === targetElement.dataset.cardId);
     }
+
     const answer = targetElement.dataset.cardId;
+
     this.onAnswer(answer, targetElement);
   }
 
-  onAnswer() { 
+  onAnswer() {
   }
 
   _getTargetElement(clickedElement) {
     const targetCard = clickedElement.closest('.word-card');
+
     if (!targetCard) {
       return false;
     }
+
     return { targetType: 'card', targetElement: targetCard };
   }
 
@@ -78,6 +88,7 @@ export class WordsListPlay {
     if (this.cardsList === false) {
       return;
     }
+
     this.cardsList.forEach((card) => {
       this.domElement.append(card.domElement);
     });
@@ -85,16 +96,20 @@ export class WordsListPlay {
 
   _createGameControlsElement() {
     const gameControlsElement = document.createElement('div');
+
     gameControlsElement.classList.add('game-btn-wrap');
     gameControlsElement.innerHTML = `
         <audio src="assets/audio/point.mp3"></audio>
         <button class='btn start-game-btn'></button>`;
+
     return gameControlsElement;
   }
 
   _createRatingElement() {
     const ratingElement = document.createElement('ul');
+
     ratingElement.classList.add('rating');
+
     return ratingElement;
   }
 
@@ -105,18 +120,24 @@ export class WordsListPlay {
   _getCardsList() {
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
       this.domElement.classList.add('empty-page');
+
       return false;
     }
+
     let cardsDataList;
+
     if (this.categoryId === 'difficult') {
       cardsDataList = statistic.difficultWords;
     } else {
       cardsDataList = data.cards[this.categoryId];
     }
+
     const cardsList = new Array(cardsDataList.length).fill().map((card, index) => {
       const cardsData = cardsDataList[index];
+
       return new WordCardPlay(cardsData);
     });
+
     return cardsList;
   }
 }

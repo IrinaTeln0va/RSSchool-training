@@ -4,5 +4,6 @@ import { Header } from './header.js';
 
 window.location.hash = '';
 const container = new Container();
+
 container._addHeader(new Header());
 container.addContent(new CategoriesList());

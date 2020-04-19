@@ -26,27 +26,33 @@ export class Game {
     if (repeat) {
       this.currentQuestionIndex -= 1;
     }
+
     if (this.currentQuestionIndex === this.questionsRandomList.length) {
       this._endGame();
+
       return;
     }
+
     const audioSrc = this.questionsRandomList[this.currentQuestionIndex].audio;
+
     this.audioPlayer.src = audioSrc;
     this.audioPlayer.play();
     this.currentQuestionIndex += 1;
   }
 
   _getQuestionsRandomList() {
-    const categoryId = this.wordsListPlay.categoryId;
+    const { categoryId } = this.wordsListPlay;
     let cardsOfCategory;
+
     cardsOfCategory = (categoryId === 'difficult')
-    ? statistic.difficultWords
-    : data.cards[categoryId];
+      ? statistic.difficultWords
+      : data.cards[categoryId];
 
     const questionsList = cardsOfCategory.map((cardData) => ({
       audio: cardData.audioSrc,
-      answer: cardData.word
+      answer: cardData.word,
     }));
+
     return this._getShuffledQuestions(questionsList);
   }
 
@@ -62,7 +68,8 @@ export class Game {
     this.isGameStarted = false;
     this.startGameBtn.classList.remove('repeat');
     appConfig.pageContainer.classList.add(`${this._isWonGame() ? 'win-game' : 'lose-game'}`);
-    let audioObj = new Audio();
+    const audioObj = new Audio();
+
     if (!this._isWonGame()) {
       this.loseGameMessage = document.createElement('div');
       this.loseGameMessage.classList.add('lose-game-message');
@@ -74,23 +81,27 @@ export class Game {
     } else {
       audioObj.src = 'assets/audio/success.mp3';
     }
+
     audioObj.play();
     const toggler = appConfig.pageContainer.querySelector('.toggler-wrapper');
-    let event = new Event("click");
+    const event = new Event('click');
+
     toggler.dispatchEvent(event);
 
     setTimeout(() => {
       appConfig.pageContainer.classList.remove('win-game');
       appConfig.pageContainer.classList.remove('lose-game');
+
       if (this.loseGameMessage) {
         this.loseGameMessage.remove();
       }
+
       window.location.hash = '';
     }, 3000);
   }
 
   _calculateErrors() {
-    return this.answersCheckList.reduce((acc, item) => item ? acc : acc += 1, 0)
+    return this.answersCheckList.reduce((acc, item) => (item ? acc : acc += 1), 0);
   }
 
   _isWonGame() {
@@ -101,14 +112,15 @@ export class Game {
     if (!this.isGameStarted || targetElement.classList.contains('disabled')) {
       return;
     }
+
     const correctAnswer = this.questionsRandomList[this.currentQuestionIndex - 1].answer;
     const isCorrect = this._checkAnswer(answer, correctAnswer);
 
     statistic.changeStat(correctAnswer, 'play', isCorrect);
 
     this.audioPlayer.src = isCorrect
-    ? 'assets/audio/correct.mp3'
-    : 'assets/audio/error.mp3';
+      ? 'assets/audio/correct.mp3'
+      : 'assets/audio/error.mp3';
 
     if (isCorrect) {
       this.audioPlayer.addEventListener('ended', () => {
@@ -118,6 +130,7 @@ export class Game {
       }, { once: true });
       targetElement.classList.add('disabled');
     }
+
     this._addStar(isCorrect);
     this.audioPlayer.play();
   }
@@ -125,6 +138,7 @@ export class Game {
   _addStar(isCorrect) {
     const container = this.wordsListPlay.domElement.querySelector('.rating');
     const starElement = document.createElement('div');
+
     starElement.classList.add('star');
     starElement.classList.add(`${isCorrect ? 'star-success' : 'star-loss'}`);
     container.append(starElement);
@@ -132,7 +146,9 @@ export class Game {
 
   _checkAnswer(answer, correctAnswer) {
     const isCorrect = answer === correctAnswer;
+
     this.answersCheckList.push(isCorrect);
+
     return isCorrect;
   }
 }

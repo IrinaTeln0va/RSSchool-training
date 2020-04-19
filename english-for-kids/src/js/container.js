@@ -20,22 +20,27 @@ export class Container {
 
     if (pageTo.startsWith('#category')) {
       content = (appConfig.mode === 'train')
-      ? new WordsListTrain(window.location.hash.slice(10))
-      : new WordsListPlay(window.location.hash.slice(10));
+        ? new WordsListTrain(window.location.hash.slice(10))
+        : new WordsListPlay(window.location.hash.slice(10));
     }
+
     if (pageTo === '#statistic') {
       content = statistic;
       this.domElement.classList.add('stat-page');
-    } 
+    }
+
     if (pageTo === '' || pageTo === '#') {
       content = new CategoriesList();
     }
+
     if (pageTo === '#difficult') {
       if (appConfig.mode !== 'train') {
         const toggler = appConfig.pageContainer.querySelector('.toggler-wrapper');
-        let event = new Event("click");
+        const event = new Event('click');
+
         toggler.dispatchEvent(event);
       }
+
       content = new WordsListTrain('difficult');
     }
 
@@ -67,6 +72,7 @@ export class Container {
 
   changeMode() {
     let content;
+
     if (appConfig.mode === 'train') {
       this.domElement.classList.add('play-mode');
       appConfig.mode = 'play';
@@ -84,5 +90,5 @@ export class Container {
         this._switchScreen(content);
       }
     }
-  } 
+  }
 }

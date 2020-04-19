@@ -14,7 +14,9 @@ export class WordsListTrain {
 
   _createElement() {
     const domElement = document.createElement('ul');
+
     domElement.classList.add('cards-list');
+
     return domElement;
   }
 
@@ -46,6 +48,7 @@ export class WordsListTrain {
 
     if (targetType === 'button') {
       const targetCard = target.closest('.word-card');
+
       targetCard.classList.add('active');
 
       targetCard.addEventListener('mouseleave', (evt) => {
@@ -53,6 +56,7 @@ export class WordsListTrain {
       }, { once: true });
 
       const word = targetElement.closest('.word-card').dataset.cardId;
+
       statistic.changeStat(word, 'train');
     }
 
@@ -60,8 +64,10 @@ export class WordsListTrain {
       if (targetElement.classList.contains('active')) {
         return;
       }
-      const cardId = targetElement.dataset.cardId;
-      const card = this.cardsList.find(x => x.word === cardId)
+
+      const { cardId } = targetElement.dataset;
+      const card = this.cardsList.find((x) => x.word === cardId);
+
       card.audioCardElement.play();
       statistic.changeStat(cardId, 'train');
     }
@@ -69,14 +75,18 @@ export class WordsListTrain {
 
   _getTargetElement(clickedElement) {
     const targetBtn = clickedElement.closest('.flip-card-btn');
+
     if (targetBtn) {
-      return {targetType: 'button', targetElement: targetBtn};
+      return { targetType: 'button', targetElement: targetBtn };
     }
+
     const targetCard = clickedElement.closest('.word-card');
+
     if (!targetCard) {
       return false;
     }
-    return {targetType: 'card', targetElement: targetCard};
+
+    return { targetType: 'card', targetElement: targetCard };
   }
 
   // _getCardFromDomElement(cardId) {
@@ -87,6 +97,7 @@ export class WordsListTrain {
     if (this.cardsList === false) {
       return;
     }
+
     this.cardsList.forEach((card) => {
       this.domElement.append(card.domElement);
     });
@@ -95,18 +106,24 @@ export class WordsListTrain {
   _getCardsList() {
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
       this.domElement.classList.add('empty-page');
+
       return false;
     }
+
     let cardsDataList;
+
     if (this.categoryId === 'difficult') {
       cardsDataList = statistic.difficultWords;
     } else {
       cardsDataList = data.cards[this.categoryId];
     }
+
     const cardsList = new Array(cardsDataList.length).fill().map((card, index) => {
       const cardsData = cardsDataList[index];
+
       return new WordCardTrain(cardsData);
     });
+
     return cardsList;
   }
 }

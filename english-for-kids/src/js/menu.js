@@ -13,30 +13,40 @@ export class Menu {
     this._bind();
     container.append(this.domElement);
   }
+
   burgerClickHandler() {
     this.state === 'close' ? this._open() : this._close();
   }
+
   menuLinkHandler(target) {
     window.location.hash = target.attributes.href.value;
     this._close();
   }
+
   highlightLink(pageName) {
     pageName = pageName.replace('#', '');
     let targetLink;
+
     [...this.linksList].forEach((link) => {
       const linkHref = link.attributes.href.value.replace('#', '');
+
       link.classList.remove('current-link');
+
       if (linkHref === pageName) {
         targetLink = link;
       }
     });
+
     if (pageName === 'difficult') {
       return;
     }
+
     targetLink.classList.add('current-link');
   }
+
   _createElement() {
     const wrap = document.createElement('div');
+
     wrap.classList.add('menu');
     wrap.innerHTML = `
       <div class="menu-overlay"></div>
@@ -52,13 +62,16 @@ export class Menu {
         `).join('')}
         <li class='navigation-item'><a class='navigation-link' href='statistic'>Statistic</a></li>
       </ul>`;
+
     return wrap;
   }
+
   _bind() {
     this.domElement.addEventListener('click', (evt) => {
       evt.preventDefault();
-      const target = evt.target;
+      const { target } = evt;
       const clickedElement = this._getClickedElement(target);
+
       switch (clickedElement) {
         case 'button':
           this.burgerClickHandler();
@@ -73,21 +86,28 @@ export class Menu {
       }
     });
   }
+
   _getClickedElement(target) {
     if (target.closest('.menu-btn')) {
       return 'button';
-    } else if (target.closest('.navigation-item')) {
-      return 'pageLink';
-    } else if (target.closest('.navigation')) {
-      return 'menu';
-    } else {
-      return 'overlay';
     }
+
+    if (target.closest('.navigation-item')) {
+      return 'pageLink';
+    }
+
+    if (target.closest('.navigation')) {
+      return 'menu';
+    }
+
+    return 'overlay';
   }
+
   _open() {
     this.domElement.classList.add('open');
     this.state = 'open';
   }
+
   _close() {
     this.domElement.classList.remove('open');
     this.state = 'close';

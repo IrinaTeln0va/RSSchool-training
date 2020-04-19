@@ -3,7 +3,7 @@ export class CategoryCard {
     this.word = word,
     this.img = img,
     this.template = this._getTemplate(),
-    this.domElement = this._createElement()
+    this.domElement = this._createElement();
   }
 
   _getTemplate() {
@@ -18,8 +18,10 @@ export class CategoryCard {
 
   _createElement() {
     const domElement = document.createElement('li');
+
     domElement.classList.add('category');
     domElement.innerHTML = this.template;
+
     return domElement;
   }
 }

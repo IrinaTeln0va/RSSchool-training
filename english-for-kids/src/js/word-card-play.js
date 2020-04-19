@@ -6,7 +6,7 @@ export class WordCardPlay {
     this.audio = cardsData.audioSrc,
     this.template = this._getTemplate(),
     this.domElement = this._createElement(),
-    this.audioCardElement = this._getAudioElement()
+    this.audioCardElement = this._getAudioElement();
   }
 
   _getTemplate() {
@@ -20,14 +20,17 @@ export class WordCardPlay {
 
   _getAudioElement() {
     const audioCardElement = this.domElement.querySelector('audio');
+
     return audioCardElement;
   }
 
   _createElement() {
     const domElement = document.createElement('li');
+
     domElement.dataset.cardId = this.word;
     domElement.classList.add('category', 'word-card');
     domElement.innerHTML = this.template;
+
     return domElement;
   }
 }

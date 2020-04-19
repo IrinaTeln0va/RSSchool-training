@@ -12,7 +12,9 @@ export class CategoriesList {
 
   _createElement() {
     const domElement = document.createElement('ul');
+
     domElement.classList.add('cards-list');
+
     return domElement;
   }
 
@@ -35,19 +37,22 @@ export class CategoriesList {
     this.domElement.removeEventListener('click', this._onCategoryClick);
   }
 
-  _onCategoryClick({target}) {
+  _onCategoryClick({ target }) {
     const targetCard = target.closest('.category');
+
     if (!targetCard) {
       return;
     }
+
     const category = targetCard.querySelector('.category-content').innerText;
 
     data.categories.forEach((categoryTitle, index) => {
       if (category === categoryTitle) {
         const cardsListId = index;
+
         window.location.hash = `category-${cardsListId}`;
       }
-    })
+    });
   }
 
   _fillWithContent() {
@@ -60,8 +65,10 @@ export class CategoriesList {
     const itemsArray = new Array(data.categories.length).fill().map((item, index) => {
       const categoryName = data.categories[index];
       const categoryImage = data.cards[index][0].image;
+
       return new CategoryCard(categoryName, categoryImage);
     });
+
     return itemsArray;
   }
 }

@@ -30,42 +30,42 @@ module.exports = (env, options) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env']
-            }
-          }
+              presets: ['@babel/preset-env'],
+            },
+          },
         }, {
           test: /\.scss$/,
           use: [
-            MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
-          ]
+            MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader',
+          ],
         }, {
           test: /\.(png|svg|jpe?g|gif)$/,
           use: [
             {
               loader: 'file-loader',
-            }
-          ]
+            },
+          ],
         }, {
           test: /\.html$/,
           loader: 'html-loader',
         },
-      ]
+      ],
     },
 
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: 'index.html'
+        template: 'index.html',
       }),
       new MiniCssExtractPlugin({
-        filename: 'style.css'
+        filename: 'style.css',
       }),
       new CopyWebpackPlugin([
         { from: './src/assets', to: 'assets' },
         { from: './src/assets/img/favicon.ico', to: 'favicon.ico' },
-      ])
-    ]
-  }
+      ]),
+    ],
+  };
 
   return config;
-}
+};

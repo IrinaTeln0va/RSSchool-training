@@ -7,6 +7,8 @@
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
     "server": "webpack-dev-server --open",
+    "eslint": "eslint **/*.js",
+    "eslint-fix": "eslint **/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,10 +26,12 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "babel-loader": "^8.1.0",
-    "bootstrap": "^4.4.1",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "html-loader": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",

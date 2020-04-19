@@ -8,10 +8,13 @@ export class Header {
     this.menu = new Menu();
     this.toggle = new Toggle();
   }
+
   createDomElement() {
     const domElement = document.createElement('header');
+
     return domElement;
   }
+
   render() {
     this.menu.render(this.domElement);
     this.toggle.render(this.domElement);
