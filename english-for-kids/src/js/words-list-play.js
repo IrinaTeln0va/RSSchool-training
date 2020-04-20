@@ -1,23 +1,23 @@
-import { appConfig } from './app-config.js';
-import { data } from './data.js';
-import { WordCardPlay } from './word-card-play.js';
-import { Game } from './game.js';
-import { statistic } from './statistic.js';
+import appConfig from './app-config';
+import data from './data';
+import WordCardPlay from './word-card-play';
+import Game from './game';
+import statistic from './statistic';
 
-export class WordsListPlay {
+export default class WordsListPlay {
   constructor(categoryId) {
-    this.pageName = appConfig.pages[2];
+    [, , this.pageName] = appConfig.pages;
     this.categoryId = categoryId;
-    this.domElement = this._createElement();
-    this.cardsList = this._getCardsList();
-    this.gameControls = this._createGameControlsElement();
-    this.ratingElement = this._createRatingElement();
+    this.domElement = this.constructor.createElement();
+    this.cardsList = this.getCardsList();
+    this.gameControls = this.constructor.createGameControlsElement();
+    this.ratingElement = this.constructor.createRatingElement();
     this.clickedCard = null;
-    this._onCardsClick = this._onCardsClick.bind(this);
-    this._startBtnClickHandler = this._startBtnClickHandler.bind(this);
+    this.onCardsClick = this.onCardsClick.bind(this);
+    this.startBtnClickHandler = this.startBtnClickHandler.bind(this);
   }
 
-  _createElement() {
+  static createElement() {
     const domElement = document.createElement('ul');
 
     domElement.classList.add('cards-list');
@@ -26,8 +26,8 @@ export class WordsListPlay {
   }
 
   render() {
-    this._fillWithContent();
-    this._bind();
+    this.fillWithContent();
+    this.bind();
     appConfig.pageContainer.append(this.domElement);
 
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
@@ -39,31 +39,30 @@ export class WordsListPlay {
   }
 
   unrender() {
-    this._unbind();
+    this.unbind();
     this.domElement.remove();
     this.gameControls.remove();
-    // this.ratingElement.remove();
   }
 
-  _bind() {
-    this.domElement.addEventListener('click', this._onCardsClick);
-    this.gameControls.addEventListener('click', this._startBtnClickHandler, { once: true });
+  bind() {
+    this.domElement.addEventListener('click', this.onCardsClick);
+    this.gameControls.addEventListener('click', this.startBtnClickHandler, { once: true });
   }
 
-  _unbind() {
-    this.domElement.removeEventListener('click', this._onCardClick);
-    this.gameControls.removeEventListener('click', this._startBtnClickHandler);
+  unbind() {
+    this.domElement.removeEventListener('click', this.onCardClick);
+    this.gameControls.removeEventListener('click', this.startBtnClickHandler);
   }
 
-  _onCardsClick({ target }) {
-    if (this._getTargetElement(target) === false) {
+  onCardsClick({ target }) {
+    if (!this.constructor.getTargetElement(target)) {
       return;
     }
 
-    const { targetType, targetElement } = this._getTargetElement(target);
+    const { targetType, targetElement } = this.constructor.getTargetElement(target);
 
-    if (targetType === 'card') {
-      const card = this.cardsList.find((x) => x.word === targetElement.dataset.cardId);
+    if (targetType !== 'card') {
+      return;
     }
 
     const answer = targetElement.dataset.cardId;
@@ -72,9 +71,14 @@ export class WordsListPlay {
   }
 
   onAnswer() {
+    if (!this.isGameStarted) {
+      return false;
+    }
+
+    return false;
   }
 
-  _getTargetElement(clickedElement) {
+  static getTargetElement(clickedElement) {
     const targetCard = clickedElement.closest('.word-card');
 
     if (!targetCard) {
@@ -84,7 +88,7 @@ export class WordsListPlay {
     return { targetType: 'card', targetElement: targetCard };
   }
 
-  _fillWithContent() {
+  fillWithContent() {
     if (this.cardsList === false) {
       return;
     }
@@ -94,7 +98,7 @@ export class WordsListPlay {
     });
   }
 
-  _createGameControlsElement() {
+  static createGameControlsElement() {
     const gameControlsElement = document.createElement('div');
 
     gameControlsElement.classList.add('game-btn-wrap');
@@ -105,7 +109,7 @@ export class WordsListPlay {
     return gameControlsElement;
   }
 
-  _createRatingElement() {
+  static createRatingElement() {
     const ratingElement = document.createElement('ul');
 
     ratingElement.classList.add('rating');
@@ -113,11 +117,15 @@ export class WordsListPlay {
     return ratingElement;
   }
 
-  _startBtnClickHandler() {
-    new Game(this);
+  startBtnClickHandler() {
+    const game = new Game(this);
+
+    this.isGameStarted = true;
+
+    return game;
   }
 
-  _getCardsList() {
+  getCardsList() {
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
       this.domElement.classList.add('empty-page');
 

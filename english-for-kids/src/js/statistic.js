@@ -1,18 +1,17 @@
-import { appConfig } from './app-config.js';
-import { data } from './data.js';
+import appConfig from './app-config';
+import data from './data';
 
 class Statistic {
   constructor() {
     this.pageName = 'statistic';
-    this.initialData = this._getWordsList();
-    this.currentData;
+    this.initialData = this.constructor.getWordsList();
     this.init();
   }
 
   init() {
     if (!localStorage.statistic) {
       localStorage.setItem('statistic', JSON.stringify(this.initialData));
-      this.currentData = this._getWordsList();
+      this.currentData = this.getWordsList();
     }
 
     this.currentData = JSON.parse(localStorage.getItem('statistic'));
@@ -33,42 +32,43 @@ class Statistic {
         }
 
         break;
+      default: break;
     }
     localStorage.statistic = JSON.stringify(this.currentData);
   }
 
-  _resetStatistic() {
+  resetStatistic() {
     localStorage.statistic = JSON.stringify(this.initialData);
-    this.currentData = this._getWordsList();
+    this.currentData = this.constructor.getWordsList();
   }
 
   render(statData) {
-    this.domElement = this._createDomElement(statData);
+    this.domElement = this.createDomElement(statData);
     this.resetBtn = this.domElement.querySelector('.reset-stat');
     this.toDifficultBtn = this.domElement.querySelector('.train-difficult');
     this.tableCaptions = this.domElement.querySelector('tr.title');
     appConfig.pageContainer.append(this.domElement);
-    this._bind();
+    this.bind();
   }
 
   unrender() {
     this.domElement.remove();
   }
 
-  _bind() {
+  bind() {
     this.resetBtn.addEventListener('click', this.resetBtnClickHandler.bind(this));
     this.toDifficultBtn.addEventListener('click', this.toDifficultBtnClick.bind(this));
     this.tableCaptions.addEventListener('click', this.sortStatisticHandler.bind(this));
   }
 
   resetBtnClickHandler() {
-    this._resetStatistic();
+    this.resetStatistic();
     this.unrender();
     this.render();
   }
 
   toDifficultBtnClick() {
-    this.difficultWords = this._getDifficultWords();
+    this.difficultWords = this.getDifficultWords();
     window.location.hash = '#difficult';
   }
 
@@ -85,20 +85,20 @@ class Statistic {
     const isUpSort = target.classList.contains('sort-up');
 
     if (targetTitle.classList.contains('active') && target.classList.contains('reset')) {
-      this._resetSort();
+      this.resetSort();
 
       return;
     }
 
-    const sortedList = this._getSortedList(sortTitle, isUpSort);
+    const sortedList = this.getSortedList(sortTitle, isUpSort);
 
     this.unrender();
     this.render(sortedList);
     document.querySelector(`[data-title=${sortTitle}]`).classList.add('active');
   }
 
-  _resetSort() {
-    const sortedList = this._getSortedList('index', true);
+  resetSort() {
+    const sortedList = this.getSortedList('index', true);
 
     this.unrender();
     this.render(sortedList);
@@ -107,7 +107,7 @@ class Statistic {
     });
   }
 
-  _getSortedList(sortTitle, isUpSort) {
+  getSortedList(sortTitle, isUpSort) {
     const statData = [...this.currentData];
 
     if (isUpSort) {
@@ -116,8 +116,8 @@ class Statistic {
           return statData.sort((a, b) => (statData.indexOf(a) > statData.indexOf(b) ? 1 : -1));
         case 'percent':
           return statData.sort((a, b) => {
-            const percentage1 = a.playClick == 0 ? 0 : a.errors / a.playClick;
-            const percentage2 = b.playClick == 0 ? 0 : b.errors / b.playClick;
+            const percentage1 = a.playClick === 0 ? 0 : a.errors / a.playClick;
+            const percentage2 = b.playClick === 0 ? 0 : b.errors / b.playClick;
 
             return percentage1 > percentage2 ? 1 : -1;
           });
@@ -130,8 +130,8 @@ class Statistic {
           return statData.sort((a, b) => (statData.indexOf(b) > statData.indexOf(a) ? 1 : -1));
         case 'percent':
           return statData.sort((a, b) => {
-            const percentage1 = a.playClick == 0 ? 0 : a.errors / a.playClick;
-            const percentage2 = b.playClick == 0 ? 0 : b.errors / b.playClick;
+            const percentage1 = a.playClick === 0 ? 0 : a.errors / a.playClick;
+            const percentage2 = b.playClick === 0 ? 0 : b.errors / b.playClick;
 
             return percentage1 < percentage2 ? 1 : -1;
           });
@@ -141,7 +141,7 @@ class Statistic {
     }
   }
 
-  _createDomElement(statData = this.currentData) {
+  createDomElement(statData = this.currentData) {
     const domElement = document.createElement('div');
 
     domElement.classList.add('statistic-wrap');
@@ -257,32 +257,38 @@ class Statistic {
             <td>${word.trainClick}</td>
             <td>${word.playClick}</td>
             <td>${word.errors}</td>
-            <td>${word.errors == 0 ? 0 : Math.round(word.errors / word.playClick * 100)}</td>
+            <td>${word.errors === 0 ? 0 : Math.round((word.errors / word.playClick) * 100)}</td>
           </tr>`).join('')}
       </table>`;
 
     const legendItem = domElement.querySelectorAll('.legend li');
 
     [...legendItem].forEach((item, index) => {
-      item.style.borderLeftColor = data.categoryColors[index];
+      const elem = item;
+
+      elem.style.borderLeftColor = data.categoryColors[index];
     });
 
     const wordItem = domElement.querySelectorAll('.category-title');
 
     [...wordItem].forEach((item) => {
-      item.style.borderLeftColor = data.categoryColors[data.categories.findIndex((category) => category === item.innerText)];
+      const categoryKey = item;
+      const arr = data.categoryColors;
+      const color = arr[data.categories.findIndex((category) => category === item.innerText)];
+
+      categoryKey.style.borderLeftColor = color;
     });
 
     return domElement;
   }
 
-  _getWordsList() {
+  static getWordsList() {
     const wordsList = [];
 
-    for (let i = 0; i < data.cards.length; i++) {
+    for (let i = 0; i < data.cards.length; i += 1) {
       const categoryWordsList = data.cards[i];
 
-      for (let j = 0; j < categoryWordsList.length; j++) {
+      for (let j = 0; j < categoryWordsList.length; j += 1) {
         const wordData = categoryWordsList[j];
 
         wordsList.push({
@@ -299,7 +305,7 @@ class Statistic {
     return wordsList;
   }
 
-  _getDifficultWords() {
+  getDifficultWords() {
     let errorWords = this.currentData.filter((wordItem) => (wordItem.errors > 0));
 
     errorWords.sort((a, b) => (b.errors / b.playClick) - (a.errors / a.playClick));
@@ -310,11 +316,11 @@ class Statistic {
 
     errorWords = errorWords.filter((item, index) => (index < 8));
 
-    const cardList = errorWords.map((statisticWordItem, index) => {
-      for (let i = 0; i < data.cards.length; i++) {
+    const cardList = errorWords.map((statisticWordItem) => {
+      for (let i = 0; i < data.cards.length; i += 1) {
         const category = data.cards[i];
 
-        for (let j = 0; j < category.length; j++) {
+        for (let j = 0; j < category.length; j += 1) {
           const wordItem = category[j];
 
           if (wordItem.word === statisticWordItem.word) {
@@ -322,10 +328,11 @@ class Statistic {
           }
         }
       }
+      return false;
     });
 
     return cardList;
   }
 }
 
-export const statistic = new Statistic();
+export default new Statistic();

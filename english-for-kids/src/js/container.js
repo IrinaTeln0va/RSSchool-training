@@ -1,18 +1,18 @@
-import { appConfig } from './app-config.js';
-import { WordsListTrain } from './words-list-train.js';
-import { WordsListPlay } from './words-list-play.js';
-import { CategoriesList } from './categories-list.js';
-import { statistic } from './statistic.js';
+import appConfig from './app-config';
+import WordsListTrain from './words-list-train';
+import WordsListPlay from './words-list-play';
+import CategoriesList from './categories-list';
+import statistic from './statistic';
 
-export class Container {
+export default class Container {
   constructor() {
     this.domElement = document.querySelector('.container');
-    this._onPageChange = this._onPageChange.bind(this);
-    window.addEventListener('hashchange', this._onPageChange);
+    this.onPageChange = this.onPageChange.bind(this);
+    window.addEventListener('hashchange', this.onPageChange);
     this.currentPage = null;
   }
 
-  _onPageChange(evt) {
+  onPageChange() {
     this.domElement.classList.remove('stat-page');
     // const pageFrom = this.currentPage;
     let content;
@@ -45,11 +45,11 @@ export class Container {
     }
 
     this.header.menu.highlightLink(pageTo);
-    this._switchScreen(content);
+    this.switchScreen(content);
   }
 
-  _switchScreen(content) {
-    this._removeContent();
+  switchScreen(content) {
+    this.removeContent();
     this.addContent(content);
   }
 
@@ -59,12 +59,12 @@ export class Container {
     this.currentPage = this.content.pageName;
   }
 
-  _removeContent() {
+  removeContent() {
     this.content.unrender();
     this.content = null;
   }
 
-  _addHeader(header) {
+  addHeader(header) {
     this.header = header;
     this.header.render();
     this.header.toggle.onModeChange = this.changeMode.bind(this);
@@ -79,7 +79,7 @@ export class Container {
 
       if (this.currentPage === appConfig.pages[1]) {
         content = new WordsListPlay(this.content.categoryId);
-        this._switchScreen(content);
+        this.switchScreen(content);
       }
     } else {
       this.domElement.classList.remove('play-mode');
@@ -87,7 +87,7 @@ export class Container {
 
       if (this.currentPage === appConfig.pages[2]) {
         content = new WordsListTrain(this.content.categoryId);
-        this._switchScreen(content);
+        this.switchScreen(content);
       }
     }
   }

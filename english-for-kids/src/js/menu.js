@@ -1,30 +1,36 @@
-import { data } from './data.js';
+import data from './data';
 
-export class Menu {
+export default class Menu {
   constructor() {
     this.state = 'close';
-    this.domElement = this._createElement();
+    this.domElement = this.constructor.createElement();
     this.menuBtn = this.domElement.querySelector('.menu-btn');
     this.menuLinkHandler = this.menuLinkHandler.bind(this);
     this.linksList = this.domElement.querySelectorAll('.navigation-link');
   }
 
   render(container) {
-    this._bind();
+    this.bind();
     container.append(this.domElement);
   }
 
   burgerClickHandler() {
-    this.state === 'close' ? this._open() : this._close();
+    if (this.state === 'close') {
+      this.open();
+    } else {
+      this.close();
+    }
   }
 
   menuLinkHandler(target) {
     window.location.hash = target.attributes.href.value;
-    this._close();
+    this.close();
   }
 
   highlightLink(pageName) {
-    pageName = pageName.replace('#', '');
+    let pageId = pageName;
+
+    pageId = pageId.replace('#', '');
     let targetLink;
 
     [...this.linksList].forEach((link) => {
@@ -32,19 +38,19 @@ export class Menu {
 
       link.classList.remove('current-link');
 
-      if (linkHref === pageName) {
+      if (linkHref === pageId) {
         targetLink = link;
       }
     });
 
-    if (pageName === 'difficult') {
+    if (pageId === 'difficult') {
       return;
     }
 
     targetLink.classList.add('current-link');
   }
 
-  _createElement() {
+  static createElement() {
     const wrap = document.createElement('div');
 
     wrap.classList.add('menu');
@@ -66,11 +72,11 @@ export class Menu {
     return wrap;
   }
 
-  _bind() {
+  bind() {
     this.domElement.addEventListener('click', (evt) => {
       evt.preventDefault();
       const { target } = evt;
-      const clickedElement = this._getClickedElement(target);
+      const clickedElement = this.constructor.getClickedElement(target);
 
       switch (clickedElement) {
         case 'button':
@@ -82,12 +88,15 @@ export class Menu {
         case 'menu':
           return;
         case 'overlay':
-          this._close();
+          this.close();
+          break;
+        default:
+          break;
       }
     });
   }
 
-  _getClickedElement(target) {
+  static getClickedElement(target) {
     if (target.closest('.menu-btn')) {
       return 'button';
     }
@@ -103,12 +112,12 @@ export class Menu {
     return 'overlay';
   }
 
-  _open() {
+  open() {
     this.domElement.classList.add('open');
     this.state = 'open';
   }
 
-  _close() {
+  close() {
     this.domElement.classList.remove('open');
     this.state = 'close';
   }

@@ -1,10 +1,9 @@
 class AppConfig {
   constructor() {
-    this.mode = 'train',
-    this.pageContainer = document.querySelector('.container'),
-    // this.currentPage = null,
+    this.mode = 'train';
+    this.pageContainer = document.querySelector('.container');
     this.pages = ['categoriesList', 'wordsListTrain', 'wordsListPlay'];
   }
 }
 
-export const appConfig = new AppConfig();
+export default new AppConfig();

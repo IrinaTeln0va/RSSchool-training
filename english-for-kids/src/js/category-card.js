@@ -1,12 +1,12 @@
-export class CategoryCard {
+export default class CategoryCard {
   constructor(word, img) {
-    this.word = word,
-    this.img = img,
-    this.template = this._getTemplate(),
-    this.domElement = this._createElement();
+    this.word = word;
+    this.img = img;
+    this.template = this.getTemplate();
+    this.domElement = this.createElement();
   }
 
-  _getTemplate() {
+  getTemplate() {
     return `
       <div class="category-img-wrap">
         <img src="${this.img}" alt="${this.word}">
@@ -16,7 +16,7 @@ export class CategoryCard {
       </div>`;
   }
 
-  _createElement() {
+  createElement() {
     const domElement = document.createElement('li');
 
     domElement.classList.add('category');

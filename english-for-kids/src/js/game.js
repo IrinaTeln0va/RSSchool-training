@@ -1,34 +1,35 @@
-import { data } from './data.js';
-import { appConfig } from './app-config.js';
-import { statistic } from './statistic.js';
+import data from './data';
+import appConfig from './app-config';
+import statistic from './statistic';
 
-export class Game {
+export default class Game {
   constructor(wordsListPlay) {
     this.isGameStarted = false;
     this.wordsListPlay = wordsListPlay;
     this.startGameBtn = this.wordsListPlay.gameControls.querySelector('.btn');
     this.audioPlayer = this.wordsListPlay.gameControls.querySelector('audio');
-    this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
+    // this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
     this.answersCheckList = [];
     this.currentQuestionIndex = 0;
-    this._initGame();
+    this.initGame();
   }
 
-  _initGame() {
+  initGame() {
     this.startGameBtn.classList.add('repeat');
-    this.startGameBtn.addEventListener('click', this._onRepeatBtnClick.bind(this));
+    this.startGameBtn.addEventListener('click', this.onRepeatBtnClick.bind(this));
     this.isGameStarted = true;
-    this.questionsRandomList = this._getQuestionsRandomList();
-    this._askQuestion();
+    this.questionsRandomList = this.getQuestionsRandomList();
+    this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
+    this.askQuestion();
   }
 
-  _askQuestion(repeat) {
+  askQuestion(repeat) {
     if (repeat) {
       this.currentQuestionIndex -= 1;
     }
 
     if (this.currentQuestionIndex === this.questionsRandomList.length) {
-      this._endGame();
+      this.endGame();
 
       return;
     }
@@ -40,11 +41,10 @@ export class Game {
     this.currentQuestionIndex += 1;
   }
 
-  _getQuestionsRandomList() {
+  getQuestionsRandomList() {
     const { categoryId } = this.wordsListPlay;
-    let cardsOfCategory;
 
-    cardsOfCategory = (categoryId === 'difficult')
+    const cardsOfCategory = (categoryId === 'difficult')
       ? statistic.difficultWords
       : data.cards[categoryId];
 
@@ -53,29 +53,29 @@ export class Game {
       answer: cardData.word,
     }));
 
-    return this._getShuffledQuestions(questionsList);
+    return this.constructor.getShuffledQuestions(questionsList);
   }
 
-  _getShuffledQuestions(questionsList) {
-    return questionsList.sort((a, b) => Math.random() - 0.5);
+  static getShuffledQuestions(questionsList) {
+    return questionsList.sort(() => Math.random() - 0.5);
   }
 
-  _onRepeatBtnClick() {
-    this._askQuestion(true);
+  onRepeatBtnClick() {
+    this.askQuestion(true);
   }
 
-  _endGame() {
+  endGame() {
     this.isGameStarted = false;
     this.startGameBtn.classList.remove('repeat');
-    appConfig.pageContainer.classList.add(`${this._isWonGame() ? 'win-game' : 'lose-game'}`);
+    appConfig.pageContainer.classList.add(`${this.isWonGame() ? 'win-game' : 'lose-game'}`);
     const audioObj = new Audio();
 
-    if (!this._isWonGame()) {
+    if (!this.isWonGame()) {
       this.loseGameMessage = document.createElement('div');
       this.loseGameMessage.classList.add('lose-game-message');
       this.loseGameMessage.innerHTML = `
-      <span class='errors-count'>${this._calculateErrors()}</span>
-      <span> ${this._calculateErrors() > 1 ? 'errors' : 'error'}</span>`;
+      <span class='errors-count'>${this.calculateErrors()}</span>
+      <span> ${this.calculateErrors() > 1 ? 'errors' : 'error'}</span>`;
       appConfig.pageContainer.append(this.loseGameMessage);
       audioObj.src = 'assets/audio/failure.mp3';
     } else {
@@ -100,11 +100,11 @@ export class Game {
     }, 3000);
   }
 
-  _calculateErrors() {
-    return this.answersCheckList.reduce((acc, item) => (item ? acc : acc += 1), 0);
+  calculateErrors() {
+    return this.answersCheckList.reduce((acc, item) => (item ? acc : acc + 1), 0);
   }
 
-  _isWonGame() {
+  isWonGame() {
     return this.answersCheckList.every((item) => item);
   }
 
@@ -114,7 +114,7 @@ export class Game {
     }
 
     const correctAnswer = this.questionsRandomList[this.currentQuestionIndex - 1].answer;
-    const isCorrect = this._checkAnswer(answer, correctAnswer);
+    const isCorrect = this.checkAnswer(answer, correctAnswer);
 
     statistic.changeStat(correctAnswer, 'play', isCorrect);
 
@@ -125,17 +125,17 @@ export class Game {
     if (isCorrect) {
       this.audioPlayer.addEventListener('ended', () => {
         setTimeout(() => {
-          this._askQuestion();
+          this.askQuestion();
         }, 200);
       }, { once: true });
       targetElement.classList.add('disabled');
     }
 
-    this._addStar(isCorrect);
+    this.addStar(isCorrect);
     this.audioPlayer.play();
   }
 
-  _addStar(isCorrect) {
+  addStar(isCorrect) {
     const container = this.wordsListPlay.domElement.querySelector('.rating');
     const starElement = document.createElement('div');
 
@@ -144,7 +144,7 @@ export class Game {
     container.append(starElement);
   }
 
-  _checkAnswer(answer, correctAnswer) {
+  checkAnswer(answer, correctAnswer) {
     const isCorrect = answer === correctAnswer;
 
     this.answersCheckList.push(isCorrect);

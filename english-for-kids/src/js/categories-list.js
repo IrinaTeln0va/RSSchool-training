@@ -1,16 +1,16 @@
-import { appConfig } from './app-config.js';
-import { data } from './data.js';
-import { CategoryCard } from './category-card.js';
+import appConfig from './app-config';
+import data from './data';
+import CategoryCard from './category-card';
 
-export class CategoriesList {
+export default class CategoriesList {
   constructor() {
-    this.pageName = appConfig.pages[0];
-    this.domElement = this._createElement();
-    this.itemsArray = this._getItemsArray();
-    this._onCategoryClick = this._onCategoryClick.bind(this);
+    [this.pageName] = appConfig.pages;
+    this.domElement = this.constructor.createElement();
+    this.itemsArray = this.constructor.getItemsArray();
+    this.onCategoryClick = this.constructor.onCategoryClick.bind(this);
   }
 
-  _createElement() {
+  static createElement() {
     const domElement = document.createElement('ul');
 
     domElement.classList.add('cards-list');
@@ -19,7 +19,7 @@ export class CategoriesList {
   }
 
   render() {
-    this._fillWithContent();
+    this.fillWithContent();
     this.bind();
     appConfig.pageContainer.append(this.domElement);
   }
@@ -30,14 +30,14 @@ export class CategoriesList {
   }
 
   bind() {
-    this.domElement.addEventListener('click', this._onCategoryClick);
+    this.domElement.addEventListener('click', this.onCategoryClick);
   }
 
   unbind() {
-    this.domElement.removeEventListener('click', this._onCategoryClick);
+    this.domElement.removeEventListener('click', this.onCategoryClick);
   }
 
-  _onCategoryClick({ target }) {
+  static onCategoryClick({ target }) {
     const targetCard = target.closest('.category');
 
     if (!targetCard) {
@@ -55,13 +55,13 @@ export class CategoriesList {
     });
   }
 
-  _fillWithContent() {
-    const templatesArray = this.itemsArray.forEach((objItem) => {
+  fillWithContent() {
+    this.itemsArray.forEach((objItem) => {
       this.domElement.append(objItem.domElement);
     });
   }
 
-  _getItemsArray() {
+  static getItemsArray() {
     const itemsArray = new Array(data.categories.length).fill().map((item, index) => {
       const categoryName = data.categories[index];
       const categoryImage = data.cards[index][0].image;

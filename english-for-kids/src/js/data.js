@@ -1,4 +1,4 @@
-export const data = {
+export default {
   categories: ['Action (set A)', 'Action (set B)', 'Animal (set A)', 'Animal (set B)', 'Clothes', 'Emotions', 'Food', 'Movement'],
   categoryColors: ['#ba0091', 'blue', '#00a9ff', 'MediumSpringGreen', 'ForestGreen', 'orange', 'tomato', 'crimson'],
   cards: [

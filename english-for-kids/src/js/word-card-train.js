@@ -1,15 +1,15 @@
-export class WordCardTrain {
+export default class WordCardTrain {
   constructor(cardsData) {
-    this.word = cardsData.word,
-    this.img = cardsData.image,
-    this.translation = cardsData.translation,
-    this.audio = cardsData.audioSrc,
-    this.template = this._getTemplate(),
-    this.domElement = this._createElement(),
-    this.audioCardElement = this._getAudioElement();
+    this.word = cardsData.word;
+    this.img = cardsData.image;
+    this.translation = cardsData.translation;
+    this.audio = cardsData.audioSrc;
+    this.template = this.getTemplate();
+    this.domElement = this.createElement();
+    this.audioCardElement = this.getAudioElement();
   }
 
-  _getTemplate() {
+  getTemplate() {
     return `
       <div class="front">
         <div class="category-img-wrap">
@@ -31,13 +31,13 @@ export class WordCardTrain {
       </div>`;
   }
 
-  _getAudioElement() {
+  getAudioElement() {
     const audioCardElement = this.domElement.querySelector('audio');
 
     return audioCardElement;
   }
 
-  _createElement() {
+  createElement() {
     const domElement = document.createElement('li');
 
     domElement.dataset.cardId = this.word;

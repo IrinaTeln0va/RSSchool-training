@@ -1,15 +1,15 @@
-import { appConfig } from './app-config.js';
+import appConfig from './app-config';
 
-export class Toggle {
+export default class Toggle {
   constructor() {
-    this.markup = this._getMarkup(),
-    this.domElement = this._createElement();
+    this.markup = this.constructor.getMarkup();
+    this.domElement = this.createElement();
     this.trainLabel = this.domElement.querySelector('#filter-train');
     this.playLabel = this.domElement.querySelector('#filter-play');
     this.switcher = this.domElement.querySelector('#switcher');
   }
 
-  _getMarkup() {
+  static getMarkup() {
     return `
       <label class="toggler${(appConfig.mode === 'train') ? ' toggler--is-active' : ''}" id="filter-train">Train</label>
       <div class="toggle">
@@ -21,24 +21,30 @@ export class Toggle {
 
   render(container) {
     container.append(this.domElement);
-    this._bind();
+    this.bind();
   }
 
   toggleClickHandler() {
     const { mode } = appConfig;
 
-    mode === 'train' ? this._toPlayState() : this._toTrainState();
+    if (mode === 'train') {
+      this.toPlayState();
+    } else {
+      this.toTrainState();
+    }
+
     this.onModeChange(mode);
   }
 
-  onModeChange() {
-  }
+  // onModeChange() {
+  //   console.log(this);
+  // }
 
   switchState() {
     this.toggleClickHandler();
   }
 
-  _createElement() {
+  createElement() {
     const wrap = document.createElement('div');
 
     wrap.classList.add('toggler-wrapper');
@@ -47,17 +53,17 @@ export class Toggle {
     return wrap;
   }
 
-  _bind() {
+  bind() {
     this.domElement.addEventListener('click', this.toggleClickHandler.bind(this));
   }
 
-  _toPlayState() {
+  toPlayState() {
     this.switcher.checked = true;
     this.trainLabel.classList.remove('toggler--is-active');
     this.playLabel.classList.add('toggler--is-active');
   }
 
-  _toTrainState() {
+  toTrainState() {
     this.switcher.checked = false;
     this.trainLabel.classList.add('toggler--is-active');
     this.playLabel.classList.remove('toggler--is-active');

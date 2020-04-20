@@ -1,18 +1,18 @@
-import { appConfig } from './app-config.js';
-import { data } from './data.js';
-import { WordCardTrain } from './word-card-train.js';
-import { statistic } from './statistic.js';
+import appConfig from './app-config';
+import data from './data';
+import WordCardTrain from './word-card-train';
+import statistic from './statistic';
 
-export class WordsListTrain {
+export default class WordsListTrain {
   constructor(categoryId) {
-    this.pageName = appConfig.pages[1];
+    [, this.pageName] = appConfig.pages;
     this.categoryId = categoryId;
-    this.domElement = this._createElement();
-    this.cardsList = this._getCardsList();
-    this._onCardsClick = this._onCardsClick.bind(this);
+    this.domElement = this.constructor.createElement();
+    this.cardsList = this.getCardsList();
+    this.onCardsClick = this.onCardsClick.bind(this);
   }
 
-  _createElement() {
+  static createElement() {
     const domElement = document.createElement('ul');
 
     domElement.classList.add('cards-list');
@@ -21,7 +21,7 @@ export class WordsListTrain {
   }
 
   render() {
-    this._fillWithContent();
+    this.fillWithContent();
     this.bind();
     appConfig.pageContainer.append(this.domElement);
   }
@@ -32,19 +32,19 @@ export class WordsListTrain {
   }
 
   bind() {
-    this.domElement.addEventListener('click', this._onCardsClick);
+    this.domElement.addEventListener('click', this.onCardsClick);
   }
 
   unbind() {
-    this.domElement.removeEventListener('click', this._onCardClick);
+    this.domElement.removeEventListener('click', this.onCardClick);
   }
 
-  _onCardsClick({ target }) {
-    if (this._getTargetElement(target) === false) {
+  onCardsClick({ target }) {
+    if (!this.constructor.getTargetElement(target)) {
       return;
     }
 
-    const { targetType, targetElement } = this._getTargetElement(target);
+    const { targetType, targetElement } = this.constructor.getTargetElement(target);
 
     if (targetType === 'button') {
       const targetCard = target.closest('.word-card');
@@ -73,7 +73,7 @@ export class WordsListTrain {
     }
   }
 
-  _getTargetElement(clickedElement) {
+  static getTargetElement(clickedElement) {
     const targetBtn = clickedElement.closest('.flip-card-btn');
 
     if (targetBtn) {
@@ -89,11 +89,7 @@ export class WordsListTrain {
     return { targetType: 'card', targetElement: targetCard };
   }
 
-  // _getCardFromDomElement(cardId) {
-  //   return this.itemsArray.find(item => item.word === cardId);
-  // }
-
-  _fillWithContent() {
+  fillWithContent() {
     if (this.cardsList === false) {
       return;
     }
@@ -103,7 +99,7 @@ export class WordsListTrain {
     });
   }
 
-  _getCardsList() {
+  getCardsList() {
     if (this.categoryId === 'difficult' && statistic.difficultWords === false) {
       this.domElement.classList.add('empty-page');
 
