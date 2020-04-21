@@ -2,8 +2,10 @@ import Container from './container';
 import CategoriesList from './categories-list';
 import Header from './header';
 
-window.location.hash = '';
-const container = new Container();
+window.onload = function onload() {
+  window.location.hash = '';
+  const container = new Container();
 
-container.addHeader(new Header());
-container.addContent(new CategoriesList());
+  container.addHeader(new Header());
+  container.addContent(new CategoriesList());
+};

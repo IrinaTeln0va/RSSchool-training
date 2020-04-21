@@ -11,7 +11,7 @@ class Statistic {
   init() {
     if (!localStorage.statistic) {
       localStorage.setItem('statistic', JSON.stringify(this.initialData));
-      this.currentData = this.getWordsList();
+      this.currentData = this.constructor.getWordsList();
     }
 
     this.currentData = JSON.parse(localStorage.getItem('statistic'));

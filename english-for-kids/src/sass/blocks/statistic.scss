@@ -259,7 +259,7 @@
   position: absolute;
   list-style: none;
   text-align: center;
-  width: 130%;
+  width: 150%;
   left: -15%;
   top: 100%;
   margin: 0;
@@ -279,7 +279,12 @@
 .sort-btn li {
   background-color: #05112ee0;
   color: #fff;
+  font-size: 11px;
   backdrop-filter: blur(2px);
+  padding: 5px 0;
+    @media (min-width: $desctop) {
+      padding: 0;
+    }
 }
 
 .sort-btn li:hover {
@@ -308,6 +313,43 @@
 .sort-btn li:last-child {
   border-bottom-left-radius:3px;
   border-bottom-right-radius:3px;
+}
+
+.adaptive.sort-btn li,
+.sort-btn:first-child li {
+  font-size: 0;
+  background-image: url('../assets/img/icon-sort-item.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-origin: content-box;
+    // @media (min-width: $tablet) {
+      // font-size: 0;
+      // background-image: url('../assets/img/icon-sort-item.svg');
+      // background-repeat: no-repeat;
+      // background-size: 44%;
+      // background-position: center;
+    // }
+    @media (min-width: $desctop) {
+      font-size: 11px;
+      background-image: none;
+    }
+}
+
+.adaptive.sort-btn li:nth-child(2),
+.sort-btn:first-child li:nth-child(2) {
+  transform: rotate(180deg);
+    @media (min-width: $desctop) {
+      transform: none;
+    }
+}
+
+.adaptive.sort-btn li:nth-child(3),
+.sort-btn:first-child li:nth-child(3) {
+  background-image: url('../assets/img/icon-reset-filters.svg');
+    @media (min-width: $desctop) {
+      background-image: none;
+    }
 }
 
 .sort-btn a {
