@@ -5,15 +5,18 @@
 
 .menu-btn {
   position: relative;
+  z-index: 6;
+
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80px;
   height: 80px;
-  cursor: pointer;            
-  transition: left 1s ease-in-out, opacity .1s ease-in-out;
+
   background: transparent;
-  z-index: 6;
+  cursor: pointer;
+
+  transition: left 1s ease-in-out, opacity 0.1s ease-in-out;
 }
 
 .menu-btn:hover {
@@ -24,21 +27,26 @@
 .menu-btn__burger {
   width: 50px;
   height: 6px;
+
   background: $color-primary;
   border-radius: 5px;
-  transition: all .5s ease-in-out;
+
+  transition: all 0.5s ease-in-out;
 }
 
 /* top and bottom lines */
 .menu-btn__burger::before,
 .menu-btn__burger::after {
-  content: '';
+  content: "";
   position: absolute;
+
   width: 50px;
   height: 6px;
+
   background: $color-primary;
   border-radius: 5px;
-  transition: all .5s ease-in-out;
+
+  transition: all 0.5s ease-in-out;
 }
 
 .play-mode .menu-btn__burger {
@@ -66,8 +74,8 @@
 
 /* Animation */
 .open .menu-btn__burger {
-  transform: translateX(-50px);
   background: transparent;
+  transform: translateX(-50px);
 }
 
 .open .menu-btn__burger::before {
@@ -80,35 +88,39 @@
 
 .navigation {
   position: fixed;
-  box-sizing: border-box;
   top: 0;
   left: 0;
   z-index: 5;
-  background-color: #fff;
-  box-shadow: 0 -40px 20px rgba(0, 0, 0, 0.27);
-  transition: 0.5s;
+
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  width: 0;
+  min-width: 0;
+  height: 100vh;
   margin: 0;
   padding: 0;
   padding-top: 123px;
   padding-bottom: 40px;
-  list-style: none;
   overflow: hidden;
   overflow-y: auto;
-  width: 0;
-  min-width: 0;
-  height: 100vh;
+
+  list-style: none;
+
+  background-color: #ffffff;
+  box-shadow: 0 -40px 20px rgba(0, 0, 0, 0.27);
+
+  transition: 0.5s;
 }
 
 .open .navigation {
   min-width: 75%;
-    @media (min-width: $tablet) {
-      min-width: 40%;
-    }
-    @media (min-width: $desctop) {
-      min-width: 26%;
-    }
+  @media (min-width: $tablet) {
+    min-width: 40%;
+  }
+  @media (min-width: $desctop) {
+    min-width: 26%;
+  }
 }
 
 .menu-overlay {
@@ -120,50 +132,58 @@
   top: 0;
   left: 0;
   z-index: 4;
+
   display: block;
   width: 100%;
   height: 100%;
+
   background-color: #2d303a;
   opacity: 0.3;
 }
 
 .navigation-item {
-  font-size: 24px;
-  white-space: nowrap;
   flex-grow: 1;
   max-height: 70px;
+
+  font-size: 24px;
+  white-space: nowrap;
 }
 
 .navigation-link {
-  box-sizing: border-box;
   display: flex;
   align-items: center;
-  color: #a0a0a0;
-  font-size: 21px;
-  font-weight: 900;
+  box-sizing: border-box;
+  height: 100%;
   padding: 5px 0;
   padding-left: 16%;
-  height: 100%;
+
+  font-weight: 900;
+  font-size: 21px;
+  color: #a0a0a0;
+
   background-image: linear-gradient(90deg, #bab9ba4a, #bababa08);
-  background-size: 0 100%;
   background-repeat: no-repeat;
+  background-size: 0 100%;
 }
 
 .navigation-link:hover {
-  background-size: 100% 100%;
-  box-shadow: inset 5px 0px 0px 0px #9d9d9d80;
   color: #090909;
-  transition: all .7s;
+
+  background-size: 100% 100%;
+  box-shadow: inset 5px 0 0 0 #9d9d9d80;
+
+  transition: all 0.7s;
 }
 
 .current-link {
   color: #090909;
-  box-shadow: inset 5px 0px 0px 0px #d70a80;
+
   background-image: linear-gradient(90deg, #d70a8029, #d70a8008);
   background-size: 100% 100%;
+  box-shadow: inset 5px 0 0 0 #d70a80;
 }
 
 .play-mode .current-link {
   background-image: linear-gradient(90deg, #009aff29, #009aff08);
-  box-shadow: inset 5px 0px 0px 0px #009aff;
+  box-shadow: inset 5px 0 0 0 #009aff;
 }

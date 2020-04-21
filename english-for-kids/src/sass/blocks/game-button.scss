@@ -3,36 +3,39 @@
   justify-content: center;
   align-items: center;
   height: 174px;
-  overflow: hidden;
   margin-bottom: 30px;
+  overflow: hidden;
 }
 
 .start-game-btn {
-    padding-top: 24px;
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    top: 400px;
-    z-index: 1;
-    border-radius: 50%;
-    display: block;
-    // box-shadow: 0px 0px 20px 15px #009aff36;
-    padding-bottom: 20px;
-    padding-left: 34px;
-    border: none;
-    cursor: pointer;
-    transform: translateY(-50%);
-    background-color: #ffffff;
-    background-image: url('../assets/img/start-game.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    transition: top 1.3s, transform 1s;
-    box-shadow: 1px 1px 11px 4px #b6d0f266;
+  position: absolute;
+  top: 400px;
+  z-index: 1;
+
+  display: block;
+  width: 150px;
+  height: 150px;
+  padding-top: 24px;
+  padding-bottom: 20px;
+  padding-left: 34px;
+
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+
+  background-color: #ffffff;
+  background-image: url("../assets/img/start-game.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 1px 1px 11px 4px #b6d0f266;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  transition: top 1.3s, transform 1s;
 }
 
 .start-game-btn:hover {
@@ -40,19 +43,22 @@
 }
 
 .repeat {
-  background-image: url('../assets/img/repeat-word.svg');
-  transform: none;
-  background-size: 100%;
+  top: calc(100% - 180px);
+
   width: 125px;
   height: 125px;
-  top: calc(100% - 180px);
-  transition: top 1.3s, transform 1s, background 0.2s;
+
+  background-image: url("../assets/img/repeat-word.svg");
+  background-size: 100%;
   box-shadow: none;
+  transform: none;
+
+  transition: top 1.3s, transform 1s, background 0.2s;
 }
 
 .repeat:hover {
-  transform: none;
   background-size: 120%;
+  transform: none;
 }
 
 .repeat:focus {

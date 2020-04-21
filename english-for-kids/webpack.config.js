@@ -3,7 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-var ImageminPlugin = require('imagemin-webpack-plugin').default;
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminPngquant = require('imagemin-pngquant');
 
@@ -71,17 +71,18 @@ module.exports = (env, options) => {
         { from: './src/assets', to: 'assets' },
         { from: './src/assets/img/favicon.ico', to: 'favicon.ico' },
       ]),
-      new ImageminPlugin({ 
+      new ImageminPlugin({
         test: /\.(jpe?g|png)$/i,
         plugins: [
           imageminMozjpeg({
             quality: 80,
             progressive: true,
           }),
-          imageminPngquant()
+          imageminPngquant(),
         ],
       }),
     ],
   };
+
   return config;
 };

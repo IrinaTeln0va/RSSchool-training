@@ -1,36 +1,38 @@
 .rating {
-  box-sizing: border-box;
-  margin: 0 auto;
-  padding: 0;
-  margin-left: 25px;
-  width: calc(100% - 40px);
-  overflow: hidden;
-  height: 43px;
+  position: absolute;
+  top: 0;
+
   display: flex;
   justify-content: flex-end;
-  top: 0;
-  position: absolute;
+  box-sizing: border-box;
+  width: calc(100% - 40px);
+  height: 43px;
+  margin: 0 auto;
+  margin-left: 25px;
+  padding: 0;
+  overflow: hidden;
 }
 
 .star {
+  flex-shrink: 0;
   box-sizing: border-box;
   width: calc(100% / 10);
   padding-left: 5px;
+
   background-repeat: no-repeat;
   background-size: 80%;
-  flex-shrink: 0;
-    @media (min-width: $tablet) {
-      width: calc(100% / 15);
-    }
-      @media (min-width: $desctop) {
-        width: calc(100% / 32);
-      }
+  @media (min-width: $tablet) {
+    width: calc(100% / 15);
+  }
+  @media (min-width: $desctop) {
+    width: calc(100% / 32);
+  }
 }
 
 .star-success {
-  background-image: url('../assets/img/star-win.svg');
+  background-image: url("../assets/img/star-win.svg");
 }
 
 .star-loss {
-  background-image: url('../assets/img/star.svg');
+  background-image: url("../assets/img/star.svg");
 }

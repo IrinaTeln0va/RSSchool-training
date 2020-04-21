@@ -8,7 +8,6 @@ export default class Game {
     this.wordsListPlay = wordsListPlay;
     this.startGameBtn = this.wordsListPlay.gameControls.querySelector('.btn');
     this.audioPlayer = this.wordsListPlay.gameControls.querySelector('audio');
-    // this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
     this.answersCheckList = [];
     this.currentQuestionIndex = 0;
     this.onStartedBtnChanged = this.onStartedBtnChanged.bind(this);
@@ -28,12 +27,10 @@ export default class Game {
 
   onStartedBtnChanged(evt) {
     if (evt.propertyName !== 'top') {
-      console.log(evt.propertyName);
       return;
     }
 
     this.startGameBtn.style.position = 'static';
-    console.log('top');
     this.startGameBtn.removeEventListener('transitionend', this.onStartedBtnChanged);
   }
 

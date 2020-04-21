@@ -1,18 +1,21 @@
 body {
-  color: #000000;
-  font-size: $font-size;
-  font-family: $font-open-sans;
   min-width: 320px;
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  overflow-y: scroll;
+
+  font-size: $font-size;
+  font-family: $font-open-sans;
+  color: #000000;
+
+  background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: cover;
-  overflow-y: scroll;
 }
 
 a {
   text-decoration: none;
+
   cursor: pointer;
 }
 
@@ -32,69 +35,79 @@ img {
 
 .container {
   position: relative;
+
   box-sizing: border-box;
-  min-width: 320px;
   width: 90%;
+  min-width: 320px;
   max-width: 1200px;
   margin: 0 auto;
-  padding-left: 5px;
   padding-right: 5px;
+  padding-left: 5px;
   overflow-x: hidden;
 
-    @media (min-width: $tablet) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+  @media (min-width: $tablet) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 
-    @media (min-width: $desctop) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
+  @media (min-width: $desctop) {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
 }
 
 .win-game::after,
 .lose-game::after {
+  content: "";
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
+
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #fff;
-  background-image: url('../assets/img/win.jpg');
-  content: '';
-  background-size: cover;
-  background-position: top -200px center;
+
+  background-color: #ffffff;
+  background-image: url("../assets/img/win.jpg");
   background-repeat: no-repeat;
+  background-position: top -200px center;
+  background-size: cover;
 }
 
 .lose-game::after {
-  background-image: url('../assets/img/lose.jpg');
-  background-size: 58%;
+  background-image: url("../assets/img/lose.jpg");
   background-position: top;
+  background-size: 58%;
 }
 
 .lose-game-message {
   position: fixed;
-  box-sizing: border-box;
-  padding: 6px 10px;
-  font-size: 16px;
-  box-shadow: 2px 2px 5px 0px #062e8f24;
   top: 22px;
   left: 13%;
   z-index: 11;
+
+  box-sizing: border-box;
+  padding: 6px 10px;
+
+  font-size: 16px;
   color: #05112e;
-    @media (min-width: $tablet) {
-      padding: 12px 21px;
-      font-size: 21px;
-      top: 41px;
-      left: 10%;
-    }
-    @media (min-width: $desctop) {
-      padding: 23px 40px;
-      font-size: 25px;
-      top: 48px;
-      left: 18%;
-    }
+
+  box-shadow: 2px 2px 5px 0 #062e8f24;
+  @media (min-width: $tablet) {
+    top: 41px;
+    left: 10%;
+
+    padding: 12px 21px;
+
+    font-size: 21px;
+  }
+  @media (min-width: $desctop) {
+    top: 48px;
+    left: 18%;
+
+    padding: 23px 40px;
+
+    font-size: 25px;
+  }
 }

@@ -11,10 +11,6 @@
     "eslint-fix": "eslint **/*.js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/IrinaTeln0va/the-gem-puzzle.git"
-  },
   "author": "Irina Telnova",
   "license": "ISC",
   "bugs": {
@@ -29,6 +25,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.2",
+    "csscomb": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",

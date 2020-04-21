@@ -1,11 +1,12 @@
 header {
   position: relative;
   z-index: 2;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-  padding-bottom: 0;
   box-sizing: border-box;
   min-height: 110px;
+  padding: 20px 0;
+  padding-bottom: 0;
 }
