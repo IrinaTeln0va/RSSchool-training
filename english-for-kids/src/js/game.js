@@ -11,16 +11,30 @@ export default class Game {
     // this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
     this.answersCheckList = [];
     this.currentQuestionIndex = 0;
+    this.onStartedBtnChanged = this.onStartedBtnChanged.bind(this);
     this.initGame();
   }
 
   initGame() {
     this.startGameBtn.classList.add('repeat');
+    this.startGameBtn.addEventListener('transitionend', this.onStartedBtnChanged);
+    this.wordsListPlay.domElement.classList.add('started');
     this.startGameBtn.addEventListener('click', this.onRepeatBtnClick.bind(this));
     this.isGameStarted = true;
     this.questionsRandomList = this.getQuestionsRandomList();
     this.wordsListPlay.onAnswer = this.onAnswer.bind(this);
     this.askQuestion();
+  }
+
+  onStartedBtnChanged(evt) {
+    if (evt.propertyName !== 'top') {
+      console.log(evt.propertyName);
+      return;
+    }
+
+    this.startGameBtn.style.position = 'static';
+    console.log('top');
+    this.startGameBtn.removeEventListener('transitionend', this.onStartedBtnChanged);
   }
 
   askQuestion(repeat) {

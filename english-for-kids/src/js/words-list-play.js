@@ -20,7 +20,7 @@ export default class WordsListPlay {
   static createElement() {
     const domElement = document.createElement('ul');
 
-    domElement.classList.add('cards-list');
+    domElement.classList.add('cards-list', 'game-disabled');
 
     return domElement;
   }

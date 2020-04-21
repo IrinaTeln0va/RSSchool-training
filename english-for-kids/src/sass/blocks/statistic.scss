@@ -277,13 +277,13 @@
 }
 
 .sort-btn li {
-  background-color: #eaebeb;
-  color:#05112e;
+  background-color: #05112ee0;
+  color: #fff;
+  backdrop-filter: blur(2px);
 }
 
 .sort-btn li:hover {
-  background-color: #fff;
-  color: #05112e;
+  background-color: #05112e;
 }
 
 
@@ -299,7 +299,7 @@
 	width:1px;
 	height:1px;
 	border:5px solid transparent;
-	border-bottom-color:#eaebeb;
+	border-bottom-color: #05112e;
 	left:50%;
 	top:-10px;
 	margin-left:-5px;
