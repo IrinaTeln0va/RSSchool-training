@@ -8,32 +8,31 @@
 }
 
 .start-game-btn {
-  padding-top: 24px;
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  top: 400px;
-  /* top: 200px; */
-  z-index: 1;
-  border-radius: 50%;
-  display: block;
-  box-shadow: 0px 0px 20px 15px #009aff36;
-  padding-bottom: 20px;
-  padding-left: 34px;
-  border: 32px solid #009aff1c;
-  cursor: pointer;
-  transform: translateY(-50%);
-  background-color: #ffffff;
-  background-image: url('../assets/img/icon-start.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 80%;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  color: #2572ee;
-  transition: top 1.3s, transform 1.3s;
+    padding-top: 24px;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 400px;
+    z-index: 1;
+    border-radius: 50%;
+    display: block;
+    // box-shadow: 0px 0px 20px 15px #009aff36;
+    padding-bottom: 20px;
+    padding-left: 34px;
+    border: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+    background-color: #ffffff;
+    background-image: url('../assets/img/start-game.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: top 1.3s, transform 1s;
+    box-shadow: 1px 1px 11px 4px #b6d0f266;
 }
 
 .start-game-btn:hover {
@@ -41,18 +40,19 @@
 }
 
 .repeat {
-  background-image: url('../assets/img/icon-repeat.svg');
+  background-image: url('../assets/img/repeat-word.svg');
   transform: none;
-  background-size: 82%;
+  background-size: 100%;
   width: 125px;
   height: 125px;
   top: calc(100% - 180px);
-  transition: top 1.3s, transform 1.3s, background 0.2s;
+  transition: top 1.3s, transform 1s, background 0.2s;
+  box-shadow: none;
 }
 
 .repeat:hover {
   transform: none;
-  background-size: 100%;
+  background-size: 120%;
 }
 
 .repeat:focus {

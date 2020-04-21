@@ -6,7 +6,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 var ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const imageminPngquant = require('imagemin-pngquant');
-const imageminSvgo = require('imagemin-svgo');
 
 module.exports = (env, options) => {
   const isProduction = options.mode === 'production';
@@ -73,20 +72,16 @@ module.exports = (env, options) => {
         { from: './src/assets/img/favicon.ico', to: 'favicon.ico' },
       ]),
       new ImageminPlugin({ 
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.(jpe?g|png)$/i,
         plugins: [
           imageminMozjpeg({
             quality: 80,
             progressive: true,
           }),
-          imageminPngquant(),
-          imageminSvgo({
-            removeViewBox: false,
-          }),
+          imageminPngquant()
         ],
       }),
     ],
   };
-
   return config;
 };
