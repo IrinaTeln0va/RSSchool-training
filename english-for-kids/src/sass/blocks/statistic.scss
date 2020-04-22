@@ -144,6 +144,7 @@
 
   box-shadow: 2px 2px 5px 0 #062e8f24;
 }
+
 .legend {
   display: flex;
   flex-direction: column;
@@ -159,12 +160,15 @@
 
   background: #ffffff;
 }
+
 .legend-title {
   margin: 0;
   margin-bottom: 13px;
-
-  font-weight: 500;
+  
+  color: #05112e;
+  font-weight: 600;
 }
+
 .category-title {
   margin-bottom: 0.7em;
   padding-left: 0.5em;
@@ -173,6 +177,7 @@
 
   border-left: 20px solid black;
 }
+
 .statistic .category-title {
   display: block;
   height: 20px;
@@ -186,9 +191,11 @@
     font-size: 16px;
   }
 }
+
 .legend em {
   font-style: normal;
 }
+
 .legend span {
   float: right;
 }

@@ -148,7 +148,7 @@ class Statistic {
     domElement.innerHTML = `
       <div class='support-elements'>
         <div class='support-legend'>
-          <h4 class='legend-title'>Обозначения категорий</h4>
+          <h4 class='legend-title'>Legend</h4>
           <ul class="legend">
             ${data.categories.map((category) => `
               <li class='category-title'>
@@ -167,40 +167,40 @@ class Statistic {
           <th data-title='index' class='sort-btn'>
             <strong>№</strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='category' class='adaptive sort-btn'>
             <strong>
               <span class='icon group' title='category'></span>
-              Категория
+              Category
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='word' class='sort-btn'>
             <strong>
-              Слово
+              Word
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='translate' class='sort-btn'>
             <strong>
-              Перевод
+              Translation
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='trainClick' class='adaptive sort-btn'>
@@ -209,9 +209,9 @@ class Statistic {
               </span>
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='playClick' class='adaptive sort-btn'>
@@ -220,9 +220,9 @@ class Statistic {
               </span>
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='errors' class='adaptive sort-btn'>
@@ -231,9 +231,9 @@ class Statistic {
               </span>
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
           <th data-title='percent' class='adaptive sort-btn'>
@@ -242,9 +242,9 @@ class Statistic {
               </span>
             </strong>
             <ul>
-                <li><a class='sort sort-up' href="#">Сортировать по возрастанию</a></li>
-                <li><a class='sort sort-down' href="#">Сортировать по убыванию</a></li>
-                <li><a class='sort sort-down reset' href="#">Сбросить фильтр</a></li>
+                <li><a class='sort sort-up' href="#">in ascending order</a></li>
+                <li><a class='sort sort-down' href="#">in descending order</a></li>
+                <li><a class='sort sort-down reset' href="#">reset filters</a></li>
             </ul>
           </th>
         </tr>
