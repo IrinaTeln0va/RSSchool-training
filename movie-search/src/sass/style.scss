@@ -2,3 +2,8 @@
 @import 'variables.scss';
 @import 'mixin.scss';
 @import 'blocks/base.scss';
+@import '~swiper/src/swiper.scss';
+@import '~swiper/src/components/navigation/navigation.scss';
+@import '~swiper/src/components/pagination/pagination.scss';
+@import '~swiper/src/components/scrollbar/scrollbar.scss';
+@import 'blocks/swiper.scss';
