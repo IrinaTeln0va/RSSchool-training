@@ -1,0 +1,13 @@
+.movie-rating {
+  display: flex;
+  align-items: stretch;
+}
+
+.rating-img {
+  margin-left: 15px;
+  width: calc(15px * 10);
+  background-image: url('../assets/img/star-fill.svg');
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: 15px;
+}

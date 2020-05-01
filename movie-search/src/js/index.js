@@ -4,31 +4,37 @@ const mySwiper = new Swiper('.swiper-container', {
   // Optional parameters
   slidesPerView: 1,
   spaceBetween: 30,
+  allowTouchMove: true,
+  updateOnWindowResize: true,
   pagination: {
     el: '.swiper-pagination',
     clickable: true,
   },
 
   breakpoints: {
-    640: {
+    320: {
       slidesPerView: 1,
-      spaceBetween: 20,
+      spaceBetween: 25,
     },
-    768: {
+    540: {
       slidesPerView: 2,
-      spaceBetween: 40,
+      spaceBetween: 25,
     },
-    1024: {
-      slidesPerView: 5,
-      spaceBetween: 50,
+    960: {
+      slidesPerView: 3,
+      spaceBetween: 25,
+    },
+    1020: {
+      slidesPerView: 4,
+      spaceBetween: 25,
     },
   },
 
   // Navigation arrows
-  // navigation: {
-  //   nextEl: '.swiper-button-next',
-  //   prevEl: '.swiper-button-prev',
-  // },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
 
   // And if we need scrollbar
   scrollbar: {

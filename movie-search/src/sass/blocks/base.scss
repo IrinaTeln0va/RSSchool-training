@@ -2,13 +2,22 @@ body {
   min-width: 320px;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 
   font-size: $font-size;
   font-family: $font-open-sans;
   color: #fff;
 
   background-color: #2e2e2e;
-  background-repeat: repeat;
+  
+}
+
+main {
+  flex-grow: 1;
+  padding: 75px 0;
+  padding-bottom: 130px;
 }
 
 a {
@@ -39,17 +48,17 @@ img {
   min-width: 320px;
   max-width: 1200px;
   margin: 0 auto;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
   overflow-x: hidden;
 
-  @media (min-width: $tablet) {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+  // @media (min-width: $tablet) {
+  //   padding-right: 15px;
+  //   padding-left: 15px;
+  // }
 
-  @media (min-width: $desctop) {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+  // @media (min-width: $desctop) {
+  //   padding-right: 20px;
+  //   padding-left: 20px;
+  // }
 }
