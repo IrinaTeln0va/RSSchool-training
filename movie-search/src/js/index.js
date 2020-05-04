@@ -1,8 +1,13 @@
-import initSwiper from './init-swiper.js';
-import {onSearchBtnClick} from './search.js';
+import { getMovieData } from './search.js';
+import mySwiper from './my-swiper.js';
 
-initSwiper();
+const searchInput = document.querySelector('.search-input');
+searchInput.focus();
 
-const searchBtn = document.querySelector('.search-btn');
+let swiperComponent;
 
-searchBtn.addEventListener('click', onSearchBtnClick);
+getMovieData().
+  then((moviesData) => {
+    swiperComponent = new mySwiper(moviesData);
+  });
+

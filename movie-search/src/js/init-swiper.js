@@ -1,7 +1,7 @@
 import Swiper from 'swiper';
 
 export default function initSwiper() {
-  const mySwiper = new Swiper('.swiper-container', {
+  return new Swiper('.swiper-container', {
     // Optional parameters
     slidesPerView: 1,
     spaceBetween: 30,
