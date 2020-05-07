@@ -56,6 +56,10 @@
   opacity: 1;
 }
 
+.search-btn:focus {
+  outline: none;
+}
+
 .search-input:focus ~ .search-btn,
 .search-input:hover ~ .search-btn{
   background-image: url('../assets/img/search.svg');
