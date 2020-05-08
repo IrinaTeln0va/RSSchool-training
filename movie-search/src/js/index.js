@@ -1,10 +1,14 @@
-import { getMovieData } from './search.js';
-import MySwiper from './my-swiper.js';
+import Controller from './controller.js';
 
-const searchInput = document.querySelector('.search-input');
-searchInput.focus();
+new Controller();
 
-getMovieData({}).
-  then((moviesData) => {
-    new MySwiper(moviesData);
-  });
+
+// import MySwiper from './my-swiper.js';
+
+// const searchInput = document.querySelector('.search-input');
+// searchInput.focus();
+
+// getMovieData({}).
+//   then((moviesData) => {
+//     new MySwiper(moviesData);
+//   });
