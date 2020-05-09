@@ -4,7 +4,7 @@ const API_KEY = {
 };
 
 const SERVER_URL = {
-  movies: 'http://www.omdbapi.com/',
+  movies: 'https://www.omdbapi.com/',
   translator: 'https://translate.yandex.net/api/v1.5/tr.json/translate',
 };
 

@@ -85,7 +85,9 @@ export default class Search {
       }
       errorElement.classList.remove('active');
       document.body.removeEventListener('mouseup', hideMessage);
-      searchElement.focus();
+      if (!evt.target.closest('.swiper-container')) {
+        searchElement.focus();
+      }
     });
 
     searchElement.addEventListener('input', function hideErrorOnInput() {
