@@ -4,11 +4,25 @@
   color: #ffffffbd;
 }
 
-.rating-img {
+.rating-wrapper {
+  position: relative;
   margin-left: 15px;
+  height: 15px;
+  width: calc(15px * 10);
+}
+
+.rating-img {
+  position: absolute;
   width: calc(15px * 10);
   background-image: url('../assets/img/star-fill.svg');
   background-repeat: repeat-x;
   background-position: left center;
   background-size: 15px;
+  z-index: 2;
+  height: 15px;
+}
+
+.rating-img.base {
+  z-index: 1;
+  background-image: url('../assets/img/star-empty.svg');
 }

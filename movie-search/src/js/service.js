@@ -8,7 +8,7 @@ const SERVER_URL = {
   translator: 'https://translate.yandex.net/api/v1.5/tr.json/translate',
 };
 
-const DEFAULT_POSTER_SRC = '../assets/img/pattern.png';
+const DEFAULT_POSTER_SRC = '../assets/img/default-poster.png';
 
 export default class Service {
 
@@ -28,7 +28,10 @@ export default class Service {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
         }
-        throw new Error(`server error: ${response.status} ${response.statusText}`);
+        if (response.status == 401) {
+          throw new Error('Status 401. Try another API key');
+        }
+        throw new Error(`Server error: ${response.status} ${response.statusText}`);
       });
   }
 

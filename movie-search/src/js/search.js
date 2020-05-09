@@ -1,15 +1,18 @@
 import Service from './service.js';
 
-const DEFAULT_SEARCH = 'kill bill';
+const DEFAULT_SEARCH = 'terminator';
 const DEFAULT_PAGE = 1;
-const MOVIES_PER_PAGE = 10;
 const buffer = 10;
 
-const MULTI_LANG_REG_EXP = /(^[А-я0-9\s]+)(?!.*[A-z])$|(^[A-z0-9\s]+)(?!.*[А-я])$/g;
+// const MULTI_LANG_REG_EXP = /(^[А-я0-9\s]+)(?!.*[A-z])$|(^[A-z0-9\s]+)(?!.*[А-я])$/g;
 const CONTAIN_RUS_REG_EXP = /[А-я]+/g;
 
 const formElement = document.querySelector('.search-form');
 const searchElement = document.querySelector('.search-input');
+const searchBtn = document.querySelector('.search-btn');
+const clearSearchBtn = document.querySelector('.clear-search-btn');
+const errorElement = document.querySelector('.error-message');
+const spinnerElement = document.querySelector('#floatingBarsG');
 
 export default class Search {
   constructor() {
@@ -18,6 +21,7 @@ export default class Search {
       currentPage: DEFAULT_PAGE,
       isRequestPending: false,
       isSearchTranslated: false,
+      searchTranslate: null,
     };
     this.currentSearch = DEFAULT_SEARCH;
     this.totalResults = 0;
@@ -26,17 +30,41 @@ export default class Search {
 
   bind() {
     formElement.addEventListener('submit', this.onSearchFormSubmit.bind(this));
+    clearSearchBtn.addEventListener('click', () => {
+      searchElement.value = '';
+      searchElement.focus();
+    });
   }
   
   onSearchFormSubmit(evt) {
     evt.preventDefault();
     const movieToSearch = searchElement.value && searchElement.value.length ? searchElement.value : null;
+    if (!movieToSearch) {
+      this.showErrorMessage(`Please enter your query in the search input`);
+      searchElement.focus();
+      return;
+    };
     this.currentSearch = movieToSearch;
     this.resetSearchState();
+    this.showSpinner();
     this.getMoviesData(movieToSearch)
       .then((moviesData) => {
         this.onUserSearch(moviesData);
       })
+      .catch((err) => {
+        this.hideSpinner();
+        this.showErrorMessage(err);
+      })
+  }
+
+  showSpinner() {
+    searchBtn.classList.add('hide');
+    spinnerElement.classList.add('active');
+  }
+
+  hideSpinner() {
+    spinnerElement.classList.remove('active');
+    searchBtn.classList.remove('hide');
   }
 
   resetSearchState() {
@@ -48,16 +76,46 @@ export default class Search {
   onUserSearch(moviesData) {
   }
 
+  showErrorMessage(error) {
+    errorElement.querySelector('.error-text').innerText = `${error}`;
+    errorElement.classList.add('active');
+    document.body.addEventListener('mouseup', function hideMessage(evt) {
+      if (evt.target.closest('.error-message') && !evt.target.closest('.error-btn')) {
+        return;
+      }
+      errorElement.classList.remove('active');
+      document.body.removeEventListener('mouseup', hideMessage);
+      searchElement.focus();
+    });
+
+    searchElement.addEventListener('input', function hideErrorOnInput() {
+      errorElement.classList.remove('active');
+      searchElement.removeEventListener('input', hideErrorOnInput);
+    });
+    searchElement.focus();
+  }
+
+  notifyIfTranslated() {
+    if (this.state.isSearchTranslated) {
+      this.showErrorMessage(`Showing results for ${this.state.searchTranslate}`);
+    }
+  }
+
   getMoviesData(movieToSearch = this.currentSearch, page = this.state.currentPage) {
     this.state.isRequestPending = true;
     return this.translateIfNecessary(movieToSearch).
-      then((movieToSearch) => Service.getMoviesList(movieToSearch, page))
+      then((movieToSearch) => {
+        this.state.searchTranslate = movieToSearch;
+        return Service.getMoviesList(movieToSearch, page);
+      })
       .then((moviesData) => {
         if (moviesData.Error) {
-          console.log(`ошибка при запросе: ${moviesData.Error}`);
-          throw new Error(moviesData.Error);
+          if (moviesData.Error === 'Movie not found!') {
+            throw new Error(`No results for '${movieToSearch}'`);
+          } else {
+            throw new Error(moviesData.Error);
+          }
         } else {
-          // this.state.shownMoviesAmount += moviesData.Search.length;
           this.totalResults = moviesData.totalResults;
 
           return moviesData.Search.map((movie) => {
@@ -70,12 +128,11 @@ export default class Search {
       .then((data) => data.map(Service.getMovieRating))
       .then((cardPromises) => Promise.all(cardPromises))
       // .then((data) => data)
-      .catch((err) => console.error(`final error in the chain: ${err}`))
       .then((moviesData) => {
         this.state.shownMoviesAmount += moviesData.length;
         this.state.isRequestPending = false;
         return moviesData;
-      });
+      })
   }
 
   translateIfNecessary (movieToSearch) {
@@ -92,22 +149,18 @@ export default class Search {
   }
 
   checkSearchLang(movieToSearch) {
-    const isMultiLangSearch = MULTI_LANG_REG_EXP.test(movieToSearch);
-    MULTI_LANG_REG_EXP.lastIndex = 0;
+    // const isMultiLangSearch = MULTI_LANG_REG_EXP.test(movieToSearch);
+    // MULTI_LANG_REG_EXP.lastIndex = 0;
   
-    if (!isMultiLangSearch) {
-      console.log('error: multi lang');
+    const containRusLetters = CONTAIN_RUS_REG_EXP.test(movieToSearch);
+    CONTAIN_RUS_REG_EXP.lastIndex = 0;
+
+    if (containRusLetters) {
+      this.isSearchTranslated = true;
+      return 'ru';
     } else {
-      const isRusLangSearch = CONTAIN_RUS_REG_EXP.test(movieToSearch);
-      CONTAIN_RUS_REG_EXP.lastIndex = 0;
-  
-      if (isRusLangSearch) {
-        this.isSearchTranslated = true;
-        return 'ru';
-      } else {
-        this.isSearchTranslated = false;
-        return 'eng';
-      }
+      this.isSearchTranslated = false;
+      return 'eng';
     }
   }
   

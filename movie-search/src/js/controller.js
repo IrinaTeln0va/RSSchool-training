@@ -15,6 +15,9 @@ export default class Controller {
       .then((moviesDataList) => {
         this.swiper = new MySwiper(moviesDataList);
         this.bind();
+      })
+      .catch((error) => {
+        this.search.showErrorMessage(error);
       });
     searchInput.focus();
   }
@@ -30,6 +33,8 @@ export default class Controller {
 
     this.search.onUserSearch = function (moviesData) {
       this.swiper.replaceAllSlides(moviesData);
+      this.search.notifyIfTranslated();
+      this.search.hideSpinner();
     }.bind(this);
   }
 }

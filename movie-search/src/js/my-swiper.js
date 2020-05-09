@@ -1,8 +1,10 @@
 // import { getMovieData, searchState } from './search.js';
 import initSwiper from './init-swiper.js';
 
-// const MOVIES_PER_PAGE = 10;
-// const START_PAGE = 1;
+const ratingSetting = {
+  starWidth: 15,
+  totalStars: 10
+}
 
 export default class MySwiper {
   constructor(moviesToShow) {
@@ -67,6 +69,21 @@ export default class MySwiper {
     //   });
   }
 
+  handleRating(rating) {
+    if (rating == 'N/A') {
+      rating = 0;
+    }
+    function calcRating(rating) {
+      return rating * ratingSetting.starWidth;
+    }
+    return `
+      <span class='rating'>${rating}</span>
+      <span class='rating-wrapper'>
+        <span class='rating-img base'></span>
+        <span class='rating-img' style='width: ${calcRating(rating)}px'></span>
+      </span>`
+  }
+
   // isTimeToLoadNew() {
   //   const activeSlideIndex = this.swiper.activeIndex;
   //   return searchState.shownMoviesAmount - activeSlideIndex < MOVIES_PER_PAGE;
@@ -85,7 +102,7 @@ export default class MySwiper {
     domElement.classList.add(`swiper-slide`, `slide-${index}`);
     domElement.innerHTML = `
       <h2 class="movie-title">
-        <a class="movie-link" href="#">${data.title}</a>
+        <a class="movie-link" href="https://www.imdb.com/title/${data.id}/videogallery/">${data.title}</a>
       </h2>
       <div class="movie-poster">
       </div>
@@ -93,10 +110,8 @@ export default class MySwiper {
         ${data.year}
       </p>
       <p class="movie-rating">
-        <span class='rating'>${data.rating}</span>
-        <span class="rating-img"></span>
-      </p>
-    </div>`;
+        ${this.handleRating(data.rating)}
+      </p>`;
     domElement.querySelector('.movie-poster').append(data.posterSrc);
     return domElement;
   }

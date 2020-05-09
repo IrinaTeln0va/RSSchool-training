@@ -7,6 +7,7 @@ export default function initSwiper() {
     spaceBetween: 30,
     allowTouchMove: true,
     updateOnWindowResize: true,
+    centerInsufficientSlides: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
