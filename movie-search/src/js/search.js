@@ -1,4 +1,7 @@
 import Service from './service.js';
+import renderKeyboard from './keyboard.js';
+
+renderKeyboard();
 
 const DEFAULT_SEARCH = 'terminator';
 const DEFAULT_PAGE = 1;
@@ -10,9 +13,11 @@ const CONTAIN_RUS_REG_EXP = /[А-я]+/g;
 const formElement = document.querySelector('.search-form');
 const searchElement = document.querySelector('.search-input');
 const searchBtn = document.querySelector('.search-btn');
+const keyboardBtn = document.querySelector('.keyboard-btn');
 const clearSearchBtn = document.querySelector('.clear-search-btn');
 const errorElement = document.querySelector('.error-message');
 const spinnerElement = document.querySelector('#floatingBarsG');
+const keyboardElement = document.querySelector('.keyboard');
 
 export default class Search {
   constructor() {
@@ -30,9 +35,24 @@ export default class Search {
 
   bind() {
     formElement.addEventListener('submit', this.onSearchFormSubmit.bind(this));
+    keyboardElement.querySelector('.enter-key').addEventListener('click', this.onSearchFormSubmit.bind(this));
     clearSearchBtn.addEventListener('click', () => {
       searchElement.value = '';
       searchElement.focus();
+    });
+    searchElement.addEventListener('blur', () => {
+      if (searchElement.value && searchElement.value.length > 0) {
+        searchElement.classList.add('filled');
+      } else {
+        searchElement.classList.remove('filled');
+      }
+    });
+    keyboardBtn.addEventListener('click', () => {
+      if (keyboardElement.classList.contains('active')) {
+        keyboardElement.classList.remove('active');
+        return;
+      }
+      this.showKeyboard();
     });
   }
   
@@ -95,6 +115,29 @@ export default class Search {
       searchElement.removeEventListener('input', hideErrorOnInput);
     });
     searchElement.focus();
+  }
+
+  showKeyboard() {
+    keyboardElement.classList.add('active');
+    document.body.addEventListener('mouseup', function hideKeyboard(evt) {
+      if (evt.target.closest('.keyboard') 
+      || evt.target.closest('.clear-search-btn')
+      || evt.target.closest('.search-input')) {
+        return;
+      }
+      if (!evt.target.closest('.keyboard-btn')) {
+        keyboardElement.classList.remove('active');
+      }
+      document.body.removeEventListener('mouseup', hideKeyboard);
+      if (!evt.target.closest('.swiper-container')) {
+        keyboardElement.focus();
+      }
+    });
+    document.body.addEventListener('keydown', function hidekeyboardOnType() {
+      keyboardElement.classList.remove('active');
+      document.body.removeEventListener('keydown', hidekeyboardOnType);
+    });
+    keyboardElement.focus();
   }
 
   notifyIfTranslated() {

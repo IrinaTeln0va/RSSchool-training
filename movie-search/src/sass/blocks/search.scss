@@ -57,7 +57,7 @@
       right: 65px;
     }
     @media (min-width: $desctop) {
-      right: 80px;
+      right: 122px;
     }
 }
 
@@ -70,7 +70,8 @@
 }
 
 .search-input:focus,
-.search-input:hover {
+.search-input:hover,
+.search-input.filled {
   outline: none;
   border-bottom: 1px solid transparent;
   background-size: 100% 2px;
@@ -103,6 +104,31 @@
       width: 60px;
       height: 60px;
     }
+}
+
+.keyboard-btn {
+  @include btn-reset;
+  position: relative;
+  background-color: transparent;
+  font-size: 0;
+  width: 35px;
+  height: 35px;
+  background-image: url('../assets/img/keyboard.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-top: 5px;
+  margin-right: 10px;
+  opacity: 0.3;
+  transition: .3s;
+  display: none;
+  @media (min-width: $desctop) {
+    display: inline-block;
+  }
+}
+
+.keyboard-btn:hover {
+  opacity: 1;
 }
 
 .search-btn.hide {

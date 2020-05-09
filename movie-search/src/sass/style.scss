@@ -1,6 +1,7 @@
 @import 'normalize.scss';
 @import 'variables.scss';
 @import 'mixin.scss';
+@import 'fonts.scss';
 @import 'blocks/base.scss';
 @import '~swiper/src/swiper.scss';
 @import '~swiper/src/components/navigation/navigation.scss';
@@ -14,3 +15,4 @@
 @import 'blocks/rating.scss';
 @import 'blocks/error-message.scss';
 @import 'blocks/spinner.scss';
+@import 'blocks/keyboard.scss';
