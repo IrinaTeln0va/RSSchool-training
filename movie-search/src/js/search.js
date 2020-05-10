@@ -30,6 +30,7 @@ export default class Search {
     };
     this.currentSearch = DEFAULT_SEARCH;
     this.totalResults = 0;
+    this.extraInfoMovieList = [];
     this.bind();
   }
 
@@ -173,11 +174,17 @@ export default class Search {
       .then((data) => data.map(Service.getMovieRating))
       .then((cardPromises) => Promise.all(cardPromises))
       // .then((data) => data)
-      .then((moviesData) => {
-        this.state.shownMoviesAmount += moviesData.length;
+      .then((fullMovieData) => {
+        // let { movieData, movieResponse} = data;
+        this.state.shownMoviesAmount += fullMovieData.length;
         this.state.isRequestPending = false;
-        return moviesData;
+        this.saveMovieFullData(fullMovieData.map(({ movieResponse }) => movieResponse));
+        return fullMovieData.map(({ movieData }) => movieData);
       })
+  }
+
+  saveMovieFullData(moviesList) {
+    this.extraInfoMovieList = [...this.extraInfoMovieList, ...moviesList];
   }
 
   translateIfNecessary (movieToSearch) {
@@ -185,9 +192,6 @@ export default class Search {
     if (searchLang === 'ru') {
       this.state.isSearchTranslated = true;
       return Service.translate(movieToSearch);
-      // return fetch(translatorUrl).
-      //   then((response) => response.json()).
-      //   then((response) => response.text[0]);
     } else if (searchLang === 'eng') {
       return new Promise(resolve => resolve(movieToSearch));
     }

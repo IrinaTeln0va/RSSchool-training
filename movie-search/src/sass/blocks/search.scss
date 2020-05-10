@@ -131,6 +131,10 @@
   opacity: 1;
 }
 
+.keyboard-btn:focus {
+  outline: none;
+}
+
 .search-btn.hide {
   display: none;
 }

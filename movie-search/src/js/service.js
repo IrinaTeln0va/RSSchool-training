@@ -48,7 +48,7 @@ export default class Service {
         }).
         then((movieResponse) => {
           movieData.rating = movieResponse.imdbRating;
-          onLoad(movieData);
+          onLoad({ 'movieData': movieData, 'movieResponse': movieResponse});
         }).
         catch((err) => console.log(`Rating loading Error: ${err}`));
     });
