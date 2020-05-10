@@ -1,14 +1,17 @@
 .movie-rating {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   color: #ffffffbd;
 }
 
 .rating-wrapper {
   position: relative;
-  margin-left: 15px;
+  margin-left: 5px;
   height: 15px;
   width: calc(15px * 10);
+    @media (min-width: $tablet) {
+      margin-left: 15px;
+    }
 }
 
 .rating-img {

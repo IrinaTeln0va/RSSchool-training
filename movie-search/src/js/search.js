@@ -123,7 +123,8 @@ export default class Search {
     document.body.addEventListener('mouseup', function hideKeyboard(evt) {
       if (evt.target.closest('.keyboard') 
       || evt.target.closest('.clear-search-btn')
-      || evt.target.closest('.search-input')) {
+      || evt.target.closest('.search-input')
+      || evt.target.closest('.error-message')) {
         return;
       }
       if (!evt.target.closest('.keyboard-btn')) {
