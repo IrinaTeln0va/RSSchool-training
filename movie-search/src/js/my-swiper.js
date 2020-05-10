@@ -10,6 +10,7 @@ export default class MySwiper {
   constructor(moviesToShow) {
     console.log(moviesToShow);
     this.moviesToShow = moviesToShow;
+    this.cardElementsList = [];
     // this.totalDataResults = searchData.totalResults;
     this.swiper = null;
     this.init();
@@ -24,17 +25,29 @@ export default class MySwiper {
 
   addSlideElements(moviesToShow) {
     // const slidesWrapper = document.querySelector('.swiper-wrapper');
-    const slideElementsList = moviesToShow.map((item, index) => {
-      return this.createSlideElement(item, index);
-    });
+    // const slideElementsList = moviesToShow.map((item, index) => {
+    //   return this.createSlideElement(item, index);
+    // });
+    const slideElementsList = this.createCardsList(moviesToShow);
 
     // if (searchState.shownMoviesAmount <= MOVIES_PER_PAGE) {
     //   this.drawSlides(slideElementsList, slidesWrapper);
     // } else {
-    this.swiper.appendSlide(slideElementsList);
+    this.cardElementsList = slideElementsList;
+    this.appendSlides(slideElementsList);
     // }
     // this.shownMoviesAmount += slideElementsList.length;
     // console.log(searchState.shownMoviesAmount);
+  }
+
+  createCardsList(moviesToShow) {
+    return moviesToShow.map((item, index) => {
+      return this.createSlideElement(item, index);
+    });
+  }
+
+  appendSlides(slideElementsList) {
+    this.swiper.appendSlide(slideElementsList);
   }
 
   replaceAllSlides(newSlidesData) {

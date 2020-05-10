@@ -1,12 +1,16 @@
 import Search from './search.js';
 import MySwiper from './my-swiper.js';
+import ListView from './list-view.js';
 
 const searchInput = document.querySelector('.search-input');
+const viewOptions = document.querySelector('.view-options');
+const pageContainer = document.querySelector('main .container');
 
 export default class Controller {
   constructor() {
     this.search = new Search();
     this.swiper = null;
+    this.listView = null;
     this.init();
   }
 
@@ -14,6 +18,7 @@ export default class Controller {
     this.search.getMoviesData()
       .then((moviesDataList) => {
         this.swiper = new MySwiper(moviesDataList);
+        this.listView = new ListView(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList);
         this.bind();
       })
       .catch((error) => {
@@ -29,13 +34,30 @@ export default class Controller {
 
     this.search.onMoviesAdding = function(moviesData) {
       this.swiper.addSlideElements(moviesData);
+      this.listView.addMovies(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList);
     }.bind(this);
 
     this.search.onUserSearch = function (moviesData) {
       this.swiper.replaceAllSlides(moviesData);
+      this.listView.replaceMovies(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList);
       this.search.notifyIfTranslated();
       this.search.hideSpinner();
     }.bind(this);
+
+    viewOptions.addEventListener('click', (evt) => {
+      const target = evt.target;
+      if (target.classList.contains('slider-view-btn')) {
+        target.classList.add('active');
+        viewOptions.querySelector('.list-view-btn').classList.remove('active');
+        pageContainer.classList.remove('list-view-wrap');
+        pageContainer.classList.add('slider-view-wrap');
+      } else if (target.classList.contains('list-view-btn')) {
+        target.classList.add('active');
+        viewOptions.querySelector('.slider-view-btn').classList.remove('active');
+        pageContainer.classList.remove('slider-view-wrap');
+        pageContainer.classList.add('list-view-wrap');
+      }
+    });
   }
 }
 

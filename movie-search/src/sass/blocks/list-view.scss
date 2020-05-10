@@ -1,0 +1,127 @@
+.list-container {
+  display: block;
+  padding-top: 30px;
+}
+
+.list-container:before {
+  @include pseudo;
+  width: 100%;
+  content: 'Detailed information';
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+
+.slider-view-wrap .list-container {
+  display: none;
+}
+
+.list-view-movie {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  line-height: auto;
+  margin-bottom: 10px;
+  padding: 15px;
+  padding-right: 180px;
+  padding-bottom: 37px;
+  border-radius: 12px;
+  background-image: linear-gradient(102deg, #303030, #1e1f22);
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #ffffff5e;
+  user-select: auto;
+}
+
+.list-view-movie .movie-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.list-view-movie .movie-poster {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 173px;
+}
+
+.list-view-movie .rating-wrapper {
+  margin-left: 20px;
+}
+
+.list-view-movie .movie-poster img {
+  height: auto;
+  object-fit: cover;
+}
+
+.list-view-movie .movie-rating {
+  margin: 5px;
+}
+
+.list-view-movie .rating {
+  display: none;
+}
+
+.list-view-movie::before,
+.list-view-movie::after {
+  display: none;
+}
+
+.list-view-movie .movie-year {
+  display: none;
+}
+
+.movie-desct {
+  padding: 10px;
+  width: 100%;
+  color: #ffffffc4;
+}
+
+.movie-desct .answer {
+  text-decoration: underline;
+  font-style: italic;
+}
+
+.plot {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.descr-bottom-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: .5s;
+}
+
+.details-input {
+  display: none;
+}
+
+.details-switch {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  width: 20px;
+  height: 20px;
+  background-image: url('../assets/img/icon-arrow.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: .5s;
+  opacity: 0.3;
+}
+
+.details-input:checked + .details-switch {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.details-input:checked ~ .descr-bottom-wrapper {
+  max-height: 480px;
+}

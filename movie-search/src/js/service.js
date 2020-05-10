@@ -36,7 +36,7 @@ export default class Service {
   }
 
   static getMovieRating(movieData) {
-    const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}`;
+    const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}&plot='full'`;
 
     return new Promise((onLoad, onError) => {
       fetch(url).

@@ -3,6 +3,11 @@
   box-sizing: border-box;
   padding-bottom: 30px;
   overflow: visible;
+  display: block;
+}
+
+.list-view-wrap .swiper-container {
+  display: none;
 }
 
 .swiper-wrapper {

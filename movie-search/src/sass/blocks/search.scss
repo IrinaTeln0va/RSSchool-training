@@ -38,6 +38,10 @@
     }
 }
 
+.search-form {
+  width: 750px;
+}
+
 .clear-search-btn {
   @include btn-reset;
   position: absolute;

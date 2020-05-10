@@ -106,7 +106,7 @@ export default class Search {
       }
       errorElement.classList.remove('active');
       document.body.removeEventListener('mouseup', hideMessage);
-      if (!evt.target.closest('.swiper-container')) {
+      if (!evt.target.closest('.swiper-container') && !evt.target.closest('.list-container')) {
         searchElement.focus();
       }
     });
@@ -184,7 +184,7 @@ export default class Search {
   }
 
   saveMovieFullData(moviesList) {
-    this.extraInfoMovieList = [...this.extraInfoMovieList, ...moviesList];
+    this.extraInfoMovieList = moviesList;
   }
 
   translateIfNecessary (movieToSearch) {
@@ -193,6 +193,7 @@ export default class Search {
       this.state.isSearchTranslated = true;
       return Service.translate(movieToSearch);
     } else if (searchLang === 'eng') {
+      this.state.isSearchTranslated = false;
       return new Promise(resolve => resolve(movieToSearch));
     }
   }
