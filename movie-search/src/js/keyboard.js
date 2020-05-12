@@ -5,7 +5,6 @@ let timer;
 const REGULAR_LETTER_LENGTH = 1;
 const CURSOR_STEP = 1;
 const BEFORE_SHIFT_DELAY = 150;
-const AMOUNT_OF_LETTER_REPEATING = 2;
 
 function getLangFromStorage() {
   try {
@@ -22,7 +21,6 @@ const ROWS_SIZE = [14, 29, 42, 55, 64];
 const MULTI_CONTENT_KEYS = 12;
 const LANG_CHANGING_KEYS = [['Alt', 'Shift'], ['AltGraph', 'Shift']];
 const replacedTextKeys = [['Delete', 'Del'], ['CapsLock', 'CapsLk'], ['Control', 'Ctrl'], ['Meta', `${lang.toUpperCase()}`], ['ArrowUp', 'Up'], ['Backspace', 'Back'], ['AltGraph', 'Alt'], ['ArrowDown', 'Down'], ['ArrowLeft', 'Left'], ['ArrowRight', 'Right']];
-const doubledKeysList = ['Alt', 'AltGraph', 'Control', 'Shift'];
 
 const lettersList = {
   rusKeys: [['ё', 'Ё'], ['1', '!'], ['2', '"'], ['3', '№'], ['4', '; '], ['5', ' % '], ['6', ':'], ['7', '?'], ['8', '*'], ['9', '('], ['0', ')'], ['-', '_'], ['=', '+'], 'Backspace', 'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Delete', 'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter', 'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ArrowUp', 'Shift', 'Control', 'Meta', 'Alt', ' ', 'AltGraph', 'ArrowLeft', 'ArrowDown', 'ArrowRight', 'Control'],
@@ -312,7 +310,10 @@ const specialKeysHandlers = {
         keyElem.innerText = isCapsOn ? letter.toUpperCase() : letter.toLowerCase();
       }
     });
-    evt.target.nextElementSibling.innerText = lang.toUpperCase();
+
+    const langKey = evt.target.nextElementSibling;
+
+    langKey.innerText = lang.toUpperCase();
   },
 };
 
@@ -428,111 +429,6 @@ function addHandlers() {
 
     upTargetKey(target);
     textInput.focus();
-  }
-
-  function findIndexInSubarray(array, pressedKey) {
-    const indexInArray = array.findIndex((letter, index) => {
-      if (index <= MULTI_CONTENT_KEYS) {
-        return false;
-      }
-
-      return letter.toLowerCase() === pressedKey;
-    });
-
-    return indexInArray;
-  }
-
-  function findIfDoubledItem(pressedKey, pressedKeyCode) {
-    const array = lettersList.engKeys;
-
-    if (doubledKeysList.indexOf(pressedKey) === -1) {
-      return false;
-    }
-
-    if (pressedKeyCode.endsWith('Left')) {
-      findIndexInSubarray(lettersList.engKeys, pressedKey);
-    }
-
-    if (pressedKeyCode.endsWith('Right')) {
-      let orderInPair = 0;
-      const indexInArray = array.findIndex((letter, index) => {
-        if (index <= MULTI_CONTENT_KEYS) {
-          return false;
-        }
-
-        if (letter === pressedKey) {
-          orderInPair += 1;
-        }
-
-        return orderInPair === AMOUNT_OF_LETTER_REPEATING;
-      });
-
-      return (indexInArray !== -1) ? indexInArray : false;
-    }
-
-    return false;
-  }
-
-  function getIndexInNestedArr(nestedArr, pressedKey) {
-    const flatArr = nestedArr.flat();
-    const indexInSubarr = flatArr.findIndex((letter) => letter === pressedKey);
-
-    if (indexInSubarr !== -1) {
-      const indexInNestedArr = Math.floor(indexInSubarr / 2);
-
-      return indexInNestedArr;
-    }
-
-    return 'isNotFound';
-  }
-
-  function findIfMultiItem(pressedKey) {
-    const multiRusKeysArray = lettersList.rusKeys.slice(0, MULTI_CONTENT_KEYS + 1);
-    const indexInRus = getIndexInNestedArr(multiRusKeysArray, pressedKey);
-
-    if (indexInRus !== 'isNotFound') {
-      return indexInRus;
-    }
-
-    const multiEngKeysArray = lettersList.engKeys.slice(0, MULTI_CONTENT_KEYS + 1);
-    const indexInEng = getIndexInNestedArr(multiEngKeysArray, pressedKey);
-
-    if (indexInEng !== 'isNotFound') {
-      return indexInEng;
-    }
-
-    return false;
-  }
-
-  function findSimpleItem(pressedKey) {
-    const indexInRus = findIndexInSubarray(lettersList.rusKeys, pressedKey);
-    const indexInEng = findIndexInSubarray(lettersList.engKeys, pressedKey);
-
-    if (indexInRus !== -1) {
-      return indexInRus;
-    }
-
-    if (indexInEng !== -1) {
-      return indexInEng;
-    }
-
-    return false;
-  }
-
-  function findTargetVirtualKey(pressedKey, pressedKeyCode) {
-    if (findIfDoubledItem(pressedKey, pressedKeyCode) !== false) {
-      return findIfDoubledItem(pressedKey, pressedKeyCode);
-    }
-
-    if (findIfMultiItem(pressedKey) !== false) {
-      return findIfMultiItem(pressedKey);
-    }
-
-    if (findSimpleItem(pressedKey.toLowerCase()) !== false) {
-      return findSimpleItem(pressedKey.toLowerCase());
-    }
-
-    return false;
   }
 
   window.addEventListener('mouseup', mouseUpHandler);

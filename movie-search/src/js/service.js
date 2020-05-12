@@ -28,7 +28,7 @@ export default class Service {
           return response.json();
         }
 
-        if (response.status == 401) {
+        if (response.status === 401) {
           throw new Error('Status 401. Try another API key');
         }
 
@@ -36,40 +36,50 @@ export default class Service {
       });
   }
 
-  static getMovieRating(movieData) {
+  static getMovieRating(data) {
+    const movieData = data;
     const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}&plot='full'`;
 
-    return new Promise((onLoad, onError) => {
+    return new Promise((resolve) => {
       fetch(url)
         .then((movieResponse) => {
           if (movieResponse.status >= 200 && movieResponse.status < 300) {
             return movieResponse.json();
           }
 
-          throw new Error(`rating loading error: ${response.status} ${response.statusText}`);
+          throw new Error(`rating loading error: ${movieResponse.status} ${movieResponse.statusText}`);
         })
         .then((movieResponse) => {
           movieData.rating = movieResponse.imdbRating;
-          onLoad({ movieData, movieResponse });
+          resolve({ movieData, movieResponse });
         })
-        .catch((err) => console.log(`Rating loading Error: ${err}`));
+        .catch((err) => {
+          throw new Error(`Rating loading Error: ${err}`);
+        });
     });
   }
 
-  static getImagePromise(movieData) {
+  static getImagePromise(data) {
+    const movieData = data;
+
     return new Promise((resolve, reject) => {
       const image = new Image();
-      const src = movieData.posterSrc;
+      let src = movieData.posterSrc;
+
+      if (src === 'N/A') {
+        src = DEFAULT_POSTER_SRC;
+      }
 
       movieData.posterSrc = image;
       movieData.posterSrc.onload = () => resolve(movieData);
       movieData.posterSrc.onerror = () => reject(movieData);
       movieData.posterSrc.src = src;
     })
-      .catch((movieData) => {
-        movieData.posterSrc.src = DEFAULT_POSTER_SRC;
-        console.warn('постер отсутствует');
-        return movieData;
+      .catch((errorData) => {
+        const withoutPosterData = errorData;
+
+        withoutPosterData.posterSrc.src = DEFAULT_POSTER_SRC;
+        return withoutPosterData;
       });
   }
 }

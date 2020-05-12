@@ -17,9 +17,11 @@ export default class ListView {
 
   addMovies(movieElementsList, movieDataList, totalResults) {
     movieElementsList.forEach((elem, index) => {
-      elem.classList.add('list-view-movie');
-      elem.style = '';
-      elem.append(this.createMovieDescr(movieDataList[index]));
+      const listCard = elem;
+
+      listCard.classList.add('list-view-movie');
+      listCard.style = '';
+      listCard.append(this.constructor.createMovieDescr(movieDataList[index]));
     });
     this.domElement.append(...movieElementsList);
 
@@ -42,22 +44,23 @@ export default class ListView {
     });
 
     this.toTopBtn.addEventListener('click', () => {
-      window.scrollTo(pageXOffset, 0);
+      window.scrollTo(window.pageXOffset, 0);
     });
 
     window.addEventListener('scroll', () => {
-      this.toTopBtn.hidden = (pageYOffset < document.documentElement.clientHeight);
+      this.toTopBtn.hidden = (window.pageYOffset < document.documentElement.clientHeight);
     });
   }
 
-  onLoadMoreClick(lastIndex) {
+  onLoadMoreClick() {
+    throw new Error('method should be overriden', this);
   }
 
   onBackBtnClick() {
-
+    throw new Error('method should be overriden', this);
   }
 
-  createMovieDescr(data) {
+  static createMovieDescr(data) {
     const descrElem = document.createElement('div');
 
     descrElem.classList.add('movie-desct');

@@ -1,5 +1,5 @@
-import Service from './service.js';
-import renderKeyboard from './keyboard.js';
+import Service from './service';
+import renderKeyboard from './keyboard';
 
 renderKeyboard();
 
@@ -52,39 +52,40 @@ export default class Search {
         return;
       }
 
-      this.showKeyboard();
+      this.constructor.showKeyboard();
     });
   }
 
   onSearchFormSubmit(evt) {
     evt.preventDefault();
-    const movieToSearch = searchElement.value && searchElement.value.length ? searchElement.value : null;
+    const movieToSearch = searchElement.value
+    && searchElement.value.length ? searchElement.value : null;
 
     if (!movieToSearch) {
-      this.showErrorMessage('Please enter your query in the search input');
+      this.constructor.showErrorMessage('Please enter your query in the search input');
       searchElement.focus();
       return;
     }
 
     this.currentSearch = movieToSearch;
     this.resetSearchState();
-    this.showSpinner();
+    this.constructor.showSpinner();
     this.getMoviesData(movieToSearch)
       .then((moviesData) => {
         this.onUserSearch(moviesData);
       })
       .catch((err) => {
-        this.hideSpinner();
-        this.showErrorMessage(err);
+        this.constructor.hideSpinner();
+        this.constructor.showErrorMessage(err);
       });
   }
 
-  showSpinner() {
+  static showSpinner() {
     searchBtn.classList.add('hide');
     spinnerElement.classList.add('active');
   }
 
-  hideSpinner() {
+  static hideSpinner() {
     spinnerElement.classList.remove('active');
     searchBtn.classList.remove('hide');
   }
@@ -95,10 +96,11 @@ export default class Search {
     this.state.shownMoviesAmount = 0;
   }
 
-  onUserSearch(moviesData) {
+  onUserSearch() {
+    throw new Error('method should be overriden', this);
   }
 
-  showErrorMessage(error) {
+  static showErrorMessage(error) {
     errorElement.querySelector('.error-text').innerText = `${error}`;
     errorElement.classList.add('active');
     document.body.addEventListener('mouseup', function hideMessage(evt) {
@@ -121,7 +123,7 @@ export default class Search {
     searchElement.focus();
   }
 
-  showKeyboard() {
+  static showKeyboard() {
     keyboardElement.classList.add('active');
     document.body.addEventListener('mouseup', function hideKeyboard(evt) {
       if (evt.target.closest('.keyboard')
@@ -150,16 +152,16 @@ export default class Search {
 
   notifyIfTranslated() {
     if (this.state.isSearchTranslated) {
-      this.showErrorMessage(`Showing results for ${this.state.searchTranslate}`);
+      this.constructor.showErrorMessage(`Showing results for ${this.state.searchTranslate}`);
     }
   }
 
   getMoviesData(movieToSearch = this.currentSearch, page = this.state.currentPage) {
     this.state.isRequestPending = true;
     return this.translateIfNecessary(movieToSearch)
-      .then((movieToSearch) => {
-        this.state.searchTranslate = movieToSearch;
-        return Service.getMoviesList(movieToSearch, page);
+      .then((moviesData) => {
+        this.state.searchTranslate = moviesData;
+        return Service.getMoviesList(moviesData, page);
       })
       .then((moviesData) => {
         if (moviesData.Error) {
@@ -172,7 +174,7 @@ export default class Search {
           this.totalResults = +moviesData.totalResults;
 
           return moviesData.Search.map((movie) => {
-            const convertedData = this.convertData(movie);
+            const convertedData = this.constructor.convertData(movie);
 
             return Service.getImagePromise(convertedData);
           });
@@ -205,6 +207,8 @@ export default class Search {
       this.state.isSearchTranslated = false;
       return new Promise((resolve) => resolve(movieToSearch));
     }
+
+    return false;
   }
 
   checkSearchLang(movieToSearch) {
@@ -221,7 +225,7 @@ export default class Search {
     return 'eng';
   }
 
-  convertData(sourceDataItem) {
+  static convertData(sourceDataItem) {
     return {
       title: sourceDataItem.Title,
       posterSrc: sourceDataItem.Poster,
@@ -242,7 +246,8 @@ export default class Search {
     }
   }
 
-  onMoviesAdding(moviesData) {
+  onMoviesAdding() {
+    throw new Error('method should be overriden', this);
   }
 
   checkIfShouldAddSlides(currentIndex) {

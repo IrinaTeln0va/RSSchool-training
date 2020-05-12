@@ -1,5 +1,4 @@
-// import { getMovieData, searchState } from './search.js';
-import initSwiper from './init-swiper.js';
+import initSwiper from './init-swiper';
 
 const ratingSetting = {
   starWidth: 15,
@@ -8,7 +7,6 @@ const ratingSetting = {
 
 export default class MySwiper {
   constructor(moviesToShow) {
-    console.log(moviesToShow);
     this.moviesToShow = moviesToShow;
     this.cardElementsList = [];
     this.swiper = null;
@@ -61,25 +59,29 @@ export default class MySwiper {
     this.onDetailsBtn(movieIndex);
   }
 
-  onDetailsBtn(movieIndex) {
+  onDetailsBtn() {
+    throw new Error('method should be overriden', this);
   }
 
   onSlideChange() {
+    throw new Error('method should be overriden', this);
   }
 
-  handleRating(rating) {
-    if (rating == 'N/A') {
-      rating = 0;
+  static handleRating(rating) {
+    let cardRating = rating;
+
+    if (cardRating === 'N/A') {
+      cardRating = 0;
     }
 
-    function calcRating(rating) {
-      return rating * ratingSetting.starWidth;
+    function calcRating() {
+      return cardRating * ratingSetting.starWidth;
     }
     return `
-      <span class='rating'>${rating}</span>
+      <span class='rating'>${cardRating}</span>
       <span class='rating-wrapper'>
         <span class='rating-img base'></span>
-        <span class='rating-img' style='width: ${calcRating(rating)}px'></span>
+        <span class='rating-img' style='width: ${calcRating(cardRating)}px'></span>
       </span>`;
   }
 
@@ -100,7 +102,7 @@ export default class MySwiper {
         <button type='button' class='to-detailed'>Details</button>
       </div>
       <p class='movie-rating'>
-        ${this.handleRating(data.rating)}
+        ${this.constructor.handleRating(data.rating)}
       </p>`;
     domElement.querySelector('.movie-poster').append(data.posterSrc);
     return domElement;

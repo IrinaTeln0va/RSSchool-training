@@ -24,7 +24,7 @@ export default class Controller {
         this.bind();
       })
       .catch((error) => {
-        this.search.showErrorMessage(error);
+        this.search.constructor.showErrorMessage(error);
       });
     searchInput.focus();
   }
@@ -58,7 +58,7 @@ export default class Controller {
 
       this.listView.replaceMovies(cardElementsList, fullDataList, this.search.totalResults);
       this.search.notifyIfTranslated();
-      this.search.hideSpinner();
+      this.search.constructor.hideSpinner();
     };
 
     this.swiper.onDetailsBtn = (movieIndex) => {
