@@ -40,7 +40,7 @@ export default class Service {
     const movieData = data;
     const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}&plot='full'`;
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       fetch(url)
         .then((movieResponse) => {
           if (movieResponse.status >= 200 && movieResponse.status < 300) {
@@ -50,11 +50,17 @@ export default class Service {
           throw new Error(`rating loading error: ${movieResponse.status} ${movieResponse.statusText}`);
         })
         .then((movieResponse) => {
-          movieData.rating = movieResponse.imdbRating;
-          resolve({ movieData, movieResponse });
+          if (movieResponse.Error) {
+            movieData.rating = 0;
+            throw new Error('no detailed data');
+          } else {
+            movieData.rating = movieResponse.imdbRating;
+            resolve({ movieData, movieResponse });
+          }
         })
         .catch((err) => {
-          throw new Error(`Rating loading Error: ${err}`);
+          resolve({ movieData: movieData, movieResponse: {} });
+          // throw new Error(`Rating loading Error: ${err}`);
         });
     });
   }

@@ -34,7 +34,9 @@ export default function initSwiper() {
       prevEl: '.swiper-button-prev',
     },
     scrollbar: {
-      el: '.swiper-s',
+      el: '.swiper-scrollbar',
+      hide: false,
+      snapOnRelease: false,
     },
   });
 }

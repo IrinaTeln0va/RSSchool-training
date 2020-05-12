@@ -68,7 +68,10 @@ export default class Controller {
       const clickedCard = this.listView.domElement.children[movieIndex];
 
       clickedCard.scrollIntoView();
-      clickedCard.querySelector('.details-input').checked = true;
+      
+      if (clickedCard.querySelector('.details-input')) {
+        clickedCard.querySelector('.details-input').checked = true;
+      }
     };
 
     viewOptions.addEventListener('click', (evt) => {
@@ -90,6 +93,7 @@ export default class Controller {
       if (isSliderBtn) {
         pageContainer.classList.remove('list-view-wrap');
         pageContainer.classList.add('slider-view-wrap');
+        this.swiper.swiper.scrollbar.updateSize();
       } else {
         pageContainer.classList.remove('slider-view-wrap');
         pageContainer.classList.add('list-view-wrap');

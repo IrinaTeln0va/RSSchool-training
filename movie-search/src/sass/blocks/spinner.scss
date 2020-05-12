@@ -1,4 +1,5 @@
-#floatingBarsG {
+#floatingBarsG,
+#list-view-spinner {
   position: relative;
 
   display: none;
@@ -18,6 +19,17 @@
 
     transform: translateX(-15px);
   }
+}
+
+#list-view-spinner {
+  margin: 0 auto;
+  margin-top: 40px;
+  transform: translateX(0px);
+  display: block;
+}
+
+#list-view-spinner.hide {
+  display: none;
 }
 
 #floatingBarsG.active {

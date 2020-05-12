@@ -7,6 +7,7 @@ export default class ListView {
     this.loadMoreBtn = document.querySelector('.load-more-btn');
     this.backBtn = document.querySelector('.back-btn');
     this.toTopBtn = document.querySelector('.scroll-top');
+    this.loadMoreSpinner = document.querySelector('#list-view-spinner');
     this.init();
   }
 
@@ -25,6 +26,8 @@ export default class ListView {
     });
     this.domElement.append(...movieElementsList);
 
+    this.hideSpinner();
+
     if (totalResults === this.domElement.children.length) {
       this.loadMoreBtn.classList.add('hide');
     } else {
@@ -34,8 +37,8 @@ export default class ListView {
 
   bind() {
     this.loadMoreBtn.addEventListener('click', () => {
+      this.showSpinner();
       const lastIndex = this.domElement.children.length - 1;
-
       this.onLoadMoreClick(lastIndex);
     });
 
@@ -52,6 +55,16 @@ export default class ListView {
     });
   }
 
+  showSpinner() {
+    this.loadMoreBtn.classList.add('hide');
+    this.loadMoreSpinner.classList.remove('hide');
+  }
+
+  hideSpinner() {
+    this.loadMoreSpinner.classList.add('hide');
+    this.loadMoreBtn.classList.remove('hide');
+  }
+
   onLoadMoreClick() {
     throw new Error('method should be overriden', this);
   }
@@ -65,6 +78,18 @@ export default class ListView {
 
     descrElem.classList.add('movie-desct');
     const replacingText = 'information would be provided at a later date';
+
+    function isEmpty(obj) {
+      for (let key in obj) {
+        return false;
+      }
+      return true;
+    }
+
+    if (isEmpty(data)) {
+      descrElem.innerHTML = ``;
+      return descrElem;
+    }
 
     descrElem.innerHTML = `
     <p class='plot'>${data.Plot === 'N/A' ? replacingText : data.Plot}</p>

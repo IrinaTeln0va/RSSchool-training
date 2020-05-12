@@ -165,7 +165,7 @@ export default class Search {
       })
       .then((moviesData) => {
         if (moviesData.Error) {
-          if (moviesData.Error === 'Movie not found!') {
+          if (moviesData.Error === 'Movie not found!' || moviesData.Error === 'Too many results.') {
             throw new Error(`No results for '${movieToSearch}'`);
           } else {
             throw new Error(moviesData.Error);
