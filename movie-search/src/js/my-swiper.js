@@ -3,8 +3,8 @@ import initSwiper from './init-swiper.js';
 
 const ratingSetting = {
   starWidth: 15,
-  totalStars: 10
-}
+  totalStars: 10,
+};
 
 export default class MySwiper {
   constructor(moviesToShow) {
@@ -23,14 +23,13 @@ export default class MySwiper {
 
   addSlideElements(moviesToShow) {
     const slideElementsList = this.createCardsList(moviesToShow);
+
     this.cardElementsList = slideElementsList;
     this.appendSlides(slideElementsList);
   }
 
   createCardsList(moviesToShow) {
-    return moviesToShow.map((item, index) => {
-      return this.createSlideElement(item, index);
-    });
+    return moviesToShow.map((item, index) => this.createSlideElement(item, index));
   }
 
   appendSlides(slideElementsList) {
@@ -44,9 +43,9 @@ export default class MySwiper {
   }
 
   bind() {
-    this.swiper.on('slideChange', function() {
+    this.swiper.on('slideChange', () => {
       this.onSlideChange(this.swiper.activeIndex);
-    }.bind(this));
+    });
 
     document.querySelector('.swiper-wrapper').addEventListener('click', this.onDetailedBtnClick.bind(this));
   }
@@ -55,8 +54,10 @@ export default class MySwiper {
     if (!evt.target.closest('.to-detailed')) {
       return;
     }
+
     const sliderElement = document.querySelector('.swiper-wrapper');
     const movieIndex = [...sliderElement.children].indexOf(evt.target.closest('.swiper-slide'));
+
     this.onDetailsBtn(movieIndex);
   }
 
@@ -70,6 +71,7 @@ export default class MySwiper {
     if (rating == 'N/A') {
       rating = 0;
     }
+
     function calcRating(rating) {
       return rating * ratingSetting.starWidth;
     }
@@ -78,12 +80,13 @@ export default class MySwiper {
       <span class='rating-wrapper'>
         <span class='rating-img base'></span>
         <span class='rating-img' style='width: ${calcRating(rating)}px'></span>
-      </span>`
+      </span>`;
   }
 
   createSlideElement(data, index) {
     const domElement = document.createElement('div');
-    domElement.classList.add(`swiper-slide`, `slide-${index}`);
+
+    domElement.classList.add('swiper-slide', `slide-${index}`);
     domElement.innerHTML = `
       <h2 class='movie-title'>
         <a class='movie-link' target='_blank' href='https://www.imdb.com/title/${data.id}/videogallery/'>${data.title}</a>

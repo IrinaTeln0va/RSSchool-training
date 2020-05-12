@@ -1,6 +1,6 @@
-import Search from './search.js';
-import MySwiper from './my-swiper.js';
-import ListView from './list-view.js';
+import Search from './search';
+import MySwiper from './my-swiper';
+import ListView from './list-view';
 
 const searchInput = document.querySelector('.search-input');
 const viewOptions = document.querySelector('.view-options');
@@ -11,14 +11,16 @@ export default class Controller {
     this.search = new Search();
     this.swiper = null;
     this.listView = null;
-    this.init();
   }
 
   init() {
     this.search.getMoviesData()
       .then((moviesDataList) => {
         this.swiper = new MySwiper(moviesDataList);
-        this.listView = new ListView(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList, this.search.totalResults);
+        const cardsElementsList = this.swiper.cardElementsList.map((elem) => elem.cloneNode(true));
+        const fullDataList = this.search.extraInfoMovieList;
+
+        this.listView = new ListView(cardsElementsList, fullDataList, this.search.totalResults);
         this.bind();
       })
       .catch((error) => {
@@ -28,41 +30,49 @@ export default class Controller {
   }
 
   bind() {
-    this.swiper.onSlideChange = function (activeSlideIndex) {
+    this.swiper.onSlideChange = (activeSlideIndex) => {
       this.search.addNewMovies(activeSlideIndex);
-    }.bind(this);
+    };
 
-    this.listView.onLoadMoreClick = function (activeSlideIndex) {
+    this.listView.onLoadMoreClick = (activeSlideIndex) => {
       this.search.addNewMovies(activeSlideIndex);
-    }.bind(this);
+    };
 
-    this.listView.onBackBtnClick = function (activeSlideIndex) {
-      const event = new Event("click", { bubbles: true });
+    this.listView.onBackBtnClick = function onBack() {
+      const event = new Event('click', { bubbles: true });
+
       viewOptions.querySelector('.slider-view-btn').dispatchEvent(event);
-    }.bind(this);
+    };
 
-    this.search.onMoviesAdding = function (moviesData, totalResults) {
+    this.search.onMoviesAdding = (moviesData, totalResults) => {
       this.swiper.addSlideElements(moviesData);
-      this.listView.addMovies(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList, totalResults);
-    }.bind(this);
+      const cardElementsList = this.swiper.cardElementsList.map((elem) => elem.cloneNode(true));
 
-    this.search.onUserSearch = function (moviesData) {
+      this.listView.addMovies(cardElementsList, this.search.extraInfoMovieList, totalResults);
+    };
+
+    this.search.onUserSearch = (moviesData) => {
       this.swiper.replaceAllSlides(moviesData);
-      this.listView.replaceMovies(this.swiper.cardElementsList.map((elem) => elem.cloneNode(true)), this.search.extraInfoMovieList, this.search.totalResults);
+      const cardElementsList = this.swiper.cardElementsList.map((elem) => elem.cloneNode(true));
+      const fullDataList = this.search.extraInfoMovieList;
+
+      this.listView.replaceMovies(cardElementsList, fullDataList, this.search.totalResults);
       this.search.notifyIfTranslated();
       this.search.hideSpinner();
-    }.bind(this);
+    };
 
-    this.swiper.onDetailsBtn = function(movieIndex) {
-      const event = new Event("click", { bubbles: true });
+    this.swiper.onDetailsBtn = (movieIndex) => {
+      const event = new Event('click', { bubbles: true });
+
       viewOptions.querySelector('.list-view-btn').dispatchEvent(event);
       const clickedCard = this.listView.domElement.children[movieIndex];
+
       clickedCard.scrollIntoView();
       clickedCard.querySelector('.details-input').checked = true;
-    }.bind(this);
+    };
 
     viewOptions.addEventListener('click', (evt) => {
-      const target = evt.target;
+      const { target } = evt;
       const isSliderBtn = target.classList.contains('slider-view-btn');
       const isListBtn = target.classList.contains('list-view-btn');
 
@@ -70,12 +80,12 @@ export default class Controller {
         return;
       }
 
-      function highlightActiveLink(target) {
+      function highlightActiveLink() {
         [...viewOptions.querySelectorAll('.view-btn')].forEach((elem) => elem.classList.remove('active'));
         target.classList.add('active');
       }
 
-      highlightActiveLink(target);
+      highlightActiveLink();
 
       if (isSliderBtn) {
         pageContainer.classList.remove('list-view-wrap');

@@ -51,18 +51,21 @@ export default class Search {
         keyboardElement.classList.remove('active');
         return;
       }
+
       this.showKeyboard();
     });
   }
-  
+
   onSearchFormSubmit(evt) {
     evt.preventDefault();
     const movieToSearch = searchElement.value && searchElement.value.length ? searchElement.value : null;
+
     if (!movieToSearch) {
-      this.showErrorMessage(`Please enter your query in the search input`);
+      this.showErrorMessage('Please enter your query in the search input');
       searchElement.focus();
       return;
-    };
+    }
+
     this.currentSearch = movieToSearch;
     this.resetSearchState();
     this.showSpinner();
@@ -73,7 +76,7 @@ export default class Search {
       .catch((err) => {
         this.hideSpinner();
         this.showErrorMessage(err);
-      })
+      });
   }
 
   showSpinner() {
@@ -102,8 +105,10 @@ export default class Search {
       if (evt.target.closest('.error-message') && !evt.target.closest('.error-btn')) {
         return;
       }
+
       errorElement.classList.remove('active');
       document.body.removeEventListener('mouseup', hideMessage);
+
       if (!evt.target.closest('.swiper-container') && !evt.target.closest('.list-container')) {
         searchElement.focus();
       }
@@ -119,16 +124,19 @@ export default class Search {
   showKeyboard() {
     keyboardElement.classList.add('active');
     document.body.addEventListener('mouseup', function hideKeyboard(evt) {
-      if (evt.target.closest('.keyboard') 
+      if (evt.target.closest('.keyboard')
       || evt.target.closest('.clear-search-btn')
       || evt.target.closest('.search-input')
       || evt.target.closest('.error-message')) {
         return;
       }
+
       if (!evt.target.closest('.keyboard-btn')) {
         keyboardElement.classList.remove('active');
       }
+
       document.body.removeEventListener('mouseup', hideKeyboard);
+
       if (!evt.target.closest('.swiper-container')) {
         keyboardElement.focus();
       }
@@ -148,8 +156,8 @@ export default class Search {
 
   getMoviesData(movieToSearch = this.currentSearch, page = this.state.currentPage) {
     this.state.isRequestPending = true;
-    return this.translateIfNecessary(movieToSearch).
-      then((movieToSearch) => {
+    return this.translateIfNecessary(movieToSearch)
+      .then((movieToSearch) => {
         this.state.searchTranslate = movieToSearch;
         return Service.getMoviesList(movieToSearch, page);
       })
@@ -165,8 +173,9 @@ export default class Search {
 
           return moviesData.Search.map((movie) => {
             const convertedData = this.convertData(movie);
+
             return Service.getImagePromise(convertedData);
-          })
+          });
         }
       })
       .then((cardPromises) => Promise.all(cardPromises))
@@ -177,45 +186,48 @@ export default class Search {
         this.state.isRequestPending = false;
         this.saveMovieFullData(fullMovieData.map(({ movieResponse }) => movieResponse));
         return fullMovieData.map(({ movieData }) => movieData);
-      })
+      });
   }
 
   saveMovieFullData(moviesList) {
     this.extraInfoMovieList = moviesList;
   }
 
-  translateIfNecessary (movieToSearch) {
+  translateIfNecessary(movieToSearch) {
     const searchLang = this.checkSearchLang(movieToSearch);
+
     if (searchLang === 'ru') {
       this.state.isSearchTranslated = true;
       return Service.translate(movieToSearch);
-    } else if (searchLang === 'eng') {
+    }
+
+    if (searchLang === 'eng') {
       this.state.isSearchTranslated = false;
-      return new Promise(resolve => resolve(movieToSearch));
+      return new Promise((resolve) => resolve(movieToSearch));
     }
   }
 
   checkSearchLang(movieToSearch) {
-  
     const containRusLetters = CONTAIN_RUS_REG_EXP.test(movieToSearch);
+
     CONTAIN_RUS_REG_EXP.lastIndex = 0;
 
     if (containRusLetters) {
       this.isSearchTranslated = true;
       return 'ru';
-    } else {
-      this.isSearchTranslated = false;
-      return 'eng';
     }
+
+    this.isSearchTranslated = false;
+    return 'eng';
   }
-  
+
   convertData(sourceDataItem) {
     return {
       title: sourceDataItem.Title,
       posterSrc: sourceDataItem.Poster,
       year: sourceDataItem.Year,
       id: sourceDataItem.imdbID,
-    }
+    };
   }
 
   addNewMovies(currentIndex) {
@@ -226,7 +238,7 @@ export default class Search {
       this.getMoviesData()
         .then((moviesData) => {
           this.onMoviesAdding(moviesData, this.totalResults);
-        })
+        });
     }
   }
 

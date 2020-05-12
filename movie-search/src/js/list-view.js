@@ -20,10 +20,11 @@ export default class ListView {
       elem.classList.add('list-view-movie');
       elem.style = '';
       elem.append(this.createMovieDescr(movieDataList[index]));
-    })
+    });
     this.domElement.append(...movieElementsList);
+
     if (totalResults === this.domElement.children.length) {
-      this.loadMoreBtn.classList.add('hide')
+      this.loadMoreBtn.classList.add('hide');
     } else {
       this.loadMoreBtn.classList.remove('hide');
     }
@@ -32,6 +33,7 @@ export default class ListView {
   bind() {
     this.loadMoreBtn.addEventListener('click', () => {
       const lastIndex = this.domElement.children.length - 1;
+
       this.onLoadMoreClick(lastIndex);
     });
 
@@ -57,8 +59,10 @@ export default class ListView {
 
   createMovieDescr(data) {
     const descrElem = document.createElement('div');
+
     descrElem.classList.add('movie-desct');
-    const replacingText = 'information would be provided at a later date'
+    const replacingText = 'information would be provided at a later date';
+
     descrElem.innerHTML = `
     <p class='plot'>${data.Plot === 'N/A' ? replacingText : data.Plot}</p>
     <input id='${data.imdbID}' class='details-input' type='checkbox'>
@@ -68,7 +72,7 @@ export default class ListView {
       <div>
         <span>Genre: </span>
         <ul>
-          ${data.Genre.split(',').map((item) => `<li>${item === 'N/A' ? replacingText : item}</li>`).join(``)}
+          ${data.Genre.split(',').map((item) => `<li>${item === 'N/A' ? replacingText : item}</li>`).join('')}
         </ul>
       </div>
       <p>Runtime: <span class='answer'> ${data.Runtime === 'N/A' ? replacingText : data.Runtime}</span></p>
@@ -76,7 +80,7 @@ export default class ListView {
       <div>
         <span>Actors: </span>
         <ul>
-          ${data.Actors.split(',').map((item) => `<li>${item === 'N/A' ? replacingText : item}</li>`).join(``)}
+          ${data.Actors.split(',').map((item) => `<li>${item === 'N/A' ? replacingText : item}</li>`).join('')}
         </ul>
       </div>
       <p>Country: <span class='answer'> ${data.Country === 'N/A' ? replacingText : data.Country}</span></p>

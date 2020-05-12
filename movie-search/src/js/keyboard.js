@@ -414,6 +414,7 @@ function addHandlers() {
     if (!target.closest('.keyboard')) {
       return;
     }
+
     if (target.innerText === 'Shift') {
       clearTimeout(timer);
       specialKeysHandlers.onShiftLowercase();

@@ -11,7 +11,6 @@ const SERVER_URL = {
 const DEFAULT_POSTER_SRC = '../assets/img/default-poster.png';
 
 export default class Service {
-
   static translate(movieTitle) {
     const url = `${SERVER_URL.translator}?key=${API_KEY.translator}&text=${movieTitle}&lang=ru-en`;
 
@@ -28,9 +27,11 @@ export default class Service {
         if (response.status >= 200 && response.status < 300) {
           return response.json();
         }
+
         if (response.status == 401) {
           throw new Error('Status 401. Try another API key');
         }
+
         throw new Error(`Server error: ${response.status} ${response.statusText}`);
       });
   }
@@ -39,18 +40,19 @@ export default class Service {
     const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}&plot='full'`;
 
     return new Promise((onLoad, onError) => {
-      fetch(url).
-        then((movieResponse) => {
+      fetch(url)
+        .then((movieResponse) => {
           if (movieResponse.status >= 200 && movieResponse.status < 300) {
             return movieResponse.json();
           }
+
           throw new Error(`rating loading error: ${response.status} ${response.statusText}`);
-        }).
-        then((movieResponse) => {
+        })
+        .then((movieResponse) => {
           movieData.rating = movieResponse.imdbRating;
-          onLoad({ 'movieData': movieData, 'movieResponse': movieResponse});
-        }).
-        catch((err) => console.log(`Rating loading Error: ${err}`));
+          onLoad({ movieData, movieResponse });
+        })
+        .catch((err) => console.log(`Rating loading Error: ${err}`));
     });
   }
 
@@ -58,15 +60,16 @@ export default class Service {
     return new Promise((resolve, reject) => {
       const image = new Image();
       const src = movieData.posterSrc;
+
       movieData.posterSrc = image;
       movieData.posterSrc.onload = () => resolve(movieData);
       movieData.posterSrc.onerror = () => reject(movieData);
       movieData.posterSrc.src = src;
-    }).
-      catch((movieData) => {
+    })
+      .catch((movieData) => {
         movieData.posterSrc.src = DEFAULT_POSTER_SRC;
         console.warn('постер отсутствует');
         return movieData;
-      })
+      });
   }
 }

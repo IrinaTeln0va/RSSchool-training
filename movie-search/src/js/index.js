@@ -1,3 +1,5 @@
-import Controller from './controller.js';
+import Controller from './controller';
 
-new Controller();
+const controller = new Controller();
+
+controller.init();
