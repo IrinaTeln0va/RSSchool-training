@@ -22,11 +22,11 @@ export default function initSwiper() {
         slidesPerView: 2,
         spaceBetween: 25,
       },
-      960: {
+      900: {
         slidesPerView: 3,
         spaceBetween: 25,
       },
-      1020: {
+      1140: {
         slidesPerView: 4,
         spaceBetween: 25,
       },

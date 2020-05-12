@@ -163,7 +163,7 @@ export default class Search {
             throw new Error(moviesData.Error);
           }
         } else {
-          this.totalResults = moviesData.totalResults;
+          this.totalResults = +moviesData.totalResults;
 
           return moviesData.Search.map((movie) => {
             const convertedData = this.convertData(movie);
@@ -231,7 +231,7 @@ export default class Search {
       this.state.currentPage += 1;
       this.getMoviesData()
         .then((moviesData) => {
-          this.onMoviesAdding(moviesData);
+          this.onMoviesAdding(moviesData, this.totalResults);
         })
     }
   }

@@ -64,22 +64,23 @@ export default class MySwiper {
     this.swiper.on('slideChange', function() {
       this.onSlideChange(this.swiper.activeIndex);
     }.bind(this));
+
+    document.querySelector('.swiper-wrapper').addEventListener('click', this.onDetailedBtnClick.bind(this));
+  }
+
+  onDetailedBtnClick(evt) {
+    if (!evt.target.closest('.to-detailed')) {
+      return;
+    }
+    const sliderElement = document.querySelector('.swiper-wrapper');
+    const movieIndex = [...sliderElement.children].indexOf(evt.target.closest('.swiper-slide'));
+    this.onDetailsBtn(movieIndex);
+  }
+
+  onDetailsBtn(movieIndex) {
   }
 
   onSlideChange() {
-    // const amountSlidesToShow = this.getRestMoviesAmount();
-    // if (amountSlidesToShow && this.isTimeToLoadNew()) {
-    //   console.log('time to load new slides');
-    //   this.loadNextNewSlides(amountSlidesToShow);
-    // }
-  }
-
-  loadNextNewSlides(amountSlidesToShow) {
-    // this.page += 1;
-    // getMovieData({ page: this.page}).
-    //   then((moviesData) => {
-    //     this.addSlideElements(moviesData.data);
-    //   });
   }
 
   handleRating(rating) {
@@ -114,15 +115,18 @@ export default class MySwiper {
     const domElement = document.createElement('div');
     domElement.classList.add(`swiper-slide`, `slide-${index}`);
     domElement.innerHTML = `
-      <h2 class="movie-title">
-        <a class="movie-link" href="https://www.imdb.com/title/${data.id}/videogallery/">${data.title}</a>
+      <h2 class='movie-title'>
+        <a class='movie-link' target='_blank' href='https://www.imdb.com/title/${data.id}/videogallery/'>${data.title}</a>
       </h2>
-      <div class="movie-poster">
+      <div class='movie-poster'>
       </div>
-      <p class="movie-year">
-        ${data.year}
-      </p>
-      <p class="movie-rating">
+      <div class='detail-info-wrap'>
+        <p class="movie-year">
+          ${data.year}
+        </p>
+        <button type='button' class='to-detailed'>Details</button>
+      </div>
+      <p class='movie-rating'>
         ${this.handleRating(data.rating)}
       </p>`;
     domElement.querySelector('.movie-poster').append(data.posterSrc);

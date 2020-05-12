@@ -2,6 +2,10 @@
   display: flex;
   align-items: center;
   color: #ffffffbd;
+  justify-content: flex-start;
+    // @media (min-width: $desctop) {
+    //   justify-content: flex-start;
+    // }
 }
 
 .rating-wrapper {
