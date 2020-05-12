@@ -1,9 +1,9 @@
 .swiper-container {
-  min-height: 600px;
+  display: block;
   box-sizing: border-box;
+  min-height: 600px;
   padding-bottom: 30px;
   overflow: visible;
-  display: block;
 }
 
 .list-view-wrap .swiper-container {
@@ -11,31 +11,32 @@
 }
 
 .swiper-wrapper {
-  margin-top: 30px;
-  min-height: 600px;
   align-items: center;
-  // justify-content: center;
+  min-height: 600px;
+  margin-top: 30px;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
+  right: auto;
+  left: -20px;
+
   font-size: 0;
   color: #ffffff9c;
-  left: -20px;
-  right: auto;
+
   transition: 0.3s;
 }
 
 .swiper-button-next {
-  left: auto;
   right: -20px;
+  left: auto;
 }
 
 .swiper-button-prev:hover,
 .swiper-button-next:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .swiper-button-disabled {
-  color: #ffffff00
+  color: #ffffff00;
 }

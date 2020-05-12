@@ -1,41 +1,49 @@
 .key-comb {
-  background-size: contain;
-  background-repeat: no-repeat;
   display: block;
-  margin-top: 5px;
   min-width: 70px;
-  font-style: normal;
-  text-align: center;
-  font-weight: 700;
-  padding-top: 5px;
-  border: 1px dashed;
   min-height: 21px;
+  margin-top: 5px;
+  padding-top: 5px;
+
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: 1px dashed;
 }
 
 .keyboard {
   position: absolute;
-  background-image: linear-gradient(255deg, #141414 48%, #1e1e1e);
-  padding: 30px;
-  transform-origin: left top;
-  user-select: none;
   top: 100%;
   left: 0;
-  box-shadow: 3px 3px 4px 0px #000;
-  opacity: 0;
   z-index: -1;
-  transform: scale(0.85) translateY(30px);
-  transition: all .3s;
+
   display: none;
+  padding: 30px;
+
+  background-image: linear-gradient(255deg, #141414 48%, #1e1e1e);
+  box-shadow: 3px 3px 4px 0 #000000;
+  transform: scale(0.85) translateY(30px);
+  transform-origin: left top;
+  opacity: 0;
+
+  transition: all 0.3s;
+
+  user-select: none;
   @media (min-width: $desctop) {
     display: block;
   }
 }
 
 .keyboard.active {
-  opacity: 1;
   z-index: 5;
+
   transform: scale(0.85) translateY(0);
-  transition: all .5s;
+  opacity: 1;
+
+  transition: all 0.5s;
 }
 
 .row {
@@ -46,22 +54,26 @@
 }
 
 .key {
-  box-sizing: border-box;
-  padding: 0 15px;
+  z-index: 1;
+
   display: block;
-  text-align: center;
+  box-sizing: border-box;
   min-width: 50px;
   height: 40px;
-  color: #fff;
+  margin-right: 7px;
+  padding: 0 15px;
+
   font-size: 18px;
   line-height: 40px;
-  border-radius: 4px;
+  text-align: center;
+  color: #ffffff;
+
   background-color: rgba(255, 255, 255, 0.14);
   border: 1px solid transparent;
-  margin-right: 7px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: .2s;
-  z-index: 1;
+
+  transition: 0.2s;
 }
 
 .key:hover {
@@ -70,8 +82,8 @@
 
 .key.active {
   background-color: transparent;
-  box-shadow: 1px 1px 5px 0px #ffffff85;
   border-radius: 50%;
+  box-shadow: 1px 1px 5px 0 #ffffff85;
 }
 
 .extra-wide-key {
@@ -80,7 +92,9 @@
 
 .caps-key {
   position: relative;
+
   min-width: 125px;
+
   background-color: rgb(0, 0, 0);
 }
 
@@ -89,8 +103,9 @@
 }
 
 .lang-key ~ .replacing-text {
-  background-color: #ee3668;
   font-weight: 500;
+
+  background-color: #ee3668;
 }
 
 .caps-key:hover {
@@ -98,15 +113,17 @@
 }
 
 .caps-key::before {
+  content: "";
   position: absolute;
   top: 7px;
   right: 7px;
+
+  display: block;
   width: 4px;
   height: 4px;
-  display: block;
-  content: '';
+
+  background-color: #ffffff;
   border-radius: 50%;
-  background-color: #fff;
   opacity: 0.5;
 }
 
@@ -118,7 +135,7 @@
 
 .caps-active {
   background-color: rgba(0, 0, 0, 0.84);
-  box-shadow: 1px 1px 5px 0px #ffffff85;
+  box-shadow: 1px 1px 5px 0 #ffffff85;
 }
 
 .caps-key.active {
@@ -130,26 +147,31 @@
 }
 
 .hide-text {
-  font-size: 0;
   position: absolute;
+
   width: 100%;
   height: 100%;
+
+  font-size: 0;
 }
 
 .replacing-text {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+
+  font-size: 18px;
 }
 
 .key-wrap {
   position: relative;
+
   box-sizing: border-box;
   min-width: 65px;
   margin-right: 7px;
@@ -157,31 +179,37 @@
 
 .arrow-key {
   box-sizing: border-box;
+  padding-left: 17px;
+
   font-weight: 300;
   font-size: 12px;
-  padding-left: 17px;
+
   background-color: rgba(255, 255, 255, 0);
 }
 
 .arrow-key:after {
+  content: "";
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   left: 10px;
-  content: '';
+
   width: 14px;
   height: 14px;
-  background-image: url('../assets/img/left-arrow.svg');
+
+  background-image: url("../assets/img/left-arrow.svg");
   background-size: 100%;
+  transform: translateY(-50%);
 }
 
 .arrow-down:after {
   left: 9px;
+
   transform: rotate(-90deg) translateX(50%);
 }
 
 .arrow-up:after {
   left: 16px;
+
   transform: rotate(90deg) translateX(-50%);
 }
 
@@ -191,21 +219,25 @@
 
 .arrow-right:after {
   left: 10px;
-  transform-origin: center;
+
   transform: rotate(180deg) translateY(50%);
+  transform-origin: center;
 }
 
 .os-info {
+  position: absolute;
   bottom: 5px;
   left: 5px;
-  color: #ffffff5e;
-  position: absolute;
-  font-weight: 300;
+
   width: 1010px;
-  font-size: 12px;
   padding: 3px 0 3px 32px;
-  background-image: url('../assets/img/windows-logo.svg');
-  background-size: 14px;
+
+  font-weight: 300;
+  font-size: 12px;
+  color: #ffffff5e;
+
+  background-image: url("../assets/img/windows-logo.svg");
   background-repeat: no-repeat;
   background-position: 10px 3px;
+  background-size: 14px;
 }

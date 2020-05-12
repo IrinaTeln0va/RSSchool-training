@@ -1,10 +1,11 @@
 .movie-title {
-  margin: 10px 5px;
-  font-weight: 500;
-  font-size: 20px;
-  min-height: 50px;
   display: flex;
   align-items: center;
+  min-height: 50px;
+  margin: 10px 5px;
+
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .movie-link {
@@ -14,31 +15,38 @@
 
 .swiper-slide {
   position: relative;
-  background-color: #242121c7;
-  padding: 6px 11px;
+
   box-sizing: border-box;
+  padding: 6px 11px;
+
+  background-color: #242121c7;
   border-radius: 5px;
+
   user-select: none;
 }
 
 .swiper-slide::before,
 .swiper-slide::after {
-  @include pseudo;
-  width: 88px;
-  height: 137px;
   position: absolute;
   top: -9px;
   left: -8px;
+  z-index: -1;
+
+  width: 88px;
+  height: 137px;
+
   background-image: radial-gradient(#ffffffe6 1.5px, transparent 1.5px);
   background-size: calc(7 * 1.8px) calc(7 * 1.8px);
-  z-index: -1;
+
+  @include pseudo;
 }
 
 .swiper-slide::before {
   top: unset;
-  left: unset;
-  bottom: 1px;
   right: 5px;
+  bottom: 1px;
+  left: unset;
+
   width: 33px;
   height: 188px;
 }
@@ -46,53 +54,62 @@
 .movie-year {
   display: flex;
   align-items: center;
-  color: #ffffffbd;
   margin: 5px 0;
   margin-right: 16px;
+
+  color: #ffffffbd;
 }
 
 .movie-year::after {
-  @include pseudo;
-  height: 2px;
   width: 34px;
+  height: 2px;
   margin-left: 9px;
+
   background-color: $color-primary;
+
+  @include pseudo;
 }
 
 .movie-poster img {
   width: 100%;
   height: 340px;
+
   object-fit: contain;
 }
 
 .detail-info-wrap {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  margin-top: 16px;
   justify-content: flex-start;
+  align-items: center;
+  margin-top: 16px;
 }
 
 .to-detailed {
-  @include btn-reset;
+  box-sizing: border-box;
   box-sizing: border-box;
   padding: 8px 20px;
   padding-left: 40px;
-  border: 1px solid #ffffffbd;
-  box-sizing: border-box;
-  background-color: transparent;
+
+  font-size: 16px;
   color: #ffffffbd;
-  transition: .3s;
-  background-image: url('../assets/img/icon-go-to.svg');
+
+  background-color: transparent;
+  background-image: url("../assets/img/icon-go-to.svg");
   background-repeat: no-repeat;
   background-position: left 14px center;
   background-size: 15px;
-  font-size: 16px;
+  border: 1px solid #ffffffbd;
+
+  transition: 0.3s;
+
+  @include btn-reset;
 }
 
 
 .to-detailed:hover {
-  color: #000;
+  color: #000000;
+
   background-color: #ffffff;
-  background-image: url('../assets/img/icon-go-to-hover.svg');
+  background-image: url("../assets/img/icon-go-to-hover.svg");
 }

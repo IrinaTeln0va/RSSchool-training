@@ -3,33 +3,32 @@ html {
 }
 
 body {
-  min-width: 320px;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  min-width: 320px;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 
   font-size: $font-size;
   font-family: $font-open-sans;
-  color: #fff;
+  color: #ffffff;
 
   background-color: #2e2e2e;
-  
 }
 
 main {
   flex-grow: 1;
   padding: 27px 0;
   padding-bottom: 42px;
-    @media (min-width: $tablet) {
-      padding: 27px 0;
-      padding-bottom: 42px;
-    }
-    @media (min-width: $desctop) {
-      padding: 60px 0;
-      padding-bottom: 130px;
-    }
+  @media (min-width: $tablet) {
+    padding: 27px 0;
+    padding-bottom: 42px;
+  }
+  @media (min-width: $desctop) {
+    padding: 60px 0;
+    padding-bottom: 130px;
+  }
 }
 
 a {
@@ -48,6 +47,10 @@ img {
   height: auto;
 }
 
+.btn {
+  border: none;
+}
+
 .container {
   position: relative;
 
@@ -59,14 +62,4 @@ img {
   padding-right: 20px;
   padding-left: 20px;
   overflow-x: hidden;
-
-  // @media (min-width: $tablet) {
-  //   padding-right: 15px;
-  //   padding-left: 15px;
-  // }
-
-  // @media (min-width: $desctop) {
-  //   padding-right: 20px;
-  //   padding-left: 20px;
-  // }
 }

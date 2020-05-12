@@ -4,11 +4,14 @@
 }
 
 .list-container:before {
-  @include pseudo;
+  content: "Detailed information";
+
   width: 100%;
-  content: 'Detailed information';
-  font-size: 25px;
   margin-bottom: 40px;
+
+  font-size: 25px;
+
+  @include pseudo;
 }
 
 .slider-view-wrap .list-container {
@@ -16,26 +19,29 @@
 }
 
 .list-view-movie {
-  width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  line-height: auto;
+  box-sizing: border-box;
+  width: 100%;
   margin-bottom: 10px;
   padding: 15px;
   padding-right: 90px;
   padding-bottom: 37px;
-  border-radius: 12px;
+  overflow: hidden;
+
+  line-height: auto;
+
   background-image: linear-gradient(102deg, #303030, #1e1f22);
   background-repeat: no-repeat;
   background-size: cover;
-  box-sizing: border-box;
-  overflow: hidden;
-  flex-wrap: wrap;
   border-bottom: 1px dashed #ffffff5e;
+  border-radius: 12px;
+
   user-select: auto;
-    @media (min-width: $tablet) {
-      padding-right: 180px;
-    }
+  @media (min-width: $tablet) {
+    padding-right: 180px;
+  }
 }
 
 .list-view-movie .movie-title {
@@ -45,13 +51,14 @@
 
 .list-view-movie .movie-poster {
   position: absolute;
-  right: 0;
   top: 0;
-  height: 100%;
+  right: 0;
+
   width: 85px;
-    @media (min-width: $tablet) {
-      width: 173px;
-    }
+  height: 100%;
+  @media (min-width: $tablet) {
+    width: 173px;
+  }
 }
 
 .list-view-movie .rating-wrapper {
@@ -63,6 +70,7 @@
 
 .list-view-movie .movie-poster img {
   height: auto;
+
   object-fit: cover;
 }
 
@@ -84,26 +92,28 @@
 }
 
 .movie-desct {
-  padding: 10px;
-  width: 100%;
-  color: #ffffffc4;
   box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+
+  color: #ffffffc4;
 }
 
 .movie-desct .answer {
-  text-decoration: underline;
   font-style: italic;
+  text-decoration: underline;
 }
 
 .plot {
-  margin: 0;
   flex-shrink: 0;
+  margin: 0;
 }
 
 .descr-bottom-wrapper {
   max-height: 0;
   overflow: hidden;
-  transition: .5s;
+
+  transition: 0.5s;
 }
 
 .details-input {
@@ -112,18 +122,21 @@
 
 .details-switch {
   position: absolute;
-  left: 10px;
   bottom: 10px;
+  left: 10px;
+
   width: 20px;
   height: 20px;
-  background-image: url('../assets/img/icon-arrow.svg');
+
+  background-image: url("../assets/img/icon-arrow.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
-  cursor: pointer;
   transform: rotate(0deg);
-  transition: .3s;
+  cursor: pointer;
   opacity: 0.3;
+
+  transition: 0.3s;
 }
 
 .details-switch:hover {
@@ -143,19 +156,22 @@
 }
 
 .load-more-btn {
-  @include btn-reset;
+  display: block;
   width: 50px;
   height: 50px;
+  margin: 0 auto;
+  margin-top: 40px;
+
   background-color: transparent;
-  background-image: url('../assets/img/icon-load-more.svg');
+  background-image: url("../assets/img/icon-load-more.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
   opacity: 0.2;
-  display: block;
-  margin: 0 auto;
-  margin-top: 40px;
-  transition: .3s;
+
+  transition: 0.3s;
+
+  @include btn-reset;
 }
 
 .load-more-btn.hide {
@@ -167,59 +183,66 @@
 }
 
 .load-more-btn:focus {
-  outline: none
+  outline: none;
 }
 
 .back-btn,
 .scroll-top {
-  box-sizing: border-box;
-  padding: 0;
-  border: none;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
   position: fixed;
   top: 42px;
   left: 2px;
+
+  box-sizing: border-box;
   width: 18px;
   height: 18px;
+  padding: 0;
+
+  font: inherit;
+  vertical-align: middle;
+  text-align: center;
+  color: inherit;
+
   background-color: transparent;
-  background-image: url('../assets/img/icon-back.svg');
+  background-image: url("../assets/img/icon-back.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
-  opacity: 0.4; 
-  transition: .3s;
-    @media (min-width: $tablet) {
-      left: 20px;
-      width: 25px;
-      height: 25px;
-    }
-    @media (min-width: $desctop) {
-      left: 23px;
-      width: 30px;
-      height: 30px;
-    }
+  border: none;
+  cursor: pointer;
+  cursor: pointer;
+  opacity: 0.4;
+
+  transition: 0.3s;
+  @media (min-width: $tablet) {
+    left: 20px;
+
+    width: 25px;
+    height: 25px;
+  }
+  @media (min-width: $desctop) {
+    left: 23px;
+
+    width: 30px;
+    height: 30px;
+  }
 }
 
 .scroll-top {
-  background-image: url('../assets/img/icon-arrow.svg');
-  transform: rotate(180deg);
-  left: unset;
-  top:unset;
-  bottom: 42px;
+  top: unset;
   right: 4px;
-    @media (min-width: $tablet) {
-      left: unset;
-      right: 20px;
-    }
-    @media (min-width: $desctop) {
-      left: unset;
-      right: 23px;
-    } 
+  bottom: 42px;
+  left: unset;
+
+  background-image: url("../assets/img/icon-arrow.svg");
+  transform: rotate(180deg);
+  @media (min-width: $tablet) {
+    right: 20px;
+    left: unset;
+  }
+  @media (min-width: $desctop) {
+    right: 23px;
+    left: unset;
+  }
 }
 
 .back-btn:hover,

@@ -1,42 +1,46 @@
 .search {
-  margin-bottom: 70px;
-  max-width: 100%;
-  min-height: 70px;
+  position: relative;
+
   display: flex;
   align-items: center;
-  position: relative;
-    @media (min-width: $tablet) {
-      max-width: 100%;
-    }
-    @media (min-width: $desctop) {
-      max-width: 650px;
-    }
+  max-width: 100%;
+  min-height: 70px;
+  margin-bottom: 70px;
+  @media (min-width: $tablet) {
+    max-width: 100%;
+  }
+  @media (min-width: $desctop) {
+    max-width: 650px;
+  }
 }
 
 .search-input {
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid #ffffff80;
+  flex-grow: 1;
   box-sizing: border-box;
-  line-height: normal;
+  max-width: calc(100% - 45px);
   padding: 10px 0;
   padding-right: 24px;
-  color: #fff;
-  flex-grow: 1;
+
+  line-height: normal;
+  color: #ffffff;
+
+  background-color: transparent;
   background-image: linear-gradient(0deg, $color-primary 2px, transparent 2px);
+  background-repeat: no-repeat;
   background-position: bottom center;
   background-size: 0 0;
-  background-repeat: no-repeat;
-  transition: .5s;
+  border: none;
+  border-bottom: 1px solid #ffffff80;
   cursor: pointer;
-  max-width: calc(100% - 45px);
-    @media (min-width: $tablet) {
-      max-width: calc(100% - 55px);
-      padding-right: 52px;
-    }
-    @media (min-width: $desctop) {
-      max-width: calc(100% - 60px);
-    }
+
+  transition: 0.5s;
+  @media (min-width: $tablet) {
+    max-width: calc(100% - 55px);
+    padding-right: 52px;
+  }
+  @media (min-width: $desctop) {
+    max-width: calc(100% - 60px);
+  }
 }
 
 .search-form {
@@ -44,26 +48,30 @@
 }
 
 .clear-search-btn {
-  @include btn-reset;
   position: absolute;
+  top: 50%;
+  right: 53px;
+
   width: 30px;
   height: 30px;
-  right: 53px;
-  top: 50%;
-  transform: translateY(-50%);
+
   background-color: transparent;
-  background-image: url('../assets/img/clear-search-hover.svg');
+  background-image: url("../assets/img/clear-search-hover.svg");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 70%;
-  transition: .3s;
+  transform: translateY(-50%);
   opacity: 0.25;
-    @media (min-width: $tablet) {
-      right: 65px;
-    }
-    @media (min-width: $desctop) {
-      right: 122px;
-    }
+
+  transition: 0.3s;
+
+  @include btn-reset;
+  @media (min-width: $tablet) {
+    right: 65px;
+  }
+  @media (min-width: $desctop) {
+    right: 122px;
+  }
 }
 
 .clear-search-btn:hover {
@@ -77,56 +85,68 @@
 .search-input:focus,
 .search-input:hover,
 .search-input.filled {
-  outline: none;
-  border-bottom: 1px solid transparent;
-  background-size: 100% 2px;
-  background-position: bottom center;
   background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% 2px;
+  border-bottom: 1px solid transparent;
+  outline: none;
 }
 
 .search-btn {
-  @include btn-reset;
   position: relative;
-  background-color: transparent;
-  font-size: 0;
+
   width: 45px;
   height: 45px;
-  background-image: url('../assets/img/search-hover.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 72%;
   margin-top: 10px;
   margin-right: 10px;
+
+  font-size: 0;
+
+  background-color: transparent;
+  background-image: url("../assets/img/search-hover.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 72%;
   opacity: 0.6;
-  transition: .3s;
-    @media (min-width: $tablet) {
-      background-size: 72%;
-      width: 45px;
-      height: 45px;
-    }
-    @media (min-width: $desctop) {
-      background-size: 42%;
-      width: 60px;
-      height: 60px;
-    }
+
+  transition: 0.3s;
+
+  @include btn-reset;
+  @media (min-width: $tablet) {
+    width: 45px;
+    height: 45px;
+
+    background-size: 72%;
+  }
+  @media (min-width: $desctop) {
+    width: 60px;
+    height: 60px;
+
+    background-size: 42%;
+  }
 }
 
 .keyboard-btn {
-  @include btn-reset;
   position: relative;
-  background-color: transparent;
-  font-size: 0;
+
+  display: none;
   width: 35px;
   height: 35px;
-  background-image: url('../assets/img/keyboard.svg');
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 100%;
   margin-top: 5px;
   margin-right: 10px;
+
+  font-size: 0;
+
+  background-color: transparent;
+  background-image: url("../assets/img/keyboard.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
   opacity: 0.3;
-  transition: .3s;
-  display: none;
+
+  transition: 0.3s;
+
+  @include btn-reset;
   @media (min-width: $desctop) {
     display: inline-block;
   }
@@ -153,6 +173,6 @@
 }
 
 .search-input:focus ~ .search-btn,
-.search-input:hover ~ .search-btn{
-  background-image: url('../assets/img/search.svg');
+.search-input:hover ~ .search-btn {
+  background-image: url("../assets/img/search.svg");
 }

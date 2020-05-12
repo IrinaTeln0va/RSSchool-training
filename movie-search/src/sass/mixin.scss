@@ -1,16 +1,19 @@
 @mixin hide-text {
   position: absolute;
-  height: 1px;
+
   width: 1px;
+  height: 1px;
   margin: -1px;
   padding: 0;
-  clip: rect(0 0 0 0);
   overflow: hidden;
+
+  clip: rect(0 0 0 0);
 }
 
 @mixin pseudo {
-  display: block;
   content: "";
+
+  display: block;
 }
 
 @mixin text-size($size: $font-size, $line-size: $line-height) {
@@ -21,21 +24,20 @@
 @mixin ul-reset {
   margin: 0;
   padding: 0;
+
   list-style: none;
 }
 
 @mixin btn-reset {
-  display: inline-block;
   box-sizing: border-box;
-  padding: 0;
-  border: none;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  text-align: center;
+
   vertical-align: middle;
-  appearance: none;
+  text-align: center;
+  color: inherit;
+
   cursor: pointer;
+
+  appearance: none;
 }
 
 @mixin container {
@@ -44,15 +46,17 @@
 }
 
 @mixin unselectable {
-  -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+
+  -webkit-touch-callout: none;
 }
 
 @mixin clearfix {
   content: "";
+
   display: block;
   clear: both;
 }

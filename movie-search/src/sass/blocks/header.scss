@@ -1,9 +1,10 @@
 .main-header {
-  background-color: #000;
   flex-shrink: 0;
-  background-image: url('../assets/img/pattern.png');
-  background-repeat: repeat;
   padding: 20px 0;
+
+  background-color: #000000;
+  background-image: url("../assets/img/pattern.png");
+  background-repeat: repeat;
 }
 
 .logo {
@@ -11,6 +12,6 @@
 }
 
 .logo-highlight {
-  color: $color-primary;
   font-size: 41px;
+  color: $color-primary;
 }

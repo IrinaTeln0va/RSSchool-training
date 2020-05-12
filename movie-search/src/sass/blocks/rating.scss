@@ -1,35 +1,37 @@
 .movie-rating {
   display: flex;
-  align-items: center;
-  color: #ffffffbd;
   justify-content: flex-start;
-    // @media (min-width: $desctop) {
-    //   justify-content: flex-start;
-    // }
+  align-items: center;
+
+  color: #ffffffbd;
 }
 
 .rating-wrapper {
   position: relative;
-  margin-left: 5px;
-  height: 15px;
+
   width: calc(15px * 10);
-    @media (min-width: $tablet) {
-      margin-left: 15px;
-    }
+  height: 15px;
+  margin-left: 5px;
+  @media (min-width: $tablet) {
+    margin-left: 15px;
+  }
 }
 
 .rating-img {
   position: absolute;
+  z-index: 2;
+
   width: calc(15px * 10);
-  background-image: url('../assets/img/star-fill.svg');
+  height: 15px;
+
+  background-image: url("../assets/img/star-fill.svg");
   background-repeat: repeat-x;
   background-position: left center;
   background-size: 15px;
-  z-index: 2;
-  height: 15px;
 }
 
 .rating-img.base {
   z-index: 1;
-  background-image: url('../assets/img/star-empty.svg');
+
+  background-image: url("../assets/img/star-empty.svg");
 }
