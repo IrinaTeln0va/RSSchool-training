@@ -11,10 +11,8 @@ export default class MySwiper {
     console.log(moviesToShow);
     this.moviesToShow = moviesToShow;
     this.cardElementsList = [];
-    // this.totalDataResults = searchData.totalResults;
     this.swiper = null;
     this.init();
-    // this.page = START_PAGE;
     this.bind();
   }
 
@@ -24,20 +22,9 @@ export default class MySwiper {
   }
 
   addSlideElements(moviesToShow) {
-    // const slidesWrapper = document.querySelector('.swiper-wrapper');
-    // const slideElementsList = moviesToShow.map((item, index) => {
-    //   return this.createSlideElement(item, index);
-    // });
     const slideElementsList = this.createCardsList(moviesToShow);
-
-    // if (searchState.shownMoviesAmount <= MOVIES_PER_PAGE) {
-    //   this.drawSlides(slideElementsList, slidesWrapper);
-    // } else {
     this.cardElementsList = slideElementsList;
     this.appendSlides(slideElementsList);
-    // }
-    // this.shownMoviesAmount += slideElementsList.length;
-    // console.log(searchState.shownMoviesAmount);
   }
 
   createCardsList(moviesToShow) {
@@ -55,10 +42,6 @@ export default class MySwiper {
     this.addSlideElements(newSlidesData);
     this.swiper.slideTo(0, 0, false);
   }
-
-  // drawSlides(slidesList, wrapper) {
-  //   slidesList.forEach((movieElem) => wrapper.append(movieElem));
-  // }
 
   bind() {
     this.swiper.on('slideChange', function() {
@@ -97,19 +80,6 @@ export default class MySwiper {
         <span class='rating-img' style='width: ${calcRating(rating)}px'></span>
       </span>`
   }
-
-  // isTimeToLoadNew() {
-  //   const activeSlideIndex = this.swiper.activeIndex;
-  //   return searchState.shownMoviesAmount - activeSlideIndex < MOVIES_PER_PAGE;
-  // }
-
-  // getRestMoviesAmount() {
-  //   return this.totalDataResults - searchState.shownMoviesAmount;
-  // }
-
-  // getAmountMoviesToShow() {
-  //   return Math.min(this.getRestMoviesAmount(), MOVIES_PER_PAGE);
-  // }
 
   createSlideElement(data, index) {
     const domElement = document.createElement('div');

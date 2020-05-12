@@ -535,45 +535,6 @@ function addHandlers() {
   }
 
   window.addEventListener('mouseup', mouseUpHandler);
-
-  // window.addEventListener('keydown', (evt) => {
-  //   if (!isActive) {
-  //     return;
-  //   }
-
-  //   evt.preventDefault();
-  //   const { key, code } = evt;
-  //   const targetVirtualKeyIndex = findTargetVirtualKey(key, code);
-  //   const pressedKeyElement = keyElementsList[targetVirtualKeyIndex];
-
-  //   if (!(targetVirtualKeyIndex < 0) && (targetVirtualKeyIndex !== false)) {
-  //     const myMousedown = new CustomEvent('mousedown', { detail: { repeated: evt.repeat }, bubbles: true, cancelable: false });
-
-  //     pressedKeyElement.dispatchEvent(myMousedown);
-  //   }
-  // });
-
-  // function keyUpHandler(evt) {
-  //   if (!isActive) {
-  //     return;
-  //   }
-
-  //   evt.preventDefault();
-  //   const { key, code } = evt;
-  //   const targetVirtualKeyIndex = findTargetVirtualKey(key, code);
-
-  //   if (targetVirtualKeyIndex === false) {
-  //     return;
-  //   }
-
-  //   const pressedKeyElement = keyElementsList[targetVirtualKeyIndex];
-  //   const myMouseup = new Event('mouseup', { bubbles: true, cancelable: false });
-
-  //   pressedKeyElement.dispatchEvent(myMouseup);
-  // }
-
-  // window.addEventListener('keyup', keyUpHandler);
-
   window.onblur = resetKeyboardState;
 }
 
@@ -597,9 +558,5 @@ function renderInitialState() {
   addHandlers();
   document.querySelector('.search').append(templateElem);
 }
-
-// window.onload = function onload() {
-//   renderInitialState();
-// };
 
 export default renderInitialState;

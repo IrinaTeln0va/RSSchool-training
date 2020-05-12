@@ -6,8 +6,6 @@ renderKeyboard();
 const DEFAULT_SEARCH = 'terminator';
 const DEFAULT_PAGE = 1;
 const buffer = 10;
-
-// const MULTI_LANG_REG_EXP = /(^[А-я0-9\s]+)(?!.*[A-z])$|(^[A-z0-9\s]+)(?!.*[А-я])$/g;
 const CONTAIN_RUS_REG_EXP = /[А-я]+/g;
 
 const formElement = document.querySelector('.search-form');
@@ -174,9 +172,7 @@ export default class Search {
       .then((cardPromises) => Promise.all(cardPromises))
       .then((data) => data.map(Service.getMovieRating))
       .then((cardPromises) => Promise.all(cardPromises))
-      // .then((data) => data)
       .then((fullMovieData) => {
-        // let { movieData, movieResponse} = data;
         this.state.shownMoviesAmount += fullMovieData.length;
         this.state.isRequestPending = false;
         this.saveMovieFullData(fullMovieData.map(({ movieResponse }) => movieResponse));
@@ -200,8 +196,6 @@ export default class Search {
   }
 
   checkSearchLang(movieToSearch) {
-    // const isMultiLangSearch = MULTI_LANG_REG_EXP.test(movieToSearch);
-    // MULTI_LANG_REG_EXP.lastIndex = 0;
   
     const containRusLetters = CONTAIN_RUS_REG_EXP.test(movieToSearch);
     CONTAIN_RUS_REG_EXP.lastIndex = 0;
@@ -246,138 +240,4 @@ export default class Search {
   hasOtherMovies() {
     return this.totalResults - this.state.shownMoviesAmount;
   }
-  // getAmountMoviesToShow() {
-  //   return Math.min(this.getRestMoviesAmount(), MOVIES_PER_PAGE);
-  // }
 }
-// getAmountMoviesToShow() {
-//   return Math.min(this.getRestMoviesAmount(), MOVIES_PER_PAGE);
-// }
-
-// shouldLoadNew() {
-//   const activeSlideIndex = this.swiper.activeIndex;
-//   return searchState.shownMoviesAmount - activeSlideIndex < MOVIES_PER_PAGE;
-// }
-
-
-
-// function getMovieData({ movieToSearch = lastSearch || DEFAULT_SEARCH, page = DEFAULT_PAGE}) {
-  // let isSearchTranslated = false;
-  // let totalResults = 0;
-
-  // function getMovieUrl(movie) {
-  //   return `${SERVER_URL.movies}?apikey=${API_KEY.movies}&s=${movie}&type=movie&page=${page}`;
-  // }
-
-  // const translatorUrl = `${SERVER_URL.translator}?key=${API_KEY.translator}&text=${movieToSearch}&lang=ru-en`;
-
-  // function checkSearchLang(movieToSearch) {
-  //   const isMultiLangSearch = MULTI_LANG_REG_EXP.test(movieToSearch);
-  //   MULTI_LANG_REG_EXP.lastIndex = 0;
-
-  //   if (!isMultiLangSearch) {
-  //     console.log('error: multi lang');
-  //   } else {
-  //     const isRusLangSearch = CONTAIN_RUS_REG_EXP.test(movieToSearch);
-  //     CONTAIN_RUS_REG_EXP.lastIndex = 0;
-
-  //     if (isRusLangSearch) {
-  //       isSearchTranslated = true;
-  //       return 'ru';
-  //     } else {
-  //       isSearchTranslated = false;
-  //       return 'eng';
-  //     }
-  //   }
-  // }
-
-  // const translateIfNecessary = function (movieToSearch) {
-  //   const searchLang = checkSearchLang(movieToSearch);
-  //   if (searchLang === 'ru') {
-  //     // return fetch(translatorUrl).
-  //     //   then((response) => response.json()).
-  //     //   then((response) => response.text[0]);
-  //   } else if (searchLang === 'eng') {
-  //     return new Promise(onLoad => onLoad(movieToSearch));
-  //   }
-  // }
-
-  // const whenMovieDataLoad = function (movie) {
-  //   lastSearch = movie;
-    // return fetch(getMovieUrl(movie)).
-    //   then((response) => {
-    //     if (response.status >= 200 && response.status < 300) {
-    //       return response.json();
-    //     }
-    //     throw new Error(`server error: ${response.status} ${response.statusText}`);
-    //   });
-  // }
-
-  // function addMovieRating(cardData) {
-  //   const ratingUrl = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${cardData.id}`;
-  //   return new Promise((onLoad, onError) => {
-  //     fetch(ratingUrl).
-  //       then((movieResponse) => {
-  //         if (movieResponse.status >= 200 && movieResponse.status < 300) {
-  //           return movieResponse.json();
-  //         }
-  //         throw new Error(`rating loading error: ${response.status} ${response.statusText}`);
-  //       }).
-  //       then((movieResponse) => {
-  //         cardData.rating = movieResponse.imdbRating;
-  //         onLoad(cardData);
-  //       }).
-  //       catch((err) => console.log(`Rating loading Error: ${err}`));
-  //   });
-  // }
-
-  // function getImagePromises(cardData) {
-  //   return new Promise((onLoad, onError) => {
-  //     const image = new Image();
-  //     const src = cardData.posterSrc;
-  //     cardData.posterSrc = image;
-  //     cardData.posterSrc.onload = () => onLoad(cardData);
-  //     cardData.posterSrc.onerror = () => onError(cardData);
-  //     cardData.posterSrc.src = src;
-  //   }).
-  //   catch((cardData) => {
-  //     cardData.posterSrc.src = DEFAULT_POSTER_SRC;
-  //     console.warn('постер отсутствует');
-  //     return cardData;
-  //   })
-  // }
-
-  // function convertData(sourceDataItem) {
-  //   return {
-  //     title: sourceDataItem.Title,
-  //     posterSrc: sourceDataItem.Poster,
-  //     year: sourceDataItem.Year,
-  //     id: sourceDataItem.imdbID,
-  //   }
-  // }
-
-//   return translateIfNecessary(movieToSearch).
-//     then((searchValue) => whenMovieDataLoad(searchValue)).
-//     then((data) => {
-//       searchState.shownMoviesAmount += data.Search.length;
-//       console.log(data)
-//       if (data.Error) {
-//         console.log(`ошибка при запросе: ${data.Error}`);
-//         throw new Error(data.Error);
-//       } else {
-//         totalResults = data.totalResults;
-//       }
-//       return data.Search.map((item) => {
-//         const convertedData = convertData(item);
-//         return getImagePromises(convertedData);
-//       })
-//     }).
-//     then((cardPromises) => Promise.all(cardPromises)).
-//     then((data) => data.map(addMovieRating)).
-//     then((cardPromises) => Promise.all(cardPromises)).
-//     then((data) => ({ data: data, totalResults: totalResults })).
-//     catch((err) => console.error(`final error in the chain: ${err}`));
-// }
-
-
-// export { getMovieData, searchState };

@@ -2,7 +2,6 @@ import Swiper from 'swiper';
 
 export default function initSwiper() {
   return new Swiper('.swiper-container', {
-    // Optional parameters
     slidesPerView: 1,
     spaceBetween: 30,
     allowTouchMove: true,
@@ -12,7 +11,6 @@ export default function initSwiper() {
       el: '.swiper-pagination',
       clickable: true,
     },
-  
     breakpoints: {
       320: {
         slidesPerView: 1,
@@ -31,14 +29,10 @@ export default function initSwiper() {
         spaceBetween: 25,
       },
     },
-  
-    // Navigation arrows
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-  
-    // And if we need scrollbar
     scrollbar: {
       el: '.swiper-scrollbar',
       hide: false,

@@ -87,38 +87,3 @@ export default class Controller {
     });
   }
 }
-
-
-// onSlideChange() {
-//   const amountSlidesToShow = this.getRestMoviesAmount();
-//   if (amountSlidesToShow && this.isTimeToLoadNew()) {
-//     console.log('time to load new slides');
-//     this.loadNextNewSlides(amountSlidesToShow);
-//   }
-// }
-
-// function removeSwiper() {
-//   const previousSearchSlider = document.querySelector('.swiper-container').swiper;
-//   previousSearchSlider.removeAllSlides();
-//   searchState.shownMoviesAmount = 0;
-//   previousSearchSlider.destroy();
-// }
-
-// getMovieData({ page: this.page }).
-//   then((moviesData) => {
-//     this.addSlideElements(moviesData.data);
-//   });
-
-
-// checkIfShouldLoadNew(currentCard) {
-//   return this.state.shownMoviesAmount - currentCard < buffer;
-// }
-
-// getRestMoviesAmount() {
-//   return this.totalResults - this.state.shownMoviesAmount;
-// }
-
-// getAmountMoviesToShow() {
-//   return Math.min(this.getRestMoviesAmount(), MOVIES_PER_PAGE);
-// }
-
