@@ -40,7 +40,7 @@ export default class Service {
     const movieData = data;
     const url = `${SERVER_URL.movies}?apikey=${API_KEY.movies}&i=${movieData.id}&plot='full'`;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       fetch(url)
         .then((movieResponse) => {
           if (movieResponse.status >= 200 && movieResponse.status < 300) {
@@ -58,7 +58,7 @@ export default class Service {
             resolve({ movieData, movieResponse });
           }
         })
-        .catch((err) => {
+        .catch(() => {
           resolve({ movieData, movieResponse: {} });
         });
     });

@@ -81,10 +81,7 @@ export default class ListView {
     const replacingText = 'information would be provided at a later date';
 
     function isEmpty(obj) {
-      for (const key in obj) {
-        return false;
-      }
-      return true;
+      return Object.keys(obj).length === 0;
     }
 
     if (isEmpty(data)) {
