@@ -68,7 +68,7 @@ export default class Controller {
       const clickedCard = this.listView.domElement.children[movieIndex];
 
       clickedCard.scrollIntoView();
-      
+
       if (clickedCard.querySelector('.details-input')) {
         clickedCard.querySelector('.details-input').checked = true;
       }

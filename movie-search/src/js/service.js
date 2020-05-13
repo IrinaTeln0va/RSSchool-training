@@ -59,8 +59,7 @@ export default class Service {
           }
         })
         .catch((err) => {
-          resolve({ movieData: movieData, movieResponse: {} });
-          // throw new Error(`Rating loading Error: ${err}`);
+          resolve({ movieData, movieResponse: {} });
         });
     });
   }
