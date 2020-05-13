@@ -34,6 +34,14 @@ export default class Controller {
       this.search.addNewMovies(activeSlideIndex);
     };
 
+    this.swiper.onSlidesEnd = () => {
+      if (!this.search.hasOtherMovies() && !this.search.state.isRequestPending) {
+        this.swiper.constructor.hideSliderLoader();
+      } else {
+        this.swiper.constructor.showSliderLoader();
+      }
+    };
+
     this.listView.onLoadMoreClick = (activeSlideIndex) => {
       this.search.addNewMovies(activeSlideIndex);
     };

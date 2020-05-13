@@ -45,7 +45,27 @@ export default class MySwiper {
       this.onSlideChange(this.swiper.activeIndex);
     });
 
+    this.swiper.on('reachEnd', () => {
+      this.onSlidesEnd();
+    });
+
     document.querySelector('.swiper-wrapper').addEventListener('click', this.onDetailedBtnClick.bind(this));
+  }
+
+  onSlidesEnd() {
+    throw new Error('method should be overriden', this);
+  }
+
+  static hideSliderLoader() {
+    const nextSlideArrow = document.querySelector('.swiper-button-next');
+
+    nextSlideArrow.classList.add('hide');
+  }
+
+  static showSliderLoader() {
+    const nextSlideArrow = document.querySelector('.swiper-button-next');
+
+    nextSlideArrow.classList.remove('hide');
   }
 
   onDetailedBtnClick(evt) {

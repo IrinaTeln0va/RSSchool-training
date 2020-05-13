@@ -37,6 +37,21 @@
   color: #ffffff;
 }
 
-.swiper-button-disabled {
+.swiper-button-next.swiper-button-disabled {
+  background-image: url('../assets/img/swiper-loader.gif');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 1;
+
+  transition: 0s;
+}
+
+.swiper-button-next.swiper-button-disabled::after {
   color: #ffffff00;
 }
+
+.swiper-button-next.swiper-button-disabled.hide {
+  opacity: 0;
+}
+
