@@ -1,16 +1,27 @@
+// opencage
+//  openweathermap
+// api.weatherbit описания погоды(1 строка)
+// http://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&lang={lang} 
+// navigator.geolocation.getCurrentPosition
+// opencagedata таймзона для даты
+// flickr картинки
+// city || town || county || village
+
 body {
+  min-height: 100vh;
   min-width: 320px;
   margin: 0;
   padding: 0;
-  overflow-y: scroll;
+  position: relative;
 
   font-size: $font-size;
-  font-family: $font-open-sans;
-  color: #000000;
+  font-family: $font-montserrat;
+  color: #ffffff;
 
-  background-color: #ffffff;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #E5E5E5;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-weight: bold;
 }
 
 a {
@@ -19,8 +30,15 @@ a {
   cursor: pointer;
 }
 
+
 a:hover {
   text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 img {
@@ -39,19 +57,47 @@ img {
   box-sizing: border-box;
   width: 90%;
   min-width: 320px;
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
   padding-right: 5px;
   padding-left: 5px;
-  overflow-x: hidden;
+  overflow: hidden;
 
   @media (min-width: $tablet) {
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
+}
 
-  @media (min-width: $desctop) {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+.body-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100%;
+}
+
+.body-background img {
+  width: 100vw;
+  min-height: 100vh;
+  object-fit: cover;
+  height: 100%;
+}
+
+.background-overlay {
+  width: 100vw;
+  min-height: 100vh;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(180deg, rgba(8, 15, 26, 0.69) 0%, rgba(17, 17, 46, 0.56) 100%);
+}
+
+.main-container {
+  padding-top: 56px;
+  display: flex;
+  justify-content: space-between;
 }

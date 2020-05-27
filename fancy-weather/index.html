@@ -6,5 +6,149 @@
   <title>Document</title>
 </head>
 <body>
+  <div class="body-background">
+    <img src="./src/assets/img/example-bg.png" alt="background">
+    <div class="background-overlay"></div>
+  </div>
+  <header class="main-header">
+    <div class="container header-container">
+      <ul class="options">
+        <li class="options-item">
+          <button class="btn options-btn update-bg-btn">
+            <div class="update-icon"></div>
+            <span>update</span>span>
+          </button>
+        </li>
+        <li class="options-item">
+          <button class="btn options-btn lang-menu">EN</button>
+        </li>
+        <li class="options-item units-switcher">
+          <input type="radio" id="options-units-pharyngate" name="options-unit" value="pharyngate">
+          <label class="units-label" for="options-units-pharyngate">°F</label>
+          <input type="radio" id="options-units-degrees" name="options-unit" value="degrees" checked>
+          <label class="units-label" for="options-units-degrees">°С</label>
+        </li>
+      </ul>
+      <form class="search-form" action="#" method="get">
+        <div class="search">
+          <input class="search-input" type="text" id="page-search" placeholder="Search city or ZIP">
+          <button type="button" class="btn microphone-btn"></button>
+        </div>
+        <button type="submit" class="btn search-btn">Search</button>
+      </form>
+    </div>
+  </header>
+  <main>
+    <div class="container main-container">
+      <div class="weather-column">
+        <h2 class="location-name">
+          Minsk, Belarus
+        </h2>
+        <ul class="date">
+          <li class="date-item date">Mon 28 October</li>
+          <li class="date-item time"> 17:23:10</li>
+        </ul>
+        <div class="weather-performance">
+          <div class="current-weather">
+            <div class="weather-value">
+              <span class "value">10</span><span class="current-weather-unit">°</span>
+            </div>
+            <img class="current-weather-image" src="./src/assets/img/icon-current-weather.svg" alt="current-weather">
+          </div>
+          <ul class="weather-indicators">
+            <li class="weather-indicators-item weather-state">
+              overcast
+            </li>
+            <li class="weather-indicators-item weather-feeling">
+              <span>
+                feels like: 
+              </span>
+              <span class "value">
+                7
+              </span>
+              <span>
+                °
+              </span>
+            </li>
+            <li class="weather-indicators-item weather-wind">
+              <span>
+                wind:
+              </span>
+              <span class "value">
+                2
+              </span>
+              <span>
+                m/s
+              </span>
+            </li>
+            <li class="weather-indicators-item weather-humidity">
+              <span>
+                humidity:
+              </span>
+              <span class "value">
+                83
+              </span>
+              <span>
+                %
+              </span>
+            </li>
+          </ul>
+        </div>
+        <ul class="forecast">
+          <li class="forecast-item">
+            <div class="week-day">tuesday</div>
+            <div class="day-value">
+              <div class="day-temperature-value">
+                <span class "forecast-value">7</span>
+                <span class="forecast-unit">°</span>
+                <img src="./src/assets/img/icon-current-weather.svg" alt="weather-state">
+              </div>
+            </div>
+          </li>
+          <li class="forecast-item">
+            <div class="week-day">wednesday</div>
+            <div class="day-value">
+              <div class="day-temperature-value">
+                <span class "forecast-value">6</span>
+                <span class="forecast-unit">°</span>
+                <img src="./src/assets/img/icon-current-weather.svg" alt="weather-state">
+              </div>
+            </div>
+          </li>
+          <li class="forecast-item">
+            <div class="week-day">thursday</div>
+            <div class="day-value">
+              <div class="day-temperature-value">
+                <span class "forecast-value">3</span>
+                <span class="forecast-unit">°</span>
+                <img src="./src/assets/img/icon-current-weather.svg" alt="weather-state">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="location-column">
+        <div class="map"></div>
+        <ul class="location-properties">
+          <li class="location-value-item latitude">
+            <span>
+              Latitude:
+            </span>
+            <span>
+              53°54'
+            </span>
+          </li>
+          <li class="location-value-item longitude">
+            <span>
+              Longitude:
+            </span>
+            <span>
+              27°34'
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </body>
 </html>

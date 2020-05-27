@@ -1,0 +1,117 @@
+.weather-column {
+  width: 50%;
+}
+
+.location-name {
+  font-weight: bold;
+  font-size: 44px;
+  line-height: 54px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.date {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.date-item {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+  display: flex;
+}
+
+.date-item.time {
+  margin-left: 15px;
+}
+
+.weather-performance {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 46px;
+}
+
+.current-weather {
+  position: relative;
+}
+
+.weather-value {
+  font-weight: bold;
+  font-size: 306px;
+  line-height: 373px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.current-weather-unit {
+  line-height: 207px;
+  font-size: 183px;
+  vertical-align: top;
+}
+
+.current-weather-image {
+  position: absolute;
+  top: -10px;
+  left: 100%;
+  width: 217px;
+  object-fit: contain;
+  height: 115px;
+  background-color: transparent;
+}
+
+.weather-indicators {
+  margin-left: 37px;
+  margin-bottom: 66px;
+  min-width: 200px;
+}
+
+.weather-indicators-item {
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.forecast {
+  display: grid;
+  grid-gap: 15px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.week-day {
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 27px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}
+
+.day-temperature-value {
+  font-weight: 600;
+  font-size: 0;
+  line-height: 98px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  display: flex;
+  align-items: flex-start;
+}
+
+.day-temperature-value span {
+  font-size: 80px;
+}
+
+.day-temperature-value .forecast-unit {
+  font-size: 61px;
+  line-height: 76px;
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.day-temperature-value img {
+  width: 85px;
+  margin-left: 10px;
+}

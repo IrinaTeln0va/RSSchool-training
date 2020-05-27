@@ -1,0 +1,79 @@
+.options {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(44px, auto));
+  min-width: 223px;
+  min-height: 44px;
+  font-size: 0;
+}
+
+.options-btn {
+  @include btn-reset;
+  min-height: 44px;
+  background-color: $color-light-grey;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+.update-bg-btn {
+  background-image: url('../assets/img/icon-change-bg.svg');
+  background-size: contain;
+  background-position: bottom 0 center;
+  position: relative;
+}
+
+.lang-menu {
+  font-size: 14px;
+  font-weight: bold;
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 40px;
+  background-image: url('../assets/img/icon-lang-menu.svg');
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center right 18px;
+}
+
+.update-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 20px;
+  background-image: url(../assets/img/icon-change.svg);
+  background-size: contain;
+}
+
+.units-switcher {
+  display: flex;
+  width: 100px;
+}
+
+.units-switcher input {
+  display: none;
+}
+
+.units-label {
+  background-color: $color-dark-grey;
+  border-radius: 5px 0 0 5px;
+  width: 50%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.units-label[for="options-units-degrees"] {
+  border-radius: 0 5px 5px 0;
+}
+
+.units-switcher input:checked + .units-label {
+  background-color: $color-light-grey;
+}
+
