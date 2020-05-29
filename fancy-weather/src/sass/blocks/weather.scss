@@ -1,5 +1,6 @@
 .weather-column {
-  width: 50%;
+  min-width: 50%;
+  padding-right: 20px;
 }
 
 .location-name {
@@ -111,7 +112,7 @@
   margin-left: 5px;
 }
 
-.day-temperature-value img {
+.day-temperature-icon {
   width: 85px;
   margin-left: 10px;
 }
