@@ -77,5 +77,6 @@
 
 .units-switcher input:checked + .units-label {
   background-color: $color-light-grey;
+  cursor: default;
 }
 
