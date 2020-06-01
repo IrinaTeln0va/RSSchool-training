@@ -6,7 +6,8 @@
     min-width: 375px;
   }
   @media (min-width: $desctop) {
-    width: auto;
+    width: 30%;
+    flex-grow: 1;
     min-width: 375px;
   }
 }

@@ -1,6 +1,9 @@
 .weather-column {
   min-width: 50%;
-  padding-right: 20px;
+  padding-right: 10px;
+  @media (min-width: $desctop) {
+    padding-right: 30px;
+  }
 }
 
 .location-name {

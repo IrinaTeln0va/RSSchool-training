@@ -2,4 +2,11 @@
   width: 100%;
   min-height: 398px;
   background-color: $color-light-grey;
+
+  -webkit-mask-image: url(../assets/img/mask2.svg);
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center center;
+  -webkit-mask-clip: padding-box;
+  // mask-image: url(../assets/img/map-mask.svg);
 }
