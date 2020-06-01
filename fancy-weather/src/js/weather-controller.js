@@ -21,6 +21,14 @@ export default class WeatherController {
     this.weatherView.onUserSearch = (searchValue) => {
       this.updatePageData(searchValue);
     };
+
+    this.weatherView.onBgUpdate = () => {
+      Loader.getPicture('', '', this.weatherData.currentPageData.location.city)
+        .then((picture) => {
+          this.weatherData.updatePicture(picture.urls.regular);
+          Loader.loadPicture(picture.urls.regular);
+        });
+    };
   }
 
   getInitialData() {

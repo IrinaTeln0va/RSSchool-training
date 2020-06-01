@@ -20,8 +20,10 @@ export default class WeatherView {
 
   bind() {
     const searchForm = document.querySelector('.search-form');
+    const updateBgBtn = document.querySelector('.update-bg-btn');
 
     searchForm.addEventListener('submit', this.formSubmitHandler.bind(this));
+    updateBgBtn.addEventListener('click', this.updateBgBtnHandler.bind(this));
   }
 
   formSubmitHandler(evt) {
@@ -31,6 +33,10 @@ export default class WeatherView {
     const searchValue = searchInput.value;
 
     this.onUserSearch(searchValue);
+  }
+
+  updateBgBtnHandler() {
+    this.onBgUpdate();
   }
 
   updatePageOnSearch(data) {
@@ -70,6 +76,10 @@ export default class WeatherView {
   }
 
   onUserSearch() {
+    throw new Error('method should be overriden', this);
+  }
+
+  onBgUpdate() {
     throw new Error('method should be overriden', this);
   }
 

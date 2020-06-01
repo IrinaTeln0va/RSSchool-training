@@ -5,6 +5,12 @@
   min-width: 223px;
   min-height: 44px;
   font-size: 0;
+  @media (min-width: $tablet) {
+    margin-right: 15px;
+  }
+  @media (min-width: $desctop) {
+    margin-right: 0;
+  }
 }
 
 .options-btn {

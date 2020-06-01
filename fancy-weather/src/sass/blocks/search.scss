@@ -1,23 +1,46 @@
 .search-form {
   display: flex;
-  min-width: 375px;
+  min-width: 70%;
   position: relative;
+  margin-top: 15px;
+
+  @media (min-width: $tablet) {
+    min-width: 375px;
+    margin-top: 15px;
+  }
+  @media (min-width: $desctop) {
+    min-width: 375px;
+    margin-top: 0;
+  }
 }
 
 .search {
   display: flex;
   position: relative;
+  max-width: 70%;
+  @media (min-width: $tablet) {
+    max-width: unset;
+  }
+  @media (min-width: $desctop) {
+    max-width: unset;
+  }
 }
 
 .search-input {
   min-height: 44px;
-  min-width: 274px;
+  min-width: 220px;
   box-sizing: border-box;
   background-color: rgba(76, 82, 85, 0.4);
   border: 1px solid rgba(228, 227, 227, 0.2);
   padding: 13px 58px 13px 15px;
   border-radius: 5px 0 0 5px;
   color: #fff;
+  @media (min-width: $tablet) {
+    min-width: 274px;
+  }
+  @media (min-width: $desctop) {
+    min-width: 274px;
+  }
 }
 
 .search-input::placeholder {
@@ -47,9 +70,15 @@
   @include btn-reset;
   background-color: $color-light-grey;
   border-radius: 0 5px 5px 0;
-  padding: 14px 20px 15px 20px;
+  padding: 14px 10px 15px 10px;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
   text-transform: uppercase;
+  @media (min-width: $tablet) {
+    padding: 14px 20px 15px 20px;
+  } 
+  @media (min-width: $desctop) {
+    padding: 14px 20px 15px 20px;
+  }
 }

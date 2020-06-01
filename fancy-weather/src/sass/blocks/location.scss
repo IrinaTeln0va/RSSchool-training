@@ -1,5 +1,14 @@
 .location-column {
-  min-width: 375px;
+  width: 100%;
+  min-width: 270px;
+  @media (min-width: $tablet) {
+    width: 100%;
+    min-width: 375px;
+  }
+  @media (min-width: $desctop) {
+    width: auto;
+    min-width: 375px;
+  }
 }
 
 .location-properties {

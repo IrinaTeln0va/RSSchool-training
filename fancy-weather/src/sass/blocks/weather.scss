@@ -5,16 +5,30 @@
 
 .location-name {
   font-weight: bold;
-  font-size: 44px;
-  line-height: 54px;
+  font-size: 25px;
+  line-height: 30px;
   text-transform: uppercase;
   color: #FFFFFF;
   margin: 0;
+  @media (min-width: $tablet) {
+    font-size: 44px;
+    line-height: 54px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 44px;
+    line-height: 54px;
+  }
 }
 
 .date {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 0;
+  @media (min-width: $tablet) {
+    margin-bottom: 0;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 30px;
+  }
 }
 
 .date-item {
@@ -31,8 +45,15 @@
 
 .weather-performance {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   margin-bottom: 46px;
+  @media (min-width: $tablet) {
+    margin-bottom: 0;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 46px;
+  }
 }
 
 .current-weather {
@@ -40,33 +61,71 @@
 }
 
 .weather-value {
+  margin-right: 90px;
   font-weight: bold;
-  font-size: 306px;
-  line-height: 373px;
+  font-size: 131px;
+  line-height: 205px;
   text-transform: uppercase;
   color: #FFFFFF;
+  @media (min-width: $tablet) {
+    font-size: 222px;
+    line-height: 232px;
+    margin-right: 175px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 306px;
+    line-height: 373px;
+    margin-right: 0;
+  }
 }
 
 .current-weather-unit {
-  line-height: 207px;
-  font-size: 183px;
+  line-height: 135px;
+  font-size: 101px;
   vertical-align: top;
+  @media (min-width: $tablet) {
+    line-height: 207px;
+    font-size: 183px;
+  }
+  @media (min-width: $desctop) {
+    line-height: 207px;
+    font-size: 183px;
+  }
 }
 
 .current-weather-image {
   position: absolute;
   top: -10px;
-  left: 100%;
-  width: 217px;
+  left: unset;
+  right: 0;
+  width: 89px;
   object-fit: contain;
   height: 115px;
   background-color: transparent;
+  @media (min-width: $tablet) {
+    width: 174px;
+    left: unset;
+    right: 0;
+  }
+  @media (min-width: $desctop) {
+    width: 217px;
+    left: 100%;
+    right: unset;
+  }
 }
 
 .weather-indicators {
-  margin-left: 37px;
-  margin-bottom: 66px;
+  margin-left: 0px;
+  margin-bottom: 0px;
   min-width: 200px;
+  @media (min-width: $tablet) {
+    margin-bottom: 66px;
+    margin-left: 37px;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 66px;
+    margin-left: 37px;
+  }
 }
 
 .weather-indicators-item {
@@ -85,10 +144,16 @@
 
 .week-day {
   font-weight: bold;
-  font-size: 22px;
-  line-height: 27px;
+  font-size: 15px;
+  line-height: 17px;
   text-transform: uppercase;
   color: #FFFFFF;
+  @media (min-width: $tablet) {
+    font-size: 20px;
+  }
+  @media (min-width: $desctop) {
+    line-height: 27px;
+  }
 }
 
 .day-temperature-value {
@@ -102,17 +167,37 @@
 }
 
 .day-temperature-value span {
-  font-size: 80px;
+  font-size: 40px;
+  @media (min-width: $tablet) {
+    font-size: 52px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 80px;
+  }
 }
 
 .day-temperature-value .forecast-unit {
-  font-size: 61px;
-  line-height: 76px;
+  font-size: 29px;
+  line-height: 73px;
   vertical-align: top;
   margin-left: 5px;
+  @media (min-width: $tablet) {
+    font-size: 48px;
+  }
+  @media (min-width: $desctop) {
+    line-height: 76px;
+  }
 }
 
 .day-temperature-icon {
-  width: 85px;
-  margin-left: 10px;
+    width: 36px;
+    margin-left: 2px;
+  @media (min-width: $tablet) {
+    width: 72px;
+    margin-left: 3px;
+  }
+  @media (min-width: $desctop) {
+    width: 85px;
+    margin-left: 10px;
+  }
 }
