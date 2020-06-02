@@ -4,7 +4,8 @@ const LOCATION_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${LOCATION_TOKEN
 const WEATHER_TOKEN = '9355c3a77b323122690b4fdb758ab08f';
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall?';
 
-const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
+const PIC_TOKEN = '999999999';
+// const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
 const PIC_URL = `https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,city&client_id=${PIC_TOKEN}`;
 
 const GEOLOCATION_TOKEN = 'b5f099c6ab134b3a82cd095dd7c2e8d3';
@@ -15,11 +16,25 @@ function checkResponseStatus(response) {
     return response.json();
   }
 
-  if (response.status === 401) {
+  if (response.status === 403 || response.status === 401) {
     throw new Error('Status 401. Try another API key');
   }
 
   throw new Error(`Server error: ${response.status} ${response.statusText}`);
+}
+
+function checkPictureStatus(response) {
+  const errorMessage = 'Standard picture is shown';
+
+  if (response.status >= 200 && response.status < 300) {
+    return response.json();
+  }
+
+  if (response.status === 403 || response.status === 401) {
+    throw new Error('API key limit for picture exceeded. Standard picture is shown');
+  }
+
+  throw new Error(`Server error: ${response.status} ${response.statusText}. ${errorMessage}`);
 }
 
 export default class Loader {
@@ -30,7 +45,15 @@ export default class Loader {
 
   static getPicture(dayPart, season, city) {
     return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=summer,day,${city}&client_id=${PIC_TOKEN}`)
-      .then((response) => checkResponseStatus(response));
+      .then((response) => checkPictureStatus(response))
+      .catch((err) => {
+        return {
+          urls: {
+            regular: 'https://images.unsplash.com/photo-1586521995568-39abaa0c2311?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+            error: err,
+          },
+        };
+      });
   }
 
   static loadPicture(pictureURL) {

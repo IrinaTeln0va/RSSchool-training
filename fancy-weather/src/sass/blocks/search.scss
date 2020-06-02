@@ -75,6 +75,8 @@
   line-height: 17px;
   text-align: center;
   text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: .3s;
   @media (min-width: $tablet) {
     padding: 14px 20px 15px 20px;
   } 

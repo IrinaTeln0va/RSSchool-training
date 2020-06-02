@@ -21,6 +21,24 @@
   border-radius: 5px;
   width: 100%;
   height: 100%;
+  border: 1px solid transparent;
+  transition: .3s;
+}
+
+.options-btn:hover,
+.units-label:hover,
+.search-btn:hover {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
+.lang-menu:hover {
+  background-size: 14px;
+}
+
+.options-btn:focus,
+.units-label:focus {
+  outline: none;
 }
 
 .update-bg-btn {
@@ -75,6 +93,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid transparent;
+  transition: .3s;
 }
 
 .units-label[for="options-units-degrees"] {
@@ -84,5 +104,6 @@
 .units-switcher input:checked + .units-label {
   background-color: $color-light-grey;
   cursor: default;
+  border: 1px solid transparent;
 }
 

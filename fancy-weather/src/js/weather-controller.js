@@ -22,24 +22,14 @@ export default class WeatherController {
       this.updatePageData(searchValue);
     };
 
-    this.weatherView.onBgUpdate = () => {
-      Loader.getPicture('', '', this.weatherData.currentPageData.location.city)
-        .then((picture) => {
-          this.weatherData.updatePicture(picture.urls.regular);
-          Loader.loadPicture(picture.urls.regular);
-        });
-    };
+    this.weatherView.onBgUpdate = () => this.loadPicture();
   }
 
   getInitialData() {
     return Loader.getLocationFromIP()
       .then((data) => {
         this.weatherData.updateUserLocation(data);
-        return Loader.getPicture('', '', data.city);
-      })
-      .then((picture) => {
-        this.weatherData.updatePicture(picture.urls.regular);
-        Loader.loadPicture(picture.urls.regular);
+        return this.loadPicture();
       })
       .then(() => Loader.getWeather(this.weatherData.currentPageData.location))
       .then((weather) => {
@@ -52,13 +42,6 @@ export default class WeatherController {
       });
   }
 
-  // initWeatherView(isError) {
-  //   if (isError) {
-  //     return;
-  //   }
-  //   this.weatherView.renderPageContent(this.weatherData.currentPageData);
-  // }
-
   updatePageData(searchValue) {
     this.getNewSearchData(searchValue)
       .then((ifError) => this.updateWeatherView(ifError));
@@ -68,11 +51,7 @@ export default class WeatherController {
     return Loader.getLocationFromSearch(searchValue)
       .then((data) => {
         this.weatherData.updateUserLocation(data, 'onSearch');
-        return Loader.getPicture('', '', data.city);
-      })
-      .then((picture) => {
-        this.weatherData.updatePicture(picture.urls.regular);
-        Loader.loadPicture(picture.urls.regular);
+        return this.loadPicture();
       })
       .then(() => Loader.getWeather(this.weatherData.currentPageData.location))
       .then((weather) => {
@@ -82,6 +61,18 @@ export default class WeatherController {
       .catch((err) => {
         this.weatherView.constructor.showErrorMessage(err);
         return 'error';
+      });
+  }
+
+  loadPicture() {
+    return Loader.getPicture('', '', this.weatherData.currentPageData.location.city)
+      .then((picture) => {
+        this.weatherData.updatePicture(picture.urls.regular);
+        Loader.loadPicture(picture.urls.regular);
+
+        if (picture.urls.error) {
+          this.weatherView.constructor.showErrorMessage(picture.urls.error);
+        }
       });
   }
 
