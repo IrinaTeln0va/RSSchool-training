@@ -60,12 +60,12 @@ export default class Loader {
 
   static loadPicture(pictureURL) {
     return new Promise((resolve) => {
-      const backgroundElem = document.querySelector('.body-background img');
-
-      backgroundElem.src = pictureURL;
-      backgroundElem.addEventListener('load', () => {
-        resolve();
+      const loadedImage = new Image();
+      loadedImage.classList.add('loaded-image');
+      loadedImage.addEventListener('load', () => {
+        resolve(loadedImage);
       }, { once: true });
+      loadedImage.src = pictureURL;
     });
   }
 

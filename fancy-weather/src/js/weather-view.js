@@ -212,6 +212,13 @@ export default class WeatherView {
   }
 
   renderPageContent(data, settings) {
+    this.constructor.updateBgPicture(data.pictureElem);
+    // const backgroundElem = document.querySelector('.body-background img');
+
+    // if (data.pictureElem) {
+    //   backgroundElem.replaceWith(data.pictureElem);
+    // }
+
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
     this.renderLocation(data.location.city, data.location.countryName);
     this.renderDate(data.location.timeZone);
@@ -219,6 +226,14 @@ export default class WeatherView {
     this.renderForecastTemp(data.weather.forecast);
     if (settings.tempUnits === 'phar') {
       this.switchPageTempUnits('phar');
+    }
+  }
+
+  static updateBgPicture(pictureElem) {
+    const backgroundElem = document.querySelector('.body-background img');
+
+    if (pictureElem) {
+      backgroundElem.replaceWith(pictureElem);
     }
   }
 

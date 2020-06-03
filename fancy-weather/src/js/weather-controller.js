@@ -24,7 +24,13 @@ export default class WeatherController {
     this.weatherView.onUserSearch = (searchValue) => {
       this.updatePageData(searchValue);
     };
-    this.weatherView.onBgUpdate = () => this.loadPicture('withoutCityKeyword');
+    this.weatherView.onBgUpdate = () => {
+      return this.loadPicture('withoutCityKeyword')
+        .then((pictureElem) => {
+          this.weatherData.currentPageData.pictureElem = pictureElem;
+          this.weatherView.constructor.updateBgPicture(pictureElem);
+        });
+    };
     this.weatherView.onLangChoice = (lang) => {
       this.weatherData.changeLang(lang);
     };
@@ -48,7 +54,11 @@ export default class WeatherController {
 
   getInitialData() {
     return Loader.getLocationFromIP()
-      .then((data) => this.getDataFromLocation(data));
+      .then((data) => this.getDataFromLocation(data))
+      .catch((err) => {
+        this.weatherView.constructor.showErrorMessage(err);
+        return 'error';
+      });
   }
 
   updatePageData(searchValue) {
@@ -58,7 +68,11 @@ export default class WeatherController {
 
   getNewSearchData(searchValue) {
     return Loader.getLocationFromSearch(searchValue)
-      .then((data) => this.getDataFromLocation(data, 'onSearch'));
+      .then((data) => this.getDataFromLocation(data, 'onSearch'))
+      .catch((err) => {
+        this.weatherView.constructor.showErrorMessage(err);
+        return 'error';
+      });
     // .then((data) => {
     //   this.weatherData.updateUserLocation(data, 'onSearch');
     //   return this.loadPicture();
@@ -76,16 +90,19 @@ export default class WeatherController {
 
   getDataFromLocation(data, isOnSearch) {
     this.weatherData.updateUserLocation(data, isOnSearch);
-    this.loadPicture()
-      .then(() => Loader.getWeather(this.weatherData.currentPageData.location))
+    return this.loadPicture()
+      .then((pictureElem) => {
+        this.weatherData.currentPageData.pictureElem = pictureElem;
+        return Loader.getWeather(this.weatherData.currentPageData.location);
+      })
       .then((weather) => {
         this.weatherData.updateCurrentWeather(weather.current);
         this.weatherData.updateForecastWeather(weather.daily.slice(1, 4));
-      })
-      .catch((err) => {
-        this.weatherView.constructor.showErrorMessage(err);
-        return 'error';
       });
+      // .catch((err) => {
+      //   this.weatherView.constructor.showErrorMessage(err);
+      //   return 'error';
+      // });
   }
 
   loadPicture(withoutCityKeyword) {
@@ -95,12 +112,13 @@ export default class WeatherController {
 
     return Loader.getPicture(season, dayPart, city)
       .then((picture) => {
-        this.weatherData.updatePicture(picture.urls.regular);
-        Loader.loadPicture(picture.urls.regular);
-
         if (picture.urls.error) {
           this.weatherView.constructor.showErrorMessage(picture.urls.error);
+        } else {
+          this.weatherData.updatePicture(picture.urls.regular);
+          return Loader.loadPicture(picture.urls.regular);
         }
+        return false;
       });
   }
 

@@ -136,12 +136,12 @@ export default class WeatherData {
             icon: weatherIcons['300'],
           },
           {
-            weekDay: 'Tuesday',
+            weekDay: 'Wednesday',
             temp: 10,
             icon: weatherIcons['200'],
           },
           {
-            weekDay: 'Tuesday',
+            weekDay: 'Thursday',
             temp: 12,
             icon: weatherIcons['700'],
           },
