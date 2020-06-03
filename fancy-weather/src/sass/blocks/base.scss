@@ -1,14 +1,3 @@
-// opencage
-//  openweathermap lang=be
-// api.weatherbit описания погоды(1 строка)
-// http://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&lang={lang} 
-// navigator.geolocation.getCurrentPosition
-// opencagedata таймзона для даты
-// flickr картинки
-// city || town || county || village
-// weatherapi дата в запросе
-// канберре зима утро
-
 body {
   min-height: 100vh;
   min-width: 320px;
@@ -23,6 +12,7 @@ body {
   background-color: rgba(37, 37, 37, 0.671);
   max-width: 100%;
   overflow-x: hidden;
+  overflow-y: scroll;
   font-weight: bold;
 }
 

@@ -14,6 +14,7 @@ export default class WeatherController {
   init() {
     this.initialData = this.getInitialData()
       .then((ifError) => {
+        this.getSettingsFromStorage();
         this.updateWeatherView(ifError);
         this.bind();
         this.setTimer();
@@ -33,10 +34,20 @@ export default class WeatherController {
     };
     this.weatherView.onLangChoice = (lang) => {
       this.weatherData.changeLang(lang);
+      localStorage.settings = JSON.stringify(this.weatherData.currentSettings);
     };
     this.weatherView.onTempUnitsChange = (value) => {
       this.weatherData.changeTempUnits(value);
+      localStorage.settings = JSON.stringify(this.weatherData.currentSettings);
     };
+  }
+
+  getSettingsFromStorage() {
+    if (!localStorage.settings) {
+      localStorage.setItem('settings', JSON.stringify(this.weatherData.currentSettings));
+    } else {
+      this.weatherData.currentSettings = JSON.parse(localStorage.getItem('settings'));
+    }
   }
 
   setTimer() {
@@ -73,19 +84,6 @@ export default class WeatherController {
         this.weatherView.constructor.showErrorMessage(err);
         return 'error';
       });
-    // .then((data) => {
-    //   this.weatherData.updateUserLocation(data, 'onSearch');
-    //   return this.loadPicture();
-    // })
-    // .then(() => Loader.getWeather(this.weatherData.currentPageData.location))
-    // .then((weather) => {
-    //   this.weatherData.updateCurrentWeather(weather.current);
-    //   this.weatherData.updateForecastWeather(weather.daily.slice(1, 4));
-    // })
-    // .catch((err) => {
-    //   this.weatherView.constructor.showErrorMessage(err);
-    //   return 'error';
-    // });
   }
 
   getDataFromLocation(data, isOnSearch) {
@@ -99,10 +97,6 @@ export default class WeatherController {
         this.weatherData.updateCurrentWeather(weather.current);
         this.weatherData.updateForecastWeather(weather.daily.slice(1, 4));
       });
-      // .catch((err) => {
-      //   this.weatherView.constructor.showErrorMessage(err);
-      //   return 'error';
-      // });
   }
 
   loadPicture(withoutCityKeyword) {

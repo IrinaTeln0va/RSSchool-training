@@ -116,7 +116,7 @@ export default class WeatherView {
   hideMenu(evt) {
     if (evt.target.classList.contains('lang-option')) {
       const lang = evt.target.innerText;
-      this.switchLang(lang);
+      this.constructor.switchLang(lang);
       this.onLangChoice(lang);
     }
 
@@ -127,14 +127,15 @@ export default class WeatherView {
     document.body.removeEventListener('mousedown', this.hideMenu);
   }
 
-  switchLang(lang) {
+  static switchLang(lang) {
     const langOptionsList = document.querySelector('.lang-option-list');
+    const langDropdown = document.querySelector('.lang-switcher');
 
     function getItemMurkup(langItem) {
       return `<li><a class="lang-option" href="#">${langItem}</a></li>`;
     }
 
-    this.langDropdown.querySelector('.lang-menu').innerText = lang;
+    langDropdown.querySelector('.lang-menu').innerText = lang;
     langOptionsList.innerHTML = `
       ${langsList.filter((elem) => elem !== lang).map((langItem) => getItemMurkup(langItem)).join('')}`;
   }
@@ -212,13 +213,8 @@ export default class WeatherView {
   }
 
   renderPageContent(data, settings) {
+    this.renderOptions(settings);
     this.constructor.updateBgPicture(data.pictureElem);
-    // const backgroundElem = document.querySelector('.body-background img');
-
-    // if (data.pictureElem) {
-    //   backgroundElem.replaceWith(data.pictureElem);
-    // }
-
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
     this.renderLocation(data.location.city, data.location.countryName);
     this.renderDate(data.location.timeZone);
@@ -227,6 +223,19 @@ export default class WeatherView {
     if (settings.tempUnits === 'phar') {
       this.switchPageTempUnits('phar');
     }
+  }
+
+  renderOptions(settings) {
+    this.constructor.switchLang(settings.language);
+    // if (this.constructor.getValueFromCheckedInput !== settings.tempUnits) {
+      const unitsInputs = document.querySelectorAll('.units-switcher input');
+      for (let i = 0; i < unitsInputs.length; i += 1) {
+        if (unitsInputs[i].dataset.val === settings.tempUnits) {
+          unitsInputs[i].checked = true;
+          return;
+        }
+      }
+    // }
   }
 
   static updateBgPicture(pictureElem) {
