@@ -4,8 +4,7 @@ const LOCATION_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${LOCATION_TOKEN
 const WEATHER_TOKEN = '9355c3a77b323122690b4fdb758ab08f';
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall?';
 
-const PIC_TOKEN = '999999999';
-// const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
+const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
 const PIC_URL = `https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,city&client_id=${PIC_TOKEN}`;
 
 const GEOLOCATION_TOKEN = 'b5f099c6ab134b3a82cd095dd7c2e8d3';
@@ -43,9 +42,12 @@ export default class Loader {
       .then((response) => checkResponseStatus(response));
   }
 
-  static getPicture(dayPart, season, city) {
-    return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=summer,day,${city}&client_id=${PIC_TOKEN}`)
-      .then((response) => checkPictureStatus(response))
+  static getPicture(season, dayPart, city) {
+    return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=${season},${dayPart}${city ? `,${city}` : ''}&client_id=${PIC_TOKEN}`)
+      .then((response) => {
+        console.info(`Keywords for picture searching: ${season}, ${dayPart}${city ? `, ${city}` : ''}`);
+        return checkPictureStatus(response);
+      })
       .catch((err) => {
         return {
           urls: {

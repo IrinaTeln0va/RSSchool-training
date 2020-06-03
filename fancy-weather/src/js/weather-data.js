@@ -47,15 +47,14 @@ export default class WeatherData {
       forecastItem.temp = this.constructor.getAverageTemp(forecastItem);
       return forecastItem;
     });
-    // const forecastList = this.currentPageData.weather.forecast;
+  }
 
-    // forecastList.forEach((elem) => {
-    //   const forecastItem = elem;
-    //   const iconId = elem.weather[0].id;
+  changeLang(lang) {
+    this.currentSettings.language = lang;
+  }
 
-    //   forecastItem.icon = weatherIcons[iconId];
-    //   forecastItem.temp = this.constructor.getAverageTemp(forecastItem);
-    // });
+  changeTempUnits(value) {
+    this.currentSettings.tempUnits = value;
   }
 
   static convertWeatherData(apiWeatherData) {
@@ -70,8 +69,8 @@ export default class WeatherData {
 
   static convertLocationData(apiLocationData) {
     return {
-      city: apiLocationData.city,
-      countryName: apiLocationData.country_name,
+      city: apiLocationData.city || '',
+      countryName: apiLocationData.country_name || '',
       latitude: apiLocationData.latitude,
       longitude: apiLocationData.longitude,
       timeZone: apiLocationData.time_zone,
@@ -82,12 +81,13 @@ export default class WeatherData {
     const pageData = {
       latitude: apiLocationData.geometry.lat,
       longitude: apiLocationData.geometry.lng,
-      countryName: apiLocationData.components.country,
+      countryName: apiLocationData.components.country || '',
       city: apiLocationData.components.city
         || apiLocationData.components.town
         || apiLocationData.components.county
         || apiLocationData.components.village
-        || apiLocationData.components.state,
+        || apiLocationData.components.state
+        || '',
       timeZone: apiLocationData.annotations.timezone,
     };
 
@@ -103,7 +103,7 @@ export default class WeatherData {
 
   static getDefaultSettings() {
     return {
-      language: 'ru',
+      language: 'EN',
       tempUnits: 'deg',
     };
   }
@@ -156,94 +156,94 @@ export default class WeatherData {
 
 // getUserLocation();
 
-function onUserSearch(city) {
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${GEOLOCATION_TOKEN}&language=en&pretty=1`;
+// function onUserSearch(city) {
+//   const url = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${GEOLOCATION_TOKEN}&language=en&pretty=1`;
 
-  fetch(url)
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json();
-      }
+//   fetch(url)
+//     .then((response) => {
+//       if (response.status >= 200 && response.status < 300) {
+//         return response.json();
+//       }
 
-      if (response.status === 401) {
-        throw new Error('Status 401. Try another API key');
-      }
+//       if (response.status === 401) {
+//         throw new Error('Status 401. Try another API key');
+//       }
 
-      throw new Error(`Server error: ${response.status} ${response.statusText}`);
-    })
-    .then((data) => {
-      const results = data.results[0];
-      if (data.total_results === 0) {
-        throw new Error('Sorry, no results for your search');
-      }
-      const pageData = {
-        latitude: results.geometry.lat,
-        longitude: results.geometry.lng,
-        countryName: results.components.country,
-        city: results.components.city
-          || results.components.town
-          || results.components.county
-          || results.components.village,
-        timeZone: results.annotations.timezone,
-      };
+//       throw new Error(`Server error: ${response.status} ${response.statusText}`);
+//     })
+//     .then((data) => {
+//       const results = data.results[0];
+//       if (data.total_results === 0) {
+//         throw new Error('Sorry, no results for your search');
+//       }
+//       const pageData = {
+//         latitude: results.geometry.lat,
+//         longitude: results.geometry.lng,
+//         countryName: results.components.country,
+//         city: results.components.city
+//           || results.components.town
+//           || results.components.county
+//           || results.components.village,
+//         timeZone: results.annotations.timezone,
+//       };
 
-      moveMapCenter(pageData.latitude, pageData.longitude);
-      renderCoordsInfo(pageData.latitude, pageData.longitude);
-      renderLocation(pageData.countryName, pageData.city);
-      renderDate(pageData.timeZone);
-      return pageData;
-    })
-    .then((data) => {
-      return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,${data.city}&client_id=${PIC_TOKEN}`)
-        .then((response) => {
-          if (response.status >= 200 && response.status < 300) {
-            return response.json();
-          }
+//       moveMapCenter(pageData.latitude, pageData.longitude);
+//       renderCoordsInfo(pageData.latitude, pageData.longitude);
+//       renderLocation(pageData.countryName, pageData.city);
+//       renderDate(pageData.timeZone);
+//       return pageData;
+//     })
+//     .then((data) => {
+//       return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,${data.city}&client_id=${PIC_TOKEN}`)
+//         .then((response) => {
+//           if (response.status >= 200 && response.status < 300) {
+//             return response.json();
+//           }
 
-          if (response.status === 401) {
-            throw new Error('Status 401. Try another API key');
-          }
+//           if (response.status === 401) {
+//             throw new Error('Status 401. Try another API key');
+//           }
 
-          throw new Error(`Server error: ${response.status} ${response.statusText}`);
-        })
-        .then((picture) => {
-          data.picture = picture.urls.regular;
-          return data;
-        });
-    })
-    .then((data) => {
-      return new Promise((resolve, reject) => {
-        const backgroundElem = document.querySelector('.body-background img');
+//           throw new Error(`Server error: ${response.status} ${response.statusText}`);
+//         })
+//         .then((picture) => {
+//           data.picture = picture.urls.regular;
+//           return data;
+//         });
+//     })
+//     .then((data) => {
+//       return new Promise((resolve, reject) => {
+//         const backgroundElem = document.querySelector('.body-background img');
 
-        backgroundElem.src = data.picture;
-        backgroundElem.addEventListener('load', () => {
-          resolve(data);
-        }, { once: true });
-      });
-    })
-    .then((data) => {
-      const url = `${WEATHER_URL}lat=${data.latitude}&lon=${data.longitude}&%20exclude=daily&appid=${WEATHER_TOKEN}&units=metric`;
+//         backgroundElem.src = data.picture;
+//         backgroundElem.addEventListener('load', () => {
+//           resolve(data);
+//         }, { once: true });
+//       });
+//     })
+//     .then((data) => {
+//       const url = `${WEATHER_URL}lat=${data.latitude}&lon=${data.longitude}&%20exclude=daily&appid=${WEATHER_TOKEN}&units=metric`;
 
-      return fetch(url);
-    })
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json();
-      }
+//       return fetch(url);
+//     })
+//     .then((response) => {
+//       if (response.status >= 200 && response.status < 300) {
+//         return response.json();
+//       }
 
-      if (response.status === 401) {
-        throw new Error('Status 401. Try another API key');
-      }
+//       if (response.status === 401) {
+//         throw new Error('Status 401. Try another API key');
+//       }
 
-      throw new Error(`Server error: ${response.status} ${response.statusText}`);
-    })
-    .catch((err) => {
-      console.log(err);
-      // throw new Error('Openweathermap not responding');
-    })
-    .then((data) => {
-      renderCurrentTemp(data.current);
-      renderForecastTemp(data.daily);
-    })
-    .catch((err) => console.log(err));
-}
+//       throw new Error(`Server error: ${response.status} ${response.statusText}`);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       // throw new Error('Openweathermap not responding');
+//     })
+//     .then((data) => {
+//       renderCurrentTemp(data.current);
+//       renderForecastTemp(data.daily);
+//     })
+//     .catch((err) => console.log(err));
+// }

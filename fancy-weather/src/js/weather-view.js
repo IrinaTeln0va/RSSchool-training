@@ -6,24 +6,32 @@ const CONVERT_PARAM = {
   quotient: 1.8,
 };
 
+const langsList = ['EN', 'RU', 'BE'];
+
 export default class WeatherView {
-  constructor(data) {
+  constructor(data, settings) {
+    this.formatSettings = settings;
     this.mapElem = new Map(data.location.latitude, data.location.longitude);
+    this.hideMenu = this.hideMenu.bind(this);
     this.init(data);
   }
 
   init(data) {
     this.pageElements = this.constructor.findPageElements();
-    this.renderPageContent(data);
+    this.renderPageContent(data, this.formatSettings);
     this.bind();
   }
 
   bind() {
     const searchForm = document.querySelector('.search-form');
     const updateBgBtn = document.querySelector('.update-bg-btn');
+    this.langDropdown = document.querySelector('.lang-switcher');
+    const tempUnitsSwitcher = document.querySelector('.units-switcher');
 
     searchForm.addEventListener('submit', this.formSubmitHandler.bind(this));
     updateBgBtn.addEventListener('click', this.updateBgBtnHandler.bind(this));
+    this.langDropdown.addEventListener('click', this.langDropdownHandler.bind(this));
+    tempUnitsSwitcher.addEventListener('mouseup', this.tempUnitsChangeHandler.bind(this));
   }
 
   formSubmitHandler(evt) {
@@ -39,9 +47,101 @@ export default class WeatherView {
     this.onBgUpdate();
   }
 
-  updatePageOnSearch(data) {
+  tempUnitsChangeHandler(evt) {
+    if (
+      evt.target.closest('.units-label')
+      && this.constructor.isTargetInputChecked(evt.target)
+    ) {
+      return;
+    }
+
+    const value = this.constructor.getValueFromCheckedInput();
+
+    this.onTempUnitsChange(value);
+    this.switchPageTempUnits(value);
+  }
+
+  switchPageTempUnits(value) {
+    const currentTemp = document.querySelector('.current-weather .value');
+    const currentTempUnits = document.querySelector('.current-weather-unit');
+    this.changeUnitsValue(currentTemp, currentTempUnits, value);
+
+    const feltTemp = document.querySelector('.weather-feeling .value');
+    const feltTempUnits = document.querySelector('.feeling-weather-unit');
+    this.changeUnitsValue(feltTemp, feltTempUnits, value);
+
+    const forecastTempList = document.querySelectorAll('.forecast-value');
+    [...forecastTempList].forEach((item) => {
+      const unit = item.nextElementSibling;
+      this.changeUnitsValue(item, unit, value);
+    });
+  }
+
+  static isTargetInputChecked(label) {
+    const labelName = label.getAttribute('for');
+    const targetInput = document.querySelector(`#${labelName}`);
+    return targetInput.checked;
+  }
+
+  changeUnitsValue(valueElem, unitsElem, value) {
+    const currentElem = valueElem;
+    const currentUnitsElem = unitsElem;
+
+    currentElem.innerText = value === 'deg'
+      ? this.constructor.convertPharIntoDeg(currentElem.innerText)
+      : this.constructor.convertDegIntoPhar(currentElem.innerText);
+
+    currentUnitsElem.innerText = value === 'deg'
+      ? currentUnitsElem.innerText = '°C'
+      : currentUnitsElem.innerText = '°F';
+  }
+
+  static getValueFromCheckedInput() {
+    const degInput = document.querySelector('#options-units-degrees');
+    return degInput.checked === true ? 'phar' : 'deg';
+  }
+
+  langDropdownHandler(evt) {
+    if (evt.target.classList.contains('lang-menu')
+    && evt.target.closest('.active')) {
+      this.langDropdown.classList.remove('active');
+      return;
+    }
+
+    this.langDropdown.classList.add('active');
+
+    document.body.addEventListener('mouseup', this.hideMenu);
+  }
+
+  hideMenu(evt) {
+    if (evt.target.classList.contains('lang-option')) {
+      const lang = evt.target.innerText;
+      this.switchLang(lang);
+      this.onLangChoice(lang);
+    }
+
+    if (!evt.target.classList.contains('lang-menu')) {
+      this.langDropdown.classList.remove('active');
+    }
+
+    document.body.removeEventListener('mousedown', this.hideMenu);
+  }
+
+  switchLang(lang) {
+    const langOptionsList = document.querySelector('.lang-option-list');
+
+    function getItemMurkup(langItem) {
+      return `<li><a class="lang-option" href="#">${langItem}</a></li>`;
+    }
+
+    this.langDropdown.querySelector('.lang-menu').innerText = lang;
+    langOptionsList.innerHTML = `
+      ${langsList.filter((elem) => elem !== lang).map((langItem) => getItemMurkup(langItem)).join('')}`;
+  }
+
+  updatePageOnSearch(data, settings) {
     this.moveMapCenter(data.location.latitude, data.location.longitude);
-    this.renderPageContent(data);
+    this.renderPageContent(data, settings);
   }
 
   moveMapCenter(latitude, longitude) {
@@ -83,6 +183,14 @@ export default class WeatherView {
     throw new Error('method should be overriden', this);
   }
 
+  onLangChoice() {
+    throw new Error('method should be overriden', this);
+  }
+
+  onTempUnitsChange() {
+    throw new Error('method should be overriden', this);
+  }
+
   static findPageElements() {
     const dayTempElem = document.querySelector('.weather-performance');
 
@@ -103,12 +211,15 @@ export default class WeatherView {
     };
   }
 
-  renderPageContent(data) {
+  renderPageContent(data, settings) {
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
     this.renderLocation(data.location.city, data.location.countryName);
     this.renderDate(data.location.timeZone);
     this.renderCurrentTemp(data.weather.current);
     this.renderForecastTemp(data.weather.forecast);
+    if (settings.tempUnits === 'phar') {
+      this.switchPageTempUnits('phar');
+    }
   }
 
   renderCoordsInfo(latitude, longitude) {
@@ -186,8 +297,14 @@ export default class WeatherView {
     return `${deg}°${minute}'`;
   }
 
-  static convertPharIntoDeg(tempInDeg) {
-    return (tempInDeg - CONVERT_PARAM.froze) / CONVERT_PARAM.quotient;
+  static convertPharIntoDeg(tempInPhar) {
+    const value = (tempInPhar - CONVERT_PARAM.froze) / CONVERT_PARAM.quotient;
+    return value.toFixed(0);
+  }
+
+  static convertDegIntoPhar(tempInDeg) {
+    const value = tempInDeg * CONVERT_PARAM.quotient + CONVERT_PARAM.froze;
+    return value.toFixed(0);
   }
 }
 
