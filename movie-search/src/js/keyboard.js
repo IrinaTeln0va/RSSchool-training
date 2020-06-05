@@ -339,9 +339,11 @@ function addHandlers() {
     const moreThanOneKeysPressed = pressedKeysList.length > 1;
     const isRepeatedEvent = evt.detail.repeated;
 
-    if (moreThanOneKeysPressed
+    if (
+      moreThanOneKeysPressed
       && isLangChangingPressed(pressedKeysList)
-      && !isRepeatedEvent) {
+      && !isRepeatedEvent
+    ) {
       specialKeysHandlers.onLangChange();
     }
 

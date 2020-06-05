@@ -5,8 +5,7 @@
   display: none;
   width: 45px;
   height: 56px;
-  margin: auto;
-  margin-left: 0;
+  margin: auto auto auto 0;
 
   transform: scale(0.5);
   @media (min-width: $tablet) {
@@ -22,8 +21,7 @@
 }
 
 #list-view-spinner {
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto 0 auto;
   transform: translateX(0px);
   display: block;
 }

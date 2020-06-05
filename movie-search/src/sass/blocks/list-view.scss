@@ -25,9 +25,7 @@
   box-sizing: border-box;
   width: 100%;
   margin-bottom: 10px;
-  padding: 15px;
-  padding-right: 90px;
-  padding-bottom: 37px;
+  padding: 15px 90px 37px 15px;
   overflow: hidden;
 
   line-height: auto;
@@ -159,8 +157,7 @@
   display: block;
   width: 50px;
   height: 50px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto 0 auto;
 
   background-color: transparent;
   background-image: url("../assets/img/icon-load-more.svg");
@@ -208,7 +205,6 @@
   background-position: center center;
   background-size: 100%;
   border: none;
-  cursor: pointer;
   cursor: pointer;
   opacity: 0.4;
 

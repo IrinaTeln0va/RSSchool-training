@@ -82,8 +82,7 @@ export default class Controller {
       }
     };
 
-    viewOptions.addEventListener('click', (evt) => {
-      const { target } = evt;
+    viewOptions.addEventListener('click', ({ target }) => {
       const isSliderBtn = target.classList.contains('slider-view-btn');
       const isListBtn = target.classList.contains('list-view-btn');
 

@@ -19,15 +19,9 @@ body {
 
 main {
   flex-grow: 1;
-  padding: 27px 0;
-  padding-bottom: 42px;
-  @media (min-width: $tablet) {
-    padding: 27px 0;
-    padding-bottom: 42px;
-  }
+  padding: 27px 0 42px;
   @media (min-width: $desctop) {
-    padding: 60px 0;
-    padding-bottom: 130px;
+    padding: 60px 0 130px;
   }
 }
 
@@ -59,7 +53,6 @@ img {
   min-width: 320px;
   max-width: 1200px;
   margin: 0 auto;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding: 0 20px;
   overflow-x: hidden;
 }

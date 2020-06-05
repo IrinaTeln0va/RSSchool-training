@@ -7,6 +7,10 @@ const DEFAULT_SEARCH = 'terminator';
 const DEFAULT_PAGE = 1;
 const buffer = 10;
 const CONTAIN_RUS_REG_EXP = /[А-я]+/g;
+const Language = {
+  ru: 'ru',
+  eng: 'eng',
+};
 
 const formElement = document.querySelector('.search-form');
 const searchElement = document.querySelector('.search-input');
@@ -59,7 +63,9 @@ export default class Search {
   onSearchFormSubmit(evt) {
     evt.preventDefault();
     const movieToSearch = searchElement.value
-    && searchElement.value.length ? searchElement.value : null;
+    && searchElement.value.length
+      ? searchElement.value
+      : null;
 
     if (!movieToSearch) {
       this.constructor.showErrorMessage('Please enter your query in the search input');
@@ -103,15 +109,21 @@ export default class Search {
   static showErrorMessage(error) {
     errorElement.querySelector('.error-text').innerText = `${error}`;
     errorElement.classList.add('active');
-    document.body.addEventListener('mouseup', function hideMessage(evt) {
-      if (evt.target.closest('.error-message') && !evt.target.closest('.error-btn')) {
+    document.body.addEventListener('mouseup', function hideMessage({ target }) {
+      if (
+        target.closest('.error-message')
+        && !target.closest('.error-btn')
+      ) {
         return;
       }
 
       errorElement.classList.remove('active');
       document.body.removeEventListener('mouseup', hideMessage);
 
-      if (!evt.target.closest('.swiper-container') && !evt.target.closest('.list-container')) {
+      if (
+        !target.closest('.swiper-container')
+        && !target.closest('.list-container')
+      ) {
         searchElement.focus();
       }
     });
@@ -126,10 +138,12 @@ export default class Search {
   static showKeyboard() {
     keyboardElement.classList.add('active');
     document.body.addEventListener('mouseup', function hideKeyboard(evt) {
-      if (evt.target.closest('.keyboard')
-      || evt.target.closest('.clear-search-btn')
-      || evt.target.closest('.search-input')
-      || evt.target.closest('.error-message')) {
+      if (
+        evt.target.closest('.keyboard')
+        || evt.target.closest('.clear-search-btn')
+        || evt.target.closest('.search-input')
+        || evt.target.closest('.error-message')
+      ) {
         return;
       }
 
@@ -164,12 +178,13 @@ export default class Search {
         return Service.getMoviesList(moviesData, page);
       })
       .then((moviesData) => {
-        if (moviesData.Error) {
-          if (moviesData.Error === 'Movie not found!' || moviesData.Error === 'Too many results.') {
-            throw new Error(`No results for '${movieToSearch}'`);
-          } else {
-            throw new Error(moviesData.Error);
-          }
+        if (
+          (moviesData.Error && moviesData.Error === 'Movie not found!')
+          || (moviesData.Error && moviesData.Error === 'Too many results.')
+        ) {
+          throw new Error(`No results for '${movieToSearch}'`);
+        } else if (moviesData.Error) {
+          throw new Error(moviesData.Error);
         } else {
           this.totalResults = +moviesData.totalResults;
 
@@ -198,12 +213,12 @@ export default class Search {
   translateIfNecessary(movieToSearch) {
     const searchLang = this.checkSearchLang(movieToSearch);
 
-    if (searchLang === 'ru') {
+    if (searchLang === Language.ru) {
       this.state.isSearchTranslated = true;
       return Service.translate(movieToSearch);
     }
 
-    if (searchLang === 'eng') {
+    if (searchLang === Language.eng) {
       this.state.isSearchTranslated = false;
       return new Promise((resolve) => resolve(movieToSearch));
     }
@@ -218,11 +233,11 @@ export default class Search {
 
     if (containRusLetters) {
       this.isSearchTranslated = true;
-      return 'ru';
+      return Language.ru;
     }
 
     this.isSearchTranslated = false;
-    return 'eng';
+    return Language.eng;
   }
 
   static convertData(sourceDataItem) {
@@ -235,9 +250,11 @@ export default class Search {
   }
 
   addNewMovies(currentIndex) {
-    if (this.checkIfShouldAddSlides(currentIndex)
-    && this.hasOtherMovies()
-    && !this.state.isRequestPending) {
+    if (
+      this.checkIfShouldAddSlides(currentIndex)
+      && this.hasOtherMovies()
+      && !this.state.isRequestPending
+    ) {
       this.state.currentPage += 1;
       this.getMoviesData()
         .then((moviesData) => {

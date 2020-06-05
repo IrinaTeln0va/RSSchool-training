@@ -9,6 +9,7 @@ const SERVER_URL = {
 };
 
 const DEFAULT_POSTER_SRC = '../assets/img/default-poster.png';
+const NOT_FOUND_ERROR = 'N/A';
 
 export default class Service {
   static translate(movieTitle) {
@@ -71,7 +72,7 @@ export default class Service {
       const image = new Image();
       let src = movieData.posterSrc;
 
-      if (src === 'N/A') {
+      if (src === NOT_FOUND_ERROR) {
         src = DEFAULT_POSTER_SRC;
       }
 
