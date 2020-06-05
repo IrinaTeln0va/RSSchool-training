@@ -122,6 +122,16 @@ img {
   background-repeat: no-repeat, repeat;
 }
 
+.background-overlay.preload {
+  background-color: #393636c4;
+  z-index: 10;
+  background-image: url(../assets/img/preloader.svg), linear-gradient(180deg, rgba(8, 15, 26, 0.36) 0%, rgba(17, 17, 46, 0.46) 100%),
+  url(../assets/img/pattern.png);
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-position: center center, left top, left top;
+  backdrop-filter: blur(3px);
+}
+
 .main-container {
   padding-top: 56px;
   display: flex;
