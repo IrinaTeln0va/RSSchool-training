@@ -199,7 +199,8 @@ export default class WeatherController {
     }
     this.weatherView.updatePageOnSearch(this.weatherData.currentPageData, this.weatherData.currentSettings);
     this.updateViewLanguage();
-    this.constructor.hidePreloader();
+    this.weatherView.switchPageTempUnits(this.weatherData.currentSettings.tempUnits);
+    // this.constructor.hidePreloader();
   }
 
   updateViewLanguage(words, currentLanguage, targetLanguage) {
@@ -208,6 +209,8 @@ export default class WeatherController {
     const targetLang = targetLanguage || this.weatherData.currentSettings.language.toLowerCase();
 
     if (currentLang === targetLang) {
+      this.weatherView.renderOptions(this.weatherData.currentSettings);
+      this.constructor.hidePreloader();
       return;
     }
 
@@ -216,6 +219,7 @@ export default class WeatherController {
         const wordsList = translatedWords.split('@');
         this.weatherView.constructor.translatePage(wordsList);
         this.weatherView.renderOptions(this.weatherData.currentSettings);
-      });
+      })
+      .finally(() => this.constructor.hidePreloader());
   }
 }

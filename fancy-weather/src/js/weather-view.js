@@ -58,10 +58,13 @@ export default class WeatherView {
     const value = this.constructor.getValueFromCheckedInput();
 
     this.onTempUnitsChange(value);
-    this.switchPageTempUnits(value);
+    this.switchPageTempUnits(value, 'userClick');
   }
 
-  switchPageTempUnits(value) {
+  switchPageTempUnits(value, userClick) {
+    if (value === 'deg' && !userClick) {
+      return;
+    }
     const currentTemp = document.querySelector('.current-weather .value');
     const currentTempUnits = document.querySelector('.current-weather-unit');
     this.changeUnitsValue(currentTemp, currentTempUnits, value);
@@ -225,7 +228,7 @@ export default class WeatherView {
     };
   }
 
-  renderPageContent(data) {
+  renderPageContent(data, settings) {
     // this.renderOptions(settings);
     this.constructor.updateBgPicture(data.pictureElem);
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
@@ -245,9 +248,9 @@ export default class WeatherView {
         return;
       }
     }
-    if (settings.tempUnits === 'phar') {
-      this.switchPageTempUnits('phar');
-    }
+    // if (settings.tempUnits === 'phar') {
+    //   this.switchPageTempUnits('phar');
+    // }
   }
 
   static updateBgPicture(pictureElem) {
