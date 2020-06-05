@@ -2,13 +2,21 @@ const LOCATION_TOKEN = 'e5f9df0b3ed443768d7eb43d6114eeee';
 const LOCATION_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${LOCATION_TOKEN}`;
 
 const WEATHER_TOKEN = '9355c3a77b323122690b4fdb758ab08f';
+
+// запасной
+// const WEATHER_TOKEN = 'a9a3a62789de80865407c0452e9d1c27';
+
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall?';
 
 const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
-const PIC_URL = `https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,city&client_id=${PIC_TOKEN}`;
+
+// запасной
+// const PIC_TOKEN = 'e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17';
 
 const GEOLOCATION_TOKEN = 'b5f099c6ab134b3a82cd095dd7c2e8d3';
-const GEOLOCATION_URL = `https://api.opencagedata.com/geocode/v1/json?q=taganrog&key=${GEOLOCATION_TOKEN}&language=en&pretty=1`;
+
+const TRANSLATE_TOKEN = 'trnsl.1.1.20200504T094843Z.9786178e4c3e0c28.a33f80505acefaca289145fdda21477f083571ff';
+const TRANSLATE_URL = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
 
 function checkResponseStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -57,6 +65,21 @@ export default class Loader {
         };
       });
   }
+
+  static translate(wordsToTranslate, currentLang, targetLang) {
+    const url = `${TRANSLATE_URL}?key=${TRANSLATE_TOKEN}&text=${wordsToTranslate}&lang=${currentLang}-${targetLang}`;
+
+    return fetch(url)
+      .then((response) => response.json())
+      .then((response) => response.text[0]);
+  }
+
+  // static defineLanguage(words) {
+  //   const url = `https://translate.yandex.net/api/v1.5/tr/detect?key=${TRANSLATE_TOKEN}&text=${words}&hint=en,ru,be`;
+  //   return fetch(url)
+  //     .then((response) => response.json())
+  //     .then((response) => response.lang);
+  // }
 
   static loadPicture(pictureURL) {
     return new Promise((resolve) => {

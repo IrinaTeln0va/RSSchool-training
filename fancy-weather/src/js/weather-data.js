@@ -1,4 +1,4 @@
-import description from './description';
+import description from './description-tr';
 import weatherIcons from './weather-icons';
 
 export default class WeatherData {

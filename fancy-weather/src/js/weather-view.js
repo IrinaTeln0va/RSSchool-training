@@ -12,7 +12,7 @@ export default class WeatherView {
   constructor(data, settings) {
     this.formatSettings = settings;
     this.mapElem = new Map(data.location.latitude, data.location.longitude);
-    this.hideMenu = this.hideMenu.bind(this);
+    this.langItemClickHandler = this.langItemClickHandler.bind(this);
     this.init(data);
   }
 
@@ -110,24 +110,31 @@ export default class WeatherView {
 
     this.langDropdown.classList.add('active');
 
-    document.body.addEventListener('mouseup', this.hideMenu);
+    document.body.addEventListener('mouseup', this.langItemClickHandler);
   }
 
-  hideMenu(evt) {
+  langItemClickHandler(evt) {
     if (evt.target.classList.contains('lang-option')) {
-      const lang = evt.target.innerText;
-      this.constructor.switchLang(lang);
-      this.onLangChoice(lang);
+      const targetLang = evt.target.innerText;
+      this.constructor.switchLang(targetLang);
+      this.onLangChoice(targetLang, this.constructor.getWordsToTranslate());
     }
 
     if (!evt.target.classList.contains('lang-menu')) {
       this.langDropdown.classList.remove('active');
     }
 
-    document.body.removeEventListener('mousedown', this.hideMenu);
+    document.body.removeEventListener('mouseup', this.langItemClickHandler);
   }
 
-  static switchLang(lang) {
+  static translatePage(wordsList) {
+    const elemsToTranslate = document.querySelectorAll('[data-i18n]');
+    wordsList.forEach((translatedWord, index) => {
+      elemsToTranslate[index].innerText = translatedWord;
+    });
+  }
+
+  static switchLang(targetLang) {
     const langOptionsList = document.querySelector('.lang-option-list');
     const langDropdown = document.querySelector('.lang-switcher');
 
@@ -135,9 +142,15 @@ export default class WeatherView {
       return `<li><a class="lang-option" href="#">${langItem}</a></li>`;
     }
 
-    langDropdown.querySelector('.lang-menu').innerText = lang;
+    langDropdown.querySelector('.lang-menu').innerText = targetLang;
     langOptionsList.innerHTML = `
-      ${langsList.filter((elem) => elem !== lang).map((langItem) => getItemMurkup(langItem)).join('')}`;
+      ${langsList.filter((elem) => elem !== targetLang).map((langItem) => getItemMurkup(langItem)).join('')}`;
+  }
+
+  static getWordsToTranslate() {
+    const wordsToTranslateElem = document.querySelectorAll('[data-i18n]');
+    const wordsToTranslate = [...wordsToTranslateElem].map((elem) => elem.innerText).join('@');
+    return wordsToTranslate;
   }
 
   updatePageOnSearch(data, settings) {
@@ -212,30 +225,29 @@ export default class WeatherView {
     };
   }
 
-  renderPageContent(data, settings) {
-    this.renderOptions(settings);
+  renderPageContent(data) {
+    // this.renderOptions(settings);
     this.constructor.updateBgPicture(data.pictureElem);
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
     this.renderLocation(data.location.city, data.location.countryName);
     this.renderDate(data.location.timeZone);
     this.renderCurrentTemp(data.weather.current);
     this.renderForecastTemp(data.weather.forecast);
-    if (settings.tempUnits === 'phar') {
-      this.switchPageTempUnits('phar');
-    }
   }
 
   renderOptions(settings) {
     this.constructor.switchLang(settings.language);
     // if (this.constructor.getValueFromCheckedInput !== settings.tempUnits) {
-      const unitsInputs = document.querySelectorAll('.units-switcher input');
-      for (let i = 0; i < unitsInputs.length; i += 1) {
-        if (unitsInputs[i].dataset.val === settings.tempUnits) {
-          unitsInputs[i].checked = true;
-          return;
-        }
+    const unitsInputs = document.querySelectorAll('.units-switcher input');
+    for (let i = 0; i < unitsInputs.length; i += 1) {
+      if (unitsInputs[i].dataset.val === settings.tempUnits) {
+        unitsInputs[i].checked = true;
+        return;
       }
-    // }
+    }
+    if (settings.tempUnits === 'phar') {
+      this.switchPageTempUnits('phar');
+    }
   }
 
   static updateBgPicture(pictureElem) {

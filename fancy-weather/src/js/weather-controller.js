@@ -3,6 +3,7 @@ import WeatherData from './weather-data';
 import Loader from './loader';
 
 const SECOND = 1000;
+const DEFAULT_LANG = 'en';
 
 export default class WeatherController {
   constructor() {
@@ -32,9 +33,13 @@ export default class WeatherController {
           this.weatherView.constructor.updateBgPicture(pictureElem);
         });
     };
-    this.weatherView.onLangChoice = (lang) => {
-      this.weatherData.changeLang(lang);
+    this.weatherView.onLangChoice = (targetLang, wordsToTranslate) => {
+      const currentLanguage = this.weatherData.currentSettings.language.toLowerCase();
+      const targetLanguage = targetLang.toLowerCase();
+
+      this.weatherData.changeLang(targetLang);
       localStorage.settings = JSON.stringify(this.weatherData.currentSettings);
+      this.updateViewLanguage(wordsToTranslate, currentLanguage, targetLanguage);
     };
     this.weatherView.onTempUnitsChange = (value) => {
       this.weatherData.changeTempUnits(value);
@@ -174,8 +179,27 @@ export default class WeatherController {
 
   updateWeatherView(ifError) {
     if (ifError) {
+      this.updateViewLanguage();
       return;
     }
     this.weatherView.updatePageOnSearch(this.weatherData.currentPageData, this.weatherData.currentSettings);
+    this.updateViewLanguage();
+  }
+
+  updateViewLanguage(words, currentLanguage, targetLanguage) {
+    const wordsToTranslate = words || this.weatherView.constructor.getWordsToTranslate();
+    const currentLang = currentLanguage || DEFAULT_LANG;
+    const targetLang = targetLanguage || this.weatherData.currentSettings.language.toLowerCase();
+
+    if (currentLang === targetLang) {
+      return;
+    }
+
+    Loader.translate(wordsToTranslate, currentLang, targetLang)
+      .then((translatedWords) => {
+        const wordsList = translatedWords.split('@');
+        this.weatherView.constructor.translatePage(wordsList);
+        this.weatherView.renderOptions(this.weatherData.currentSettings);
+      });
   }
 }

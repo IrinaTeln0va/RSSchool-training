@@ -40,7 +40,7 @@
             <input class="search-input" type="search" id="page-search" placeholder="Search city or ZIP">
             <button type="button" class="btn microphone-btn"></button>
           </div>
-          <button type="submit" class="btn search-btn">Search</button>
+          <button type="submit" data-i18n="search" class="btn search-btn">Search</button>
           <p class="error-message">
             <span class="error-text"></span>
             <button type="button" class="btn error-btn"></button>
@@ -52,11 +52,11 @@
   <main>
     <div class="container main-container">
       <div class="weather-column">
-        <h2 class="location-name">
+        <h2 class="location-name" data-i18n="location">
           Minsk, Belarus
         </h2>
         <ul class="date">
-          <li class="date-item date">Mon 28 October</li>
+          <li class="date-item date" data-i18n="date">Mon 28 October</li>
           <li class="date-item time"> 17:23:10</li>
         </ul>
         <div class="weather-performance">
@@ -67,11 +67,11 @@
             <div class="current-weather-image"></div>
           </div>
           <ul class="weather-indicators">
-            <li class="weather-indicators-item weather-state">
+            <li class="weather-indicators-item weather-state" data-i18n="currentForecast">
               overcast
             </li>
             <li class="weather-indicators-item weather-feeling">
-              <span>
+              <span data-i18n="feltTemp">
                 feels like: 
               </span>
               <span class="value">
@@ -82,18 +82,18 @@
               </span>
             </li>
             <li class="weather-indicators-item weather-wind">
-              <span>
+              <span data-i18n="wind">
                 wind:
               </span>
               <span class="value">
                 2
               </span>
-              <span>
+              <span data-i18n="ms">
                 m/s
               </span>
             </li>
             <li class="weather-indicators-item weather-humidity">
-              <span>
+              <span data-i18n="humidity">
                 humidity:
               </span>
               <span class="value">
@@ -107,7 +107,7 @@
         </div>
         <ul class="forecast">
           <li class="forecast-item">
-            <div class="week-day">tuesday</div>
+            <div class="week-day" data-i18n="weekDay">tuesday</div>
             <div class="day-value">
               <div class="day-temperature-value">
                 <span class="forecast-value">7</span>
@@ -117,7 +117,7 @@
             </div>
           </li>
           <li class="forecast-item">
-            <div class="week-day">wednesday</div>
+            <div class="week-day" data-i18n="weekDay">wednesday</div>
             <div class="day-value">
               <div class="day-temperature-value">
                 <span class="forecast-value">6</span>
@@ -127,7 +127,7 @@
             </div>
           </li>
           <li class="forecast-item">
-            <div class="week-day">thursday</div>
+            <div class="week-day" data-i18n="weekDay">thursday</div>
             <div class="day-value">
               <div class="day-temperature-value">
                 <span class="forecast-value">3</span>
@@ -142,7 +142,7 @@
         <div id="map" class="map" width="375" height="378"></div>
         <ul class="location-properties">
           <li class="location-value-item latitude">
-            <span>
+            <span data-i18n="latitude">
               Latitude:
             </span>
             <span class="latitude-value">
@@ -150,7 +150,7 @@
             </span>
           </li>
           <li class="location-value-item longitude">
-            <span>
+            <span data-i18n="longtitude">
               Longitude:
             </span>
             <span class="longitude-value">
