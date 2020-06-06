@@ -1,4 +1,3 @@
-// import mapboxgl from 'mapbox-gl';
 import Map from './map';
 import recognition from './speech';
 
@@ -45,6 +44,10 @@ export default class WeatherView {
 
   startRecognizing() {
     const microphone = document.querySelector('.microphone-btn');
+    if (microphone.classList.contains('active')) {
+      this.stopMicrophone();
+      return;
+    }
     microphone.classList.add('active');
     recognition.addEventListener('result', this.speechResultHandler);
     recognition.addEventListener('end', this.constructor.setRestarting);
@@ -56,12 +59,20 @@ export default class WeatherView {
       console.log(request);
       const searchInput = document.querySelector('.search-input');
       searchInput.value = request;
-      this.constructor.endRecognizing();
+      // this.constructor.endRecognizing();
       this.constructor.dispatchSearch();
-      const microphone = document.querySelector('.microphone-btn');
-      microphone.classList.remove('active');
+      this.stopMicrophone();
+      // const microphone = document.querySelector('.microphone-btn');
+      // microphone.classList.remove('active');
       recognition.removeEventListener('result', this.speechResultHandler);
     }
+  }
+
+  stopMicrophone() {
+    this.constructor.endRecognizing();
+    const microphone = document.querySelector('.microphone-btn');
+    microphone.classList.remove('active');
+    recognition.removeEventListener('result', this.speechResultHandler);
   }
 
   static dispatchSearch() {
@@ -276,8 +287,7 @@ export default class WeatherView {
     };
   }
 
-  renderPageContent(data, settings) {
-    // this.renderOptions(settings);
+  renderPageContent(data) {
     this.constructor.updateBgPicture(data.pictureElem);
     this.renderCoordsInfo(data.location.latitude, data.location.longitude);
     this.renderLocation(data.location.city, data.location.countryName);
@@ -288,7 +298,6 @@ export default class WeatherView {
 
   renderOptions(settings) {
     this.constructor.switchLang(settings.language);
-    // if (this.constructor.getValueFromCheckedInput !== settings.tempUnits) {
     const unitsInputs = document.querySelectorAll('.units-switcher input');
     for (let i = 0; i < unitsInputs.length; i += 1) {
       if (unitsInputs[i].dataset.val === settings.tempUnits) {
@@ -296,9 +305,6 @@ export default class WeatherView {
         return;
       }
     }
-    // if (settings.tempUnits === 'phar') {
-    //   this.switchPageTempUnits('phar');
-    // }
   }
 
   static updateBgPicture(pictureElem) {
@@ -325,26 +331,6 @@ export default class WeatherView {
   renderDate(timeZone) {
     this.renderDay(timeZone);
     this.renderTime(timeZone);
-    // const { dateElem, timeElem } = this.pageElements;
-
-    // const dateStr = new Date().toLocaleString('en-GB', {
-    //   hour12: false,
-    //   timeZone: timeZone.name,
-    //   weekday: 'short',
-    //   month: 'long',
-    //   day: 'numeric',
-    // }).replace(/,/g, '');
-
-    // const timeStr = new Date().toLocaleString('en-GB', {
-    //   hour12: false,
-    //   timeZone: timeZone.name,
-    //   hour: '2-digit',
-    //   minute: '2-digit',
-    //   second: '2-digit',
-    // });
-
-    // dateElem.innerText = dateStr;
-    // timeElem.innerText = timeStr;
   }
 
   renderDay(timeZone) {
@@ -372,14 +358,6 @@ export default class WeatherView {
   }
 
   renderCurrentTemp(currentTempState) {
-    // this.pageElements.tempValueElem.innerText = currentTempState.temp.toFixed();
-    // this.pageElements.weatherStateElem.innerText = currentTempState.weather[0].description;
-    // this.pageElements.weatherFeelingElem.innerText = currentTempState.feels_like.toFixed();
-    // this.pageElements.weatherWindElem.innerText = currentTempState.wind_speed;
-    // this.pageElements.weatherHumidityElem.innerText = currentTempState.humidity;
-    // this.pageElements.weatherPictureElem.innerText = currentTempState.icon;
-    // this.pageElements.weatherPictureElem.innerText = weatherIcons[temp.weather[0].id];
-
     this.pageElements.tempValueElem.innerText = Number(currentTempState.temp).toFixed();
     this.pageElements.weatherStateElem.innerText = currentTempState.descr;
     this.pageElements.weatherFeelingElem.innerText = Number(currentTempState.feltTemp).toFixed();
@@ -399,9 +377,6 @@ export default class WeatherView {
     forecastIconsList.forEach((elem, index) => {
       const valueElem = elem;
       valueElem.innerHTML = dailyTemp[index].icon;
-
-      // const iconId = dailyTemp[index].weather[0].id;
-      // valueElem.innerHTML = weatherIcons[iconId];
     });
   }
 
@@ -420,124 +395,3 @@ export default class WeatherView {
     return value.toFixed(0);
   }
 }
-
-// let map;
-// let mapMarker;
-
-// function mapInit(latitude, longitude) {
-//   map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/streets-v9',
-//     center: [longitude, latitude],
-//     zoom: 6,
-//   });
-
-//   mapMarker = new mapboxgl.Marker({ color: '#0000008f' })
-//     .setLngLat([longitude, latitude])
-//     .addTo(map);
-
-//   return map;
-// }
-
-// function moveMapCenter(latitude, longitude) {
-//   map.jumpTo({ center: [longitude, latitude] });
-//   mapMarker.setLngLat([longitude, latitude]);
-// }
-
-// function formatCoord(coord) {
-//   const [deg, minute] = coord.split('.');
-//   return `${deg}°${minute}'`;
-// }
-
-// function renderCoordsInfo(latitude, longitude) {
-//   const latitudeElem = document.querySelector('.latitude-value');
-//   const longitudeElem = document.querySelector('.longitude-value');
-
-//   const latitudeValue = formatCoord(Number(latitude).toFixed(2));
-//   const longitudeValue = formatCoord(Number(longitude).toFixed(2));
-
-//   latitudeElem.innerText = latitudeValue;
-//   longitudeElem.innerText = longitudeValue;
-// }
-
-// function renderLocation(city, country) {
-//   const locationElem = document.querySelector('.location-name');
-//   locationElem.innerHTML = `${city}, ${country}`;
-// }
-
-// function renderDate(timeZone) {
-//   const dateElem = document.querySelector('.date-item.date');
-//   const timeElem = document.querySelector('.date-item.time');
-
-//   const dateStr = new Date().toLocaleString('en-GB', {
-//     hour12: false,
-//     timeZone: timeZone.name,
-//     weekday: 'short',
-//     month: 'long',
-//     day: 'numeric',
-//   }).replace(/,/g, '');
-
-//   const timeStr = new Date().toLocaleString('en-GB', {
-//     hour12: false,
-//     timeZone: timeZone.name,
-//     hour: '2-digit',
-//     minute: '2-digit',
-//     second: '2-digit',
-//   });
-
-//   dateElem.innerText = dateStr;
-//   timeElem.innerText = timeStr;
-// }
-
-// function convertPharIntoDeg(tempInDeg) {
-//   return (tempInDeg - CONVERT_PARAM.froze) / CONVERT_PARAM.quotient;
-// }
-
-// function renderCurrentTemp(temp) {
-//   const dayTempElem = document.querySelector('.weather-performance');
-//   const tempValueElem = dayTempElem.querySelector('.value');
-//   const weatherStateElem = dayTempElem.querySelector('.weather-state');
-//   const weatherFeelingElem = dayTempElem.querySelector('.weather-feeling .value');
-//   const weatherWindElem = dayTempElem.querySelector('.weather-wind .value');
-//   const weatherHumidityElem = dayTempElem.querySelector('.weather-humidity .value');
-//   const weatherPictureElem = dayTempElem.querySelector('.current-weather-image');
-
-//   tempValueElem.innerText = temp.temp.toFixed();
-//   weatherStateElem.innerText = temp.weather[0].description;
-//   weatherFeelingElem.innerText = temp.feels_like.toFixed();
-//   weatherWindElem.innerText = temp.wind_speed;
-//   weatherHumidityElem.innerText = temp.humidity;
-//   weatherPictureElem.innerHTML = weatherIcons[temp.weather[0].id];
-// }
-
-// function getAverageTemp(dailyTemp) {
-//   const minTemp = dailyTemp.temp.min;
-//   const maxTemp = dailyTemp.temp.max;
-//   const average = (maxTemp + minTemp) / 2;
-//   return average.toFixed();
-// }
-
-// function renderForecastTemp(dailyTemp) {
-//   const forecastElemList = document.querySelectorAll('.forecast-value');
-//   const forecastIconsList = document.querySelectorAll('.day-temperature-icon');
-
-//   forecastElemList.forEach((elem, index) => {
-//     const valueElem = elem;
-//     valueElem.innerText = getAverageTemp(dailyTemp[index + 1]);
-//   });
-
-//   forecastIconsList.forEach((elem, index) => {
-//     const valueElem = elem;
-//     const iconId = dailyTemp[index + 1].weather[0].id;
-//     valueElem.innerHTML = weatherIcons[iconId];
-//   });
-// }
-
-// const searchForm = document.querySelector('.search-form');
-// const searchInput = document.querySelector('.search-input');
-
-// searchForm.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
-//   const searchValue = searchInput.value;
-//   onUserSearch(searchValue);
-// });
