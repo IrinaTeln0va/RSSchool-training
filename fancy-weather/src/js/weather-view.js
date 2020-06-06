@@ -315,8 +315,32 @@ export default class WeatherView {
   }
 
   renderDate(timeZone) {
-    const { dateElem, timeElem } = this.pageElements;
+    this.renderDay(timeZone);
+    this.renderTime(timeZone);
+    // const { dateElem, timeElem } = this.pageElements;
 
+    // const dateStr = new Date().toLocaleString('en-GB', {
+    //   hour12: false,
+    //   timeZone: timeZone.name,
+    //   weekday: 'short',
+    //   month: 'long',
+    //   day: 'numeric',
+    // }).replace(/,/g, '');
+
+    // const timeStr = new Date().toLocaleString('en-GB', {
+    //   hour12: false,
+    //   timeZone: timeZone.name,
+    //   hour: '2-digit',
+    //   minute: '2-digit',
+    //   second: '2-digit',
+    // });
+
+    // dateElem.innerText = dateStr;
+    // timeElem.innerText = timeStr;
+  }
+
+  renderDay(timeZone) {
+    const { dateElem } = this.pageElements;
     const dateStr = new Date().toLocaleString('en-GB', {
       hour12: false,
       timeZone: timeZone.name,
@@ -324,7 +348,11 @@ export default class WeatherView {
       month: 'long',
       day: 'numeric',
     }).replace(/,/g, '');
+    dateElem.innerText = dateStr;
+  }
 
+  renderTime(timeZone) {
+    const { timeElem } = this.pageElements;
     const timeStr = new Date().toLocaleString('en-GB', {
       hour12: false,
       timeZone: timeZone.name,
@@ -332,8 +360,6 @@ export default class WeatherView {
       minute: '2-digit',
       second: '2-digit',
     });
-
-    dateElem.innerText = dateStr;
     timeElem.innerText = timeStr;
   }
 
