@@ -1,5 +1,6 @@
 // import mapboxgl from 'mapbox-gl';
 import Map from './map';
+import recognition from './speech';
 
 const CONVERT_PARAM = {
   froze: 32,
@@ -13,6 +14,7 @@ export default class WeatherView {
     this.formatSettings = settings;
     this.mapElem = new Map(data.location.latitude, data.location.longitude);
     this.langItemClickHandler = this.langItemClickHandler.bind(this);
+    this.speechResultHandler = this.speechResultHandler.bind(this);
     this.init(data);
   }
 
@@ -20,10 +22,12 @@ export default class WeatherView {
     this.pageElements = this.constructor.findPageElements();
     this.renderPageContent(data, this.formatSettings);
     this.bind();
+    recognition.start();
   }
 
   bind() {
     const searchForm = document.querySelector('.search-form');
+    const microphone = document.querySelector('.microphone-btn');
     const updateBgBtn = document.querySelector('.update-bg-btn');
     this.langDropdown = document.querySelector('.lang-switcher');
     const tempUnitsSwitcher = document.querySelector('.units-switcher');
@@ -32,6 +36,42 @@ export default class WeatherView {
     updateBgBtn.addEventListener('click', this.updateBgBtnHandler.bind(this));
     this.langDropdown.addEventListener('click', this.langDropdownHandler.bind(this));
     tempUnitsSwitcher.addEventListener('mouseup', this.tempUnitsChangeHandler.bind(this));
+    microphone.addEventListener('click', this.startRecognizing.bind(this));
+  }
+
+  startRecognizing() {
+    const microphone = document.querySelector('.microphone-btn');
+    microphone.classList.add('active');
+    recognition.addEventListener('result', this.speechResultHandler);
+    recognition.addEventListener('end', this.constructor.setRestarting);
+  }
+
+  speechResultHandler(evt) {
+    if (evt.results[0].isFinal) {
+      const request = evt.results[0][0].transcript;
+      console.log(request);
+      const searchInput = document.querySelector('.search-input');
+      searchInput.value = request;
+      this.constructor.endRecognizing();
+      this.constructor.dispatchSearch();
+      const microphone = document.querySelector('.microphone-btn');
+      microphone.classList.remove('active');
+      recognition.removeEventListener('result', this.speechResultHandler);
+    }
+  }
+
+  static dispatchSearch() {
+    const searchForm = document.querySelector('.search-form');
+    const searchEvt = new Event('submit');
+    searchForm.dispatchEvent(searchEvt);
+  }
+
+  static endRecognizing() {
+    recognition.removeEventListener('end', this.constructor.setRestarting);
+  }
+
+  static setRestarting() {
+    recognition.start();
   }
 
   formSubmitHandler(evt) {
