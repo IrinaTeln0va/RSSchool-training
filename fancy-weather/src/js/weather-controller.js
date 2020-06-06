@@ -1,6 +1,7 @@
 import WeatherView from './weather-view';
 import WeatherData from './weather-data';
 import Loader from './loader';
+import Voice from './voice';
 
 const SECOND = 1000;
 const DEFAULT_LANG = 'en';
@@ -10,6 +11,7 @@ export default class WeatherController {
     this.constructor.showPreloader();
     this.weatherData = new WeatherData();
     this.weatherView = new WeatherView(this.weatherData.currentPageData, this.weatherData.currentSettings);
+    this.voiceForecast = new Voice();
     this.init();
   }
 
@@ -47,6 +49,9 @@ export default class WeatherController {
     this.weatherView.onTempUnitsChange = (value) => {
       this.weatherData.changeTempUnits(value);
       localStorage.settings = JSON.stringify(this.weatherData.currentSettings);
+    };
+    this.weatherView.onVoiceClick = () => {
+      this.voiceForecast.speak(this.weatherData.currentSettings.language);
     };
   }
 

@@ -31,12 +31,16 @@ export default class WeatherView {
     const updateBgBtn = document.querySelector('.update-bg-btn');
     this.langDropdown = document.querySelector('.lang-switcher');
     const tempUnitsSwitcher = document.querySelector('.units-switcher');
+    const voiceBtn = document.querySelector('.voice-btn');
 
     searchForm.addEventListener('submit', this.formSubmitHandler.bind(this));
     updateBgBtn.addEventListener('click', this.updateBgBtnHandler.bind(this));
     this.langDropdown.addEventListener('click', this.langDropdownHandler.bind(this));
     tempUnitsSwitcher.addEventListener('mouseup', this.tempUnitsChangeHandler.bind(this));
     microphone.addEventListener('click', this.startRecognizing.bind(this));
+    voiceBtn.addEventListener('click', () => {
+      this.onVoiceClick();
+    });
   }
 
   startRecognizing() {
@@ -236,6 +240,10 @@ export default class WeatherView {
     throw new Error('method should be overriden', this);
   }
 
+  onVoiceClick() {
+    throw new Error('method should be overriden', this);
+  }
+
   onBgUpdate() {
     throw new Error('method should be overriden', this);
   }
@@ -375,7 +383,7 @@ export default class WeatherView {
     this.pageElements.tempValueElem.innerText = Number(currentTempState.temp).toFixed();
     this.pageElements.weatherStateElem.innerText = currentTempState.descr;
     this.pageElements.weatherFeelingElem.innerText = Number(currentTempState.feltTemp).toFixed();
-    this.pageElements.weatherWindElem.innerText = Number(currentTempState.wind);
+    this.pageElements.weatherWindElem.innerText = Number(currentTempState.wind).toFixed();
     this.pageElements.weatherHumidityElem.innerText = Number(currentTempState.humidity);
     this.pageElements.weatherPictureElem.innerHTML = currentTempState.icon;
   }

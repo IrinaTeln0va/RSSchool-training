@@ -1,17 +1,17 @@
 const LOCATION_TOKEN = 'e5f9df0b3ed443768d7eb43d6114eeee';
 const LOCATION_URL = `https://api.ipgeolocation.io/ipgeo?apiKey=${LOCATION_TOKEN}`;
 
-const WEATHER_TOKEN = '9355c3a77b323122690b4fdb758ab08f';
+// const WEATHER_TOKEN = '9355c3a77b323122690b4fdb758ab08f';
 
 // запасной
-// const WEATHER_TOKEN = 'a9a3a62789de80865407c0452e9d1c27';
+const WEATHER_TOKEN = 'a9a3a62789de80865407c0452e9d1c27';
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/onecall?';
 
-const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
+// const PIC_TOKEN = 'Rxwk5vPoJ_1mugZ58l7t-sA-xjgzDmANhFiUQaeUjHU';
 
 // запасной
-// const PIC_TOKEN = 'e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17';
+const PIC_TOKEN = 'e2077ad31a806c894c460aec8f81bc2af4d09c4f8104ae3177bb809faf0eac17';
 
 const GEOLOCATION_TOKEN = 'b5f099c6ab134b3a82cd095dd7c2e8d3';
 
