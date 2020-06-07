@@ -18,11 +18,31 @@ export default class Map {
       zoom: 6,
     });
 
-    this.mapMarker = new mapboxgl.Marker({ color: '#0000008f' })
+    this.mapMarker = new mapboxgl.Marker({
+      color: '#0000008f',
+      draggable: true,
+    })
       .setLngLat([longitude, latitude])
+      .setPopup(new mapboxgl.Popup({
+        closeOnMove: true,
+      })
+        .setHTML('<h1 class=\'markerPopup\'>Drag the marker to start a search!</h1>'))
       .addTo(this.map);
 
+    // this.dispatchMarkerClick();
+    this.bind();
     return this.map;
+  }
+
+  bind() {
+    this.mapMarker.on('dragend', () => {
+      const langLat = this.mapMarker.getLngLat();
+      this.onMapSearch([langLat.lat, langLat.lng]);
+    });
+  }
+
+  onMapSearch() {
+    throw new Error('method should be overriden', this);
   }
 
   moveMapCenter(latitude, longitude) {
@@ -30,24 +50,3 @@ export default class Map {
     this.mapMarker.setLngLat([longitude, latitude]);
   }
 }
-
-
-// function mapInit(latitude, longitude) {
-//   map = new mapboxgl.Map({
-//     container: 'map',
-//     style: 'mapbox://styles/mapbox/streets-v9',
-//     center: [longitude, latitude],
-//     zoom: 6,
-//   });
-
-//   mapMarker = new mapboxgl.Marker({ color: '#0000008f' })
-//     .setLngLat([longitude, latitude])
-//     .addTo(map);
-
-//   return map;
-// }
-
-// function moveMapCenter(latitude, longitude) {
-//   map.jumpTo({ center: [longitude, latitude] });
-//   mapMarker.setLngLat([longitude, latitude]);
-// }

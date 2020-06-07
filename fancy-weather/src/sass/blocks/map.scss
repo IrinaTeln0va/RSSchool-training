@@ -10,3 +10,25 @@
   -webkit-mask-clip: padding-box;
   // mask-image: url(../assets/img/map-mask.svg);
 }
+
+.markerPopup {
+  font-weight: bold;
+  padding: 0 20px;
+  width: 70%;
+  margin: 5px;
+  font-size: 19px;
+  color: black;
+  line-height: 1.2;
+}
+
+.mapboxgl-marker:before{
+  @include pseudo;
+  bottom: 7px;
+  left: 50%;
+  border-radius: 50%;
+  width: 2px;
+  height: 2px;
+  position: absolute;
+  box-shadow: 0 0 0 0 #30303057, 0 0 0 0 rgba(7, 7, 7, 0.18);
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0.33, 0, 1);
+}

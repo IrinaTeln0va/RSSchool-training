@@ -53,6 +53,10 @@ export default class WeatherController {
     this.weatherView.onVoiceClick = () => {
       this.voiceForecast.speak(this.weatherData.currentSettings.language);
     };
+    this.weatherView.mapElem.onMapSearch = (coords) => {
+      this.constructor.showPreloader();
+      this.updatePageData(coords.join(','));
+    };
   }
 
   static showPreloader() {
