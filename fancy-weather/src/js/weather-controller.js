@@ -51,6 +51,11 @@ export default class WeatherController {
       localStorage.settings = JSON.stringify(this.weatherData.currentSettings);
     };
     this.weatherView.onVoiceClick = () => {
+      const voiceBtn = document.querySelector('.voice-btn');
+      if (voiceBtn.classList.contains('active')) {
+        this.voiceForecast.constructor.cancelVoice();
+        return;
+      }
       this.voiceForecast.speak(this.weatherData.currentSettings.language);
     };
     this.weatherView.mapElem.onMapSearch = (coords) => {

@@ -37,7 +37,7 @@ export default class Voice {
   init() {
     const msg = new SpeechSynthesisUtterance();
     // const langs = speechSynthesis.getVoices();
-    const langs = new Promise((resolve) => {
+    new Promise((resolve) => {
       window.speechSynthesis.addEventListener('voiceschanged', () => {
         resolve(speechSynthesis.getVoices());
       }, { once: true });
@@ -59,6 +59,7 @@ export default class Voice {
     msg.rate = DEFAULT_VOICE_VALUE;
     msg.pitch = DEFAULT_VOICE_VALUE;
     this.msg = msg;
+    this.bind();
     return msg;
   }
 
@@ -66,6 +67,21 @@ export default class Voice {
     this.msg.text = this.constructor.createMessage(lang);
     this.msg.voice = this.voiceLangs[lang];
     window.speechSynthesis.speak(this.msg);
+  }
+
+  static cancelVoice() {
+    // window.speechSynthesis.pause();
+    window.speechSynthesis.cancel();
+  }
+
+  bind() {
+    const voiceBtn = document.querySelector('.voice-btn');
+    this.msg.addEventListener('start', () => {
+      voiceBtn.classList.add('active');
+    });
+    this.msg.addEventListener('end', () => {
+      voiceBtn.classList.remove('active');
+    });
   }
 
   static createMessage(lang) {
