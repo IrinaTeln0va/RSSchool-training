@@ -21,7 +21,6 @@ export default class WeatherView {
     this.pageElements = this.constructor.findPageElements();
     this.renderPageContent(data, this.formatSettings);
     this.bind();
-    recognition.start();
   }
 
   bind() {
@@ -48,9 +47,9 @@ export default class WeatherView {
       this.stopMicrophone();
       return;
     }
-    microphone.classList.add('active');
     recognition.addEventListener('result', this.speechResultHandler);
-    recognition.addEventListener('end', this.constructor.setRestarting);
+    recognition.start();
+    microphone.classList.add('active');
   }
 
   speechResultHandler(evt) {
@@ -59,17 +58,14 @@ export default class WeatherView {
       console.log(request);
       const searchInput = document.querySelector('.search-input');
       searchInput.value = request;
-      // this.constructor.endRecognizing();
       this.constructor.dispatchSearch();
       this.stopMicrophone();
-      // const microphone = document.querySelector('.microphone-btn');
-      // microphone.classList.remove('active');
       recognition.removeEventListener('result', this.speechResultHandler);
     }
   }
 
   stopMicrophone() {
-    this.constructor.endRecognizing();
+    recognition.stop();
     const microphone = document.querySelector('.microphone-btn');
     microphone.classList.remove('active');
     recognition.removeEventListener('result', this.speechResultHandler);
@@ -79,14 +75,6 @@ export default class WeatherView {
     const searchForm = document.querySelector('.search-form');
     const searchEvt = new Event('submit');
     searchForm.dispatchEvent(searchEvt);
-  }
-
-  static endRecognizing() {
-    recognition.removeEventListener('end', this.constructor.setRestarting);
-  }
-
-  static setRestarting() {
-    recognition.start();
   }
 
   formSubmitHandler(evt) {
