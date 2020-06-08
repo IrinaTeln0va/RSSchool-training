@@ -6,8 +6,8 @@
     min-width: 375px;
   }
   @media (min-width: $desctop) {
-    width: 30%;
     flex-grow: 1;
+    width: 30%;
     min-width: 375px;
   }
 }
@@ -16,9 +16,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 30px;
-
   text-align: right;
+  color: #ffffff;
   text-transform: capitalize;
-
-  color: #FFFFFF;
 }

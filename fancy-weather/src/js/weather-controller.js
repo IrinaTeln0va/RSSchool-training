@@ -10,7 +10,8 @@ export default class WeatherController {
   constructor() {
     this.constructor.showPreloader();
     this.weatherData = new WeatherData();
-    this.weatherView = new WeatherView(this.weatherData.currentPageData, this.weatherData.currentSettings);
+    this.currentPageData = this.weatherData.currentPageData;
+    this.weatherView = new WeatherView(this.currentPageData, this.weatherData.currentSettings);
     this.voiceForecast = new Voice();
     this.init();
   }
@@ -31,13 +32,11 @@ export default class WeatherController {
       this.constructor.showPreloader();
       this.updatePageData(searchValue);
     };
-    this.weatherView.onBgUpdate = () => {
-      return this.loadPicture('withoutCityKeyword')
-        .then((pictureElem) => {
-          this.weatherData.currentPageData.pictureElem = pictureElem;
-          this.weatherView.constructor.updateBgPicture(pictureElem);
-        });
-    };
+    this.weatherView.onBgUpdate = () => this.loadPicture('withoutCityKeyword')
+      .then((pictureElem) => {
+        this.weatherData.currentPageData.pictureElem = pictureElem;
+        this.weatherView.constructor.updateBgPicture(pictureElem);
+      });
     this.weatherView.onLangChoice = (targetLang, wordsToTranslate) => {
       const currentLanguage = this.weatherData.currentSettings.language.toLowerCase();
       const targetLanguage = targetLang.toLowerCase();
@@ -52,10 +51,12 @@ export default class WeatherController {
     };
     this.weatherView.onVoiceClick = () => {
       const voiceBtn = document.querySelector('.voice-btn');
+
       if (voiceBtn.classList.contains('active')) {
         this.voiceForecast.constructor.cancelVoice();
         return;
       }
+
       this.voiceForecast.speak(this.weatherData.currentSettings.language);
     };
     this.weatherView.mapElem.onMapSearch = (coords) => {
@@ -66,11 +67,13 @@ export default class WeatherController {
 
   static showPreloader() {
     const overlay = document.querySelector('.background-overlay');
+
     overlay.classList.add('preload');
   }
 
   static hidePreloader() {
     const overlay = document.querySelector('.background-overlay');
+
     overlay.classList.remove('preload');
   }
 
@@ -143,6 +146,7 @@ export default class WeatherController {
           this.weatherData.updatePicture(picture.urls.regular);
           return Loader.loadPicture(picture.urls.regular);
         }
+
         return false;
       });
   }
@@ -192,11 +196,17 @@ export default class WeatherController {
 
     if (hourForTimezone >= 0 && hourForTimezone < 6) {
       return 'night';
-    } if (hourForTimezone >= 6 && hourForTimezone < 10) {
+    }
+
+    if (hourForTimezone >= 6 && hourForTimezone < 10) {
       return 'morning';
-    } if (hourForTimezone >= 10 && hourForTimezone < 18) {
+    }
+
+    if (hourForTimezone >= 10 && hourForTimezone < 18) {
       return 'day';
-    } if (hourForTimezone >= 18 && hourForTimezone < 24) {
+    }
+
+    if (hourForTimezone >= 18 && hourForTimezone < 24) {
       return 'evening';
     }
 
@@ -209,10 +219,13 @@ export default class WeatherController {
       this.constructor.hidePreloader();
       return;
     }
-    this.weatherView.updatePageOnSearch(this.weatherData.currentPageData, this.weatherData.currentSettings);
+
+    const pageData = this.weatherData.currentPageData;
+    const pageSettings = this.weatherData.currentSettings;
+
+    this.weatherView.updatePageOnSearch(pageData, pageSettings);
     this.updateViewLanguage();
     this.weatherView.switchPageTempUnits(this.weatherData.currentSettings.tempUnits);
-    // this.constructor.hidePreloader();
   }
 
   updateViewLanguage(words, currentLanguage, targetLanguage) {
@@ -229,6 +242,7 @@ export default class WeatherController {
     Loader.translate(wordsToTranslate, currentLang, targetLang)
       .then((translatedWords) => {
         const wordsList = translatedWords.split('@');
+
         this.weatherView.constructor.translatePage(wordsList);
         this.weatherView.renderOptions(this.weatherData.currentSettings);
       })

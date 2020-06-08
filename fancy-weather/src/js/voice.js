@@ -27,7 +27,7 @@ const MESSAGE_PHRASES = {
     ru: 'метров в секунду',
     be: 'метраў у секунду',
   },
-}
+};
 
 export default class Voice {
   constructor() {
@@ -36,7 +36,7 @@ export default class Voice {
 
   init() {
     const msg = new SpeechSynthesisUtterance();
-    // const langs = speechSynthesis.getVoices();
+
     new Promise((resolve) => {
       window.speechSynthesis.addEventListener('voiceschanged', () => {
         resolve(speechSynthesis.getVoices());
@@ -47,10 +47,14 @@ export default class Voice {
         this.voiceLangs = {};
         LANGS.forEach((lang) => {
           let langItem = lang;
+
           if (langItem === LANGS[2]) {
             [, langItem] = LANGS;
           }
-          const item = voices.find((voiceItem) => voiceItem.lang.startsWith(langItem.toLocaleLowerCase()));
+
+          const langItemLow = langItem.toLocaleLowerCase();
+          const item = voices.find((voiceItem) => voiceItem.lang.startsWith(langItemLow));
+
           this.voiceLangs[lang] = item;
         });
         msg.voice = this.voiceLangs[LANGS[0]];
@@ -70,12 +74,12 @@ export default class Voice {
   }
 
   static cancelVoice() {
-    // window.speechSynthesis.pause();
     window.speechSynthesis.cancel();
   }
 
   bind() {
     const voiceBtn = document.querySelector('.voice-btn');
+
     this.msg.addEventListener('start', () => {
       voiceBtn.classList.add('active');
     });
@@ -88,8 +92,6 @@ export default class Voice {
     const language = lang.toLowerCase();
     const elemsWithInfo = document.querySelectorAll('[data-voice]');
     const messageFromPage = [...elemsWithInfo].map((elem) => elem.innerText);
-
-    // ["13", "FOG", "FEELS LIKE: ", "12", "WIND: ", "2", "HUMIDITY: 93 %"]
     const message = `${MESSAGE_PHRASES.startMessage[language]} ${messageFromPage[0]} ${MESSAGE_PHRASES.degrees[language]}, ${MESSAGE_PHRASES.expected[language]} ${messageFromPage[1]}, ${messageFromPage[2]} ${messageFromPage[3]} ${MESSAGE_PHRASES.degrees[language]}, ${messageFromPage[4]} - ${messageFromPage[5]} ${MESSAGE_PHRASES.windUnits[language]}, ${messageFromPage[6]}`;
 
     return message;

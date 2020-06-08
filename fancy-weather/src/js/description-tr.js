@@ -37,4 +37,4 @@ export default {
   803: ['Broken clouds', 'облачно', 'воблачна'],
   804: ['Overcast clouds', 'Пасмурно', 'Пасмурна'],
   900: ['Unknown Precipitation', 'Неизвестные осадки', 'Невядомыя ападкі'],
-}
+};

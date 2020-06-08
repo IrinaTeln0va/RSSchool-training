@@ -1,12 +1,14 @@
 div.icons-weather {
+  height: 100px;
   margin: 5% auto;
+
   text-align: center;
   color: white;
-  height: 100px;
 }
 
 h1 {
   padding: 20px 0;
+
   font-weight: 300;
 }
 
@@ -16,12 +18,13 @@ h1 {
 }
 
 .longRay {
+  -webkit-animation: longRayAnimation 4s linear infinite;
+          animation: longRayAnimation 4s linear infinite;
+
   stroke: #ffdd1a;
-  stroke-width: 3;
   stroke-dasharray: 10;
   stroke-dashoffset: 10;
-  -webkit-animation: longRayAnimation 4s linear infinite;
-  animation: longRayAnimation 4s linear infinite;
+  stroke-width: 3;
 }
 
 @keyframes longRayAnimation {
@@ -45,12 +48,13 @@ h1 {
 }
 
 .shortRay {
+  -webkit-animation: shortRayAnimation 3s linear infinite;
+          animation: shortRayAnimation 3s linear infinite;
+
   stroke: #ffdd1a;
-  stroke-width: 1.5;
   stroke-dasharray: 3;
   stroke-dashoffset: 1;
-  -webkit-animation: shortRayAnimation 3s linear infinite;
-  animation: shortRayAnimation 3s linear infinite;
+  stroke-width: 1.5;
 }
 
 @-webkit-keyframes shortRayAnimation {
@@ -75,7 +79,7 @@ h1 {
 
 .small-cloud {
   -webkit-animation: float 8s linear infinite;
-  animation: float 8s linear infinite;
+          animation: float 8s linear infinite;
 }
 
 @-webkit-keyframes float {
@@ -108,38 +112,38 @@ h1 {
 @keyframes float {
   0% {
     -ms-transform: translate(0px, 15px);
-    transform: translate(0px, 15px);
+        transform: translate(0px, 15px);
     opacity: 0.75;
   }
 
   25% {
     -ms-transform: translate(15px, 0px);
-    transform: translate(15px, 0px);
+        transform: translate(15px, 0px);
     opacity: 1;
   }
 
   50% {
     -ms-transform: translate(30px, 0px);
-    transform: translate(30px, 0px);
+        transform: translate(30px, 0px);
     opacity: 1;
   }
 
   75% {
     -ms-transform: translate(25px, 0px);
-    transform: translate(25px, 0px);
+        transform: translate(25px, 0px);
     opacity: 1;
   }
 
   100% {
     -ms-transform: translate(0px, 15px);
-    transform: translate(0px, 15px);
+        transform: translate(0px, 15px);
     opacity: 0.75;
   }
 }
 
 .reverse-small-cloud {
   -webkit-animation: reverse-float 6s linear infinite;
-  animation: reverse-float 6s linear infinite;
+          animation: reverse-float 6s linear infinite;
 }
 
 @-webkit-keyframes reverse-float {
@@ -172,53 +176,53 @@ h1 {
 @keyframes reverse-float {
   0% {
     -ms-transform: translate(0px, -15px);
-    transform: translate(0px, -15px);
+        transform: translate(0px, -15px);
     opacity: 0.75;
   }
 
   25% {
     -ms-transform: translate(-15px, 0px);
-    transform: translate(-15px, 0px);
+        transform: translate(-15px, 0px);
     opacity: 1;
   }
 
   50% {
     -ms-transform: translate(-30px, 0px);
-    transform: translate(-30px, 0px);
+        transform: translate(-30px, 0px);
     opacity: 1;
   }
 
   75% {
     -ms-transform: translate(-25px, 0px);
-    transform: translate(-25px, 0px);
+        transform: translate(-25px, 0px);
     opacity: 1;
   }
 
   100% {
     -ms-transform: translate(0px, -15px);
-    transform: translate(0px, -15px);
+        transform: translate(0px, -15px);
     opacity: 0.75;
   }
 }
 
 #drop1 {
   -webkit-animation: rain 1s linear infinite;
-  animation: rain 1s linear infinite;
+          animation: rain 1s linear infinite;
 }
 
 #drop3 {
   -webkit-animation: rain 1s linear infinite 0.5s;
-  animation: rain 1s linear infinite 0.5s;
+          animation: rain 1s linear infinite 0.5s;
 }
 
 #drop2 {
   -webkit-animation: rain 2s linear infinite 1s;
-  animation: rain 2s linear infinite 1s;
+          animation: rain 2s linear infinite 1s;
 }
 
 #drop4 {
   -webkit-animation: rain 2s linear infinite 0.8s;
-  animation: rain 2s linear infinite 0.8s;
+          animation: rain 2s linear infinite 0.8s;
 }
 
 @-webkit-keyframes rain {
@@ -254,36 +258,37 @@ h1 {
 
   25% {
     -ms-transform: translateY(5px);
-    transform: translateY(5px);
+        transform: translateY(5px);
     opacity: 1;
   }
 
   50% {
     -ms-transform: translateY(15px);
-    transform: translateY(15px);
+        transform: translateY(15px);
     opacity: 1;
   }
 
   75% {
     -ms-transform: translateY(25px);
-    transform: translateY(25px);
+        transform: translateY(25px);
     opacity: 0.75;
   }
 
   100% {
     -ms-transform: translateY(35px);
-    transform: translateY(35px);
+        transform: translateY(35px);
     opacity: 0;
   }
 }
 
 #rainDrizzle {
+  -webkit-animation: drizzle 5s linear infinite;
+          animation: drizzle 5s linear infinite;
+
   stroke: lightblue;
-  stroke-width: 1;
   stroke-dasharray: 3;
   stroke-dashoffset: 1;
-  -webkit-animation: drizzle 5s linear infinite;
-  animation: drizzle 5s linear infinite;
+  stroke-width: 1;
 }
 
 @-webkit-keyframes drizzle {
@@ -318,27 +323,27 @@ h1 {
 
 #snowFlake1 {
   -webkit-animation: snow 4s linear infinite;
-  animation: snow 4s linear infinite;
+          animation: snow 4s linear infinite;
 }
 
 #snowFlake2 {
   -webkit-animation: snow 3s linear infinite 0.8s;
-  animation: snow 3s linear infinite 0.8s;
+          animation: snow 3s linear infinite 0.8s;
 }
 
 #snowFlake3 {
   -webkit-animation: snow 5s linear infinite 0.5s;
-  animation: snow 5s linear infinite 0.5s;
+          animation: snow 5s linear infinite 0.5s;
 }
 
 #snowFlake4 {
   -webkit-animation: snow 6s linear infinite 1s;
-  animation: snow 6s linear infinite 1s;
+          animation: snow 6s linear infinite 1s;
 }
 
 #snowFlake5 {
   -webkit-animation: snow 4s linear infinite 0.6s;
-  animation: snow 4s linear infinite 0.6s;
+          animation: snow 4s linear infinite 0.6s;
 }
 
 @-webkit-keyframes snow {
@@ -371,53 +376,53 @@ h1 {
 @keyframes snow {
   0% {
     -ms-transform: translate(5px, 0px);
-    transform: translate(5px, 0px);
+        transform: translate(5px, 0px);
     opacity: 1;
   }
 
   25% {
     -ms-transform: translate(0px, 10px);
-    transform: translate(0px, 10px);
+        transform: translate(0px, 10px);
     opacity: 1;
   }
 
   50% {
     -ms-transform: translate(7px, 20px);
-    transform: translate(7px, 20px);
+        transform: translate(7px, 20px);
     opacity: 1;
   }
 
   75% {
     -ms-transform: translate(0px, 30px);
-    transform: translate(0px, 30px);
+        transform: translate(0px, 30px);
     opacity: 0.75;
   }
 
   100% {
     -ms-transform: translate(10px, 40px);
-    transform: translate(10px, 40px);
+        transform: translate(10px, 40px);
     opacity: 0.5;
   }
 }
 
 #ice1 {
   -webkit-animation: ice 1s linear infinite;
-  animation: ice 1s linear infinite;
+          animation: ice 1s linear infinite;
 }
 
 #ice3 {
   -webkit-animation: ice 1s linear infinite 0.5s;
-  animation: ice 1s linear infinite 0.5s;
+          animation: ice 1s linear infinite 0.5s;
 }
 
 #ice2 {
   -webkit-animation: ice 2s linear infinite 1s;
-  animation: ice 2s linear infinite 1s;
+          animation: ice 2s linear infinite 1s;
 }
 
 #ice4 {
   -webkit-animation: ice 2s linear infinite 0.8s;
-  animation: ice 2s linear infinite 0.8s;
+          animation: ice 2s linear infinite 0.8s;
 }
 
 @-webkit-keyframes ice {
@@ -453,36 +458,37 @@ h1 {
 
   25% {
     -ms-transform: translateY(5px);
-    transform: translateY(5px);
+        transform: translateY(5px);
     opacity: 1;
   }
 
   50% {
     -ms-transform: translateY(15px);
-    transform: translateY(15px);
+        transform: translateY(15px);
     opacity: 1;
   }
 
   75% {
     -ms-transform: translateY(25px);
-    transform: translateY(25px);
+        transform: translateY(25px);
     opacity: 0.75;
   }
 
   100% {
     -ms-transform: translateY(35px);
-    transform: translateY(35px);
+        transform: translateY(35px);
     opacity: 0;
   }
 }
 
 #mist {
+  animation: misty 5s linear infinite alternate;
+
   fill: none;
   stroke: #333333;
-  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  animation: misty 5s linear infinite alternate;
+  stroke-width: 2;
 }
 
 @-webkit-keyframes misty {
@@ -512,35 +518,35 @@ h1 {
 .wind {
   fill: none;
   stroke: #333333;
-  stroke-width: 4;
-  stroke-linecap: round;
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
+  stroke-linecap: round;
+  stroke-width: 4;
 }
 
 #wind1 {
   -webkit-animation: windy 2.5s linear forwards infinite 0.5s;
-  animation: windy 2.5s linear forwards infinite 0.5s;
+          animation: windy 2.5s linear forwards infinite 0.5s;
 }
 
 #wind2 {
   -webkit-animation: windy 2.8s linear forwards infinite 0.55s;
-  animation: windy 2.8s linear forwards infinite 0.55s;
+          animation: windy 2.8s linear forwards infinite 0.55s;
 }
 
 #wind3 {
   -webkit-animation: windy 3.5s linear forwards infinite 2s;
-  animation: windy 3.5s linear forwards infinite 2s;
+          animation: windy 3.5s linear forwards infinite 2s;
 }
 
 #wind4 {
   -webkit-animation: windy 3.5s linear forwards infinite 0.5s;
-  animation: windy 3.5s linear forwards infinite 0.5s;
+          animation: windy 3.5s linear forwards infinite 0.5s;
 }
 
 #wind5 {
   -webkit-animation: windy 4s linear forwards infinite 0.5s;
-  animation: windy 4s linear forwards infinite 0.5s;
+          animation: windy 4s linear forwards infinite 0.5s;
 }
 
 @-webkit-keyframes windy {
@@ -557,7 +563,7 @@ h1 {
 
 #tornado {
   -webkit-animation: skewX 0.85s infinite linear alternate;
-  animation: skewX 0.85s infinite linear alternate;
+          animation: skewX 0.85s infinite linear alternate;
 }
 
 @-webkit-keyframes skewX {
@@ -573,18 +579,18 @@ h1 {
 @keyframes skewX {
   0% {
     -ms-transform: skewX(20deg);
-    transform: skewX(20deg);
+        transform: skewX(20deg);
   }
 
   100% {
     -ms-transform: skewX(-20deg);
-    transform: skewX(-20deg);
+        transform: skewX(-20deg);
   }
 }
 
 footer {
-  text-align: right;
-  margin-top: 20px;
-  margin-right: 20px;
+  margin: 20px 20px 0 0;
+
   font-size: 0.95em;
+  text-align: right;
 }

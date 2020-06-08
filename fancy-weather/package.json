@@ -8,7 +8,8 @@
     "server": "webpack-dev-server --open",
     "eslint": "eslint **/*.js",
     "eslint-fix": "eslint **/*.js --fix",
-    "test": "jest"
+    "test": "jest",
+    "csscomb": "csscomb src/sass/**/*.scss"
   },
   "author": "Irina Telnova",
   "license": "ISC",

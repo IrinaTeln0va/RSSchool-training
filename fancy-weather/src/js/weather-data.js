@@ -88,6 +88,7 @@ export default class WeatherData {
     const minTemp = dailyTemp.temp.min;
     const maxTemp = dailyTemp.temp.max;
     const average = (maxTemp + minTemp) / 2;
+
     return average.toFixed();
   }
 

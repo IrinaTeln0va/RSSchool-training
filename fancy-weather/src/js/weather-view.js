@@ -27,6 +27,7 @@ export default class WeatherView {
     const searchForm = document.querySelector('.search-form');
     const microphone = document.querySelector('.microphone-btn');
     const updateBgBtn = document.querySelector('.update-bg-btn');
+
     this.langDropdown = document.querySelector('.lang-switcher');
     const tempUnitsSwitcher = document.querySelector('.units-switcher');
     const voiceBtn = document.querySelector('.voice-btn');
@@ -43,10 +44,12 @@ export default class WeatherView {
 
   startRecognizing() {
     const microphone = document.querySelector('.microphone-btn');
+
     if (microphone.classList.contains('active')) {
       this.stopMicrophone();
       return;
     }
+
     recognition.addEventListener('result', this.speechResultHandler);
     recognition.start();
     microphone.classList.add('active');
@@ -55,8 +58,8 @@ export default class WeatherView {
   speechResultHandler(evt) {
     if (evt.results[0].isFinal) {
       const request = evt.results[0][0].transcript;
-      console.log(request);
       const searchInput = document.querySelector('.search-input');
+
       searchInput.value = request;
       this.constructor.dispatchSearch();
       this.stopMicrophone();
@@ -67,6 +70,7 @@ export default class WeatherView {
   stopMicrophone() {
     recognition.stop();
     const microphone = document.querySelector('.microphone-btn');
+
     microphone.classList.remove('active');
     recognition.removeEventListener('result', this.speechResultHandler);
   }
@@ -74,6 +78,7 @@ export default class WeatherView {
   static dispatchSearch() {
     const searchForm = document.querySelector('.search-form');
     const searchEvt = new Event('submit');
+
     searchForm.dispatchEvent(searchEvt);
   }
 
@@ -108,17 +113,22 @@ export default class WeatherView {
     if (value === 'deg' && !userClick) {
       return;
     }
+
     const currentTemp = document.querySelector('.current-weather .value');
     const currentTempUnits = document.querySelector('.current-weather-unit');
+
     this.changeUnitsValue(currentTemp, currentTempUnits, value);
 
     const feltTemp = document.querySelector('.weather-feeling .value');
     const feltTempUnits = document.querySelector('.feeling-weather-unit');
+
     this.changeUnitsValue(feltTemp, feltTempUnits, value);
 
     const forecastTempList = document.querySelectorAll('.forecast-value');
+
     [...forecastTempList].forEach((item) => {
       const unit = item.nextElementSibling;
+
       this.changeUnitsValue(item, unit, value);
     });
   }
@@ -126,6 +136,7 @@ export default class WeatherView {
   static isTargetInputChecked(label) {
     const labelName = label.getAttribute('for');
     const targetInput = document.querySelector(`#${labelName}`);
+
     return targetInput.checked;
   }
 
@@ -144,6 +155,7 @@ export default class WeatherView {
 
   static getValueFromCheckedInput() {
     const degInput = document.querySelector('#options-units-degrees');
+
     return degInput.checked === true ? 'phar' : 'deg';
   }
 
@@ -162,6 +174,7 @@ export default class WeatherView {
   langItemClickHandler(evt) {
     if (evt.target.classList.contains('lang-option')) {
       const targetLang = evt.target.innerText;
+
       this.constructor.switchLang(targetLang);
       this.onLangChoice(targetLang, this.constructor.getWordsToTranslate());
     }
@@ -175,6 +188,7 @@ export default class WeatherView {
 
   static translatePage(wordsList) {
     const elemsToTranslate = document.querySelectorAll('[data-i18n]');
+
     wordsList.forEach((translatedWord, index) => {
       elemsToTranslate[index].innerText = translatedWord;
     });
@@ -196,6 +210,7 @@ export default class WeatherView {
   static getWordsToTranslate() {
     const wordsToTranslateElem = document.querySelectorAll('[data-i18n]');
     const wordsToTranslate = [...wordsToTranslateElem].map((elem) => elem.innerText).join('@');
+
     return wordsToTranslate;
   }
 
@@ -287,6 +302,7 @@ export default class WeatherView {
   renderOptions(settings) {
     this.constructor.switchLang(settings.language);
     const unitsInputs = document.querySelectorAll('.units-switcher input');
+
     for (let i = 0; i < unitsInputs.length; i += 1) {
       if (unitsInputs[i].dataset.val === settings.tempUnits) {
         unitsInputs[i].checked = true;
@@ -313,6 +329,7 @@ export default class WeatherView {
 
   renderLocation(city, country) {
     const { locationElem } = this.pageElements;
+
     locationElem.innerHTML = `${city}, ${country}`;
   }
 
@@ -330,6 +347,7 @@ export default class WeatherView {
       month: 'long',
       day: 'numeric',
     }).replace(/,/g, '');
+
     dateElem.innerText = dateStr;
   }
 
@@ -342,6 +360,7 @@ export default class WeatherView {
       minute: '2-digit',
       second: '2-digit',
     });
+
     timeElem.innerText = timeStr;
   }
 
@@ -359,27 +378,32 @@ export default class WeatherView {
 
     forecastElemList.forEach((elem, index) => {
       const valueElem = elem;
+
       valueElem.innerText = dailyTemp[index].temp;
     });
 
     forecastIconsList.forEach((elem, index) => {
       const valueElem = elem;
+
       valueElem.innerHTML = dailyTemp[index].icon;
     });
   }
 
   static formatCoord(coord) {
     const [deg, minute] = coord.split('.');
+
     return `${deg}°${minute}'`;
   }
 
   static convertPharIntoDeg(tempInPhar) {
     const value = (tempInPhar - CONVERT_PARAM.froze) / CONVERT_PARAM.quotient;
+
     return value.toFixed(0);
   }
 
   static convertDegIntoPhar(tempInDeg) {
     const value = tempInDeg * CONVERT_PARAM.quotient + CONVERT_PARAM.froze;
+
     return value.toFixed(0);
   }
 }

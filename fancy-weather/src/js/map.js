@@ -29,7 +29,6 @@ export default class Map {
         .setHTML('<h1 class=\'markerPopup\'>Drag the marker to start a search!</h1>'))
       .addTo(this.map);
 
-    // this.dispatchMarkerClick();
     this.bind();
     return this.map;
   }
@@ -37,6 +36,7 @@ export default class Map {
   bind() {
     this.mapMarker.on('dragend', () => {
       const langLat = this.mapMarker.getLngLat();
+
       this.onMapSearch([langLat.lat, langLat.lng]);
     });
   }
