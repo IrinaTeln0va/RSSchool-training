@@ -83,8 +83,6 @@ export default class WeatherController {
   }
 
   setTimer() {
-    // let timer44;
-
     const setTimerTimeout = () => {
       setTimeout(() => {
         this.weatherView.renderTime(this.weatherData.currentPageData.location.timeZone);

@@ -1,4 +1,3 @@
-import description from './description-tr';
 import weatherIcons from './weather-icons';
 
 export default class WeatherData {
@@ -14,10 +13,6 @@ export default class WeatherData {
     this.currentPageData = this.constructor.getDefaultPageData();
   }
 
-  // updatePage(data) {
-  //   this.currentPageData = data;
-  // }
-
   updateUserLocation(location, onSearch) {
     this.currentPageData.location = onSearch
       ? this.constructor.convertSearchData(location)
@@ -27,11 +22,6 @@ export default class WeatherData {
   updatePicture(pictureURL) {
     this.currentPageData.pictureURL = pictureURL;
   }
-
-  // updateWeather(current, forecast) {
-  //   this.updateCurrentWeather(current);
-  //   this.updateForecastWeather(forecast);
-  // }
 
   updateCurrentWeather(current) {
     this.currentPageData.weather.current = this.constructor.convertWeatherData(current);
@@ -150,100 +140,3 @@ export default class WeatherData {
     };
   }
 }
-
-
-
-
-// getUserLocation();
-
-// function onUserSearch(city) {
-//   const url = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=${GEOLOCATION_TOKEN}&language=en&pretty=1`;
-
-//   fetch(url)
-//     .then((response) => {
-//       if (response.status >= 200 && response.status < 300) {
-//         return response.json();
-//       }
-
-//       if (response.status === 401) {
-//         throw new Error('Status 401. Try another API key');
-//       }
-
-//       throw new Error(`Server error: ${response.status} ${response.statusText}`);
-//     })
-//     .then((data) => {
-//       const results = data.results[0];
-//       if (data.total_results === 0) {
-//         throw new Error('Sorry, no results for your search');
-//       }
-//       const pageData = {
-//         latitude: results.geometry.lat,
-//         longitude: results.geometry.lng,
-//         countryName: results.components.country,
-//         city: results.components.city
-//           || results.components.town
-//           || results.components.county
-//           || results.components.village,
-//         timeZone: results.annotations.timezone,
-//       };
-
-//       moveMapCenter(pageData.latitude, pageData.longitude);
-//       renderCoordsInfo(pageData.latitude, pageData.longitude);
-//       renderLocation(pageData.countryName, pageData.city);
-//       renderDate(pageData.timeZone);
-//       return pageData;
-//     })
-//     .then((data) => {
-//       return fetch(`https://api.unsplash.com/photos/random?orientation=landscape&per_page=1&query=winter,day,${data.city}&client_id=${PIC_TOKEN}`)
-//         .then((response) => {
-//           if (response.status >= 200 && response.status < 300) {
-//             return response.json();
-//           }
-
-//           if (response.status === 401) {
-//             throw new Error('Status 401. Try another API key');
-//           }
-
-//           throw new Error(`Server error: ${response.status} ${response.statusText}`);
-//         })
-//         .then((picture) => {
-//           data.picture = picture.urls.regular;
-//           return data;
-//         });
-//     })
-//     .then((data) => {
-//       return new Promise((resolve, reject) => {
-//         const backgroundElem = document.querySelector('.body-background img');
-
-//         backgroundElem.src = data.picture;
-//         backgroundElem.addEventListener('load', () => {
-//           resolve(data);
-//         }, { once: true });
-//       });
-//     })
-//     .then((data) => {
-//       const url = `${WEATHER_URL}lat=${data.latitude}&lon=${data.longitude}&%20exclude=daily&appid=${WEATHER_TOKEN}&units=metric`;
-
-//       return fetch(url);
-//     })
-//     .then((response) => {
-//       if (response.status >= 200 && response.status < 300) {
-//         return response.json();
-//       }
-
-//       if (response.status === 401) {
-//         throw new Error('Status 401. Try another API key');
-//       }
-
-//       throw new Error(`Server error: ${response.status} ${response.statusText}`);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       // throw new Error('Openweathermap not responding');
-//     })
-//     .then((data) => {
-//       renderCurrentTemp(data.current);
-//       renderForecastTemp(data.daily);
-//     })
-//     .catch((err) => console.log(err));
-// }
