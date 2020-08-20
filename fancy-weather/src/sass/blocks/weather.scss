@@ -1,0 +1,232 @@
+.weather-column {
+  min-width: 50%;
+  max-width: 100%;
+  padding-right: 10px;
+  @media (min-width: $tablet) {
+    max-width: 100%;
+  }
+  @media (min-width: $desctop) {
+    max-width: 60%;
+    padding-right: 30px;
+  }
+}
+
+.location-name {
+  margin: 0;
+
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 30px;
+  color: #ffffff;
+  text-transform: uppercase;
+  @media (min-width: $tablet) {
+    font-size: 44px;
+    line-height: 54px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 44px;
+    line-height: 54px;
+  }
+}
+
+.date {
+  display: flex;
+  margin-bottom: 0;
+  @media (min-width: $tablet) {
+    margin-bottom: 0;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 30px;
+  }
+}
+
+.date-item {
+  display: flex;
+
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #ffffff;
+}
+
+.date-item.time {
+  margin-left: 15px;
+}
+
+.weather-performance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 46px;
+  @media (min-width: $tablet) {
+    margin-bottom: 0;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 46px;
+  }
+}
+
+.current-weather {
+  position: relative;
+}
+
+.weather-value {
+  margin-right: 90px;
+
+  font-weight: bold;
+  font-size: 104px;
+  line-height: 177px;
+  color: #ffffff;
+  text-transform: uppercase;
+  @media (min-width: $tablet) {
+    margin-right: 175px;
+
+    font-size: 180px;
+    line-height: 275px;
+  }
+  @media (min-width: $desctop) {
+    margin-right: 0;
+
+    font-size: 242px;
+    line-height: 289px;
+  }
+}
+
+.current-weather-unit {
+  font-size: 50px;
+  line-height: 112px;
+  vertical-align: top;
+  @media (min-width: $tablet) {
+    font-size: 70px;
+    line-height: 129px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 104px;
+    line-height: 129px;
+  }
+}
+
+.current-weather-image {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  left: unset;
+
+  width: 89px;
+  height: 115px;
+
+  background-color: transparent;
+
+  object-fit: contain;
+  @media (min-width: $tablet) {
+    right: 0;
+    left: unset;
+
+    width: 174px;
+  }
+  @media (min-width: $desctop) {
+    top: -30px;
+    right: unset;
+    left: 100%;
+
+    width: 217px;
+  }
+}
+
+.weather-indicators {
+  min-width: 200px;
+  margin-bottom: 0;
+  margin-left: 0;
+  @media (min-width: $tablet) {
+    margin-bottom: 66px;
+    margin-left: 37px;
+  }
+  @media (min-width: $desctop) {
+    margin-bottom: 15px;
+    margin-left: 37px;
+  }
+}
+
+.weather-indicators-item {
+  margin-bottom: 15px;
+
+  font-weight: bold;
+  font-size: 22px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.forecast {
+  display: grid;
+
+  grid-gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  @media (min-width: $tablet) {
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  }
+  @media (min-width: $desctop) {
+    grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
+  }
+}
+
+.week-day {
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 17px;
+  color: #ffffff;
+  text-transform: uppercase;
+  @media (min-width: $tablet) {
+    font-size: 20px;
+  }
+  @media (min-width: $desctop) {
+    line-height: 27px;
+  }
+}
+
+.day-temperature-value {
+  display: flex;
+  align-items: flex-start;
+
+  font-weight: 600;
+  font-size: 0;
+  line-height: 98px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.day-temperature-value span {
+  font-size: 40px;
+  @media (min-width: $tablet) {
+    font-size: 46px;
+  }
+  @media (min-width: $desctop) {
+    font-size: 56px;
+  }
+}
+
+.day-temperature-value .forecast-unit {
+  margin-left: 5px;
+
+  font-size: 29px;
+  line-height: 73px;
+  vertical-align: top;
+  @media (min-width: $tablet) {
+    font-size: 26px;
+  }
+  @media (min-width: $desctop) {
+    line-height: 76px;
+  }
+}
+
+.day-temperature-icon {
+  width: 36px;
+  margin-left: 2px;
+  @media (min-width: $tablet) {
+    width: 72px;
+    margin-left: 3px;
+  }
+  @media (min-width: $desctop) {
+    width: 85px;
+    margin-left: 10px;
+  }
+}
