@@ -1,0 +1,252 @@
+.list-container {
+  display: block;
+  padding-top: 30px;
+}
+
+.list-container:before {
+  content: "Detailed information";
+
+  width: 100%;
+  margin-bottom: 40px;
+
+  font-size: 25px;
+
+  @include pseudo;
+}
+
+.slider-view-wrap .list-container {
+  display: none;
+}
+
+.list-view-movie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 15px 90px 37px 15px;
+  overflow: hidden;
+
+  line-height: auto;
+
+  background-image: linear-gradient(102deg, #303030, #1e1f22);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom: 1px dashed #ffffff5e;
+  border-radius: 12px;
+
+  user-select: auto;
+  @media (min-width: $tablet) {
+    padding-right: 180px;
+  }
+}
+
+.list-view-movie .movie-title {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.list-view-movie .movie-poster {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 85px;
+  height: 100%;
+  @media (min-width: $tablet) {
+    width: 173px;
+  }
+}
+
+.list-view-movie .rating-wrapper {
+  margin-left: 0;
+  @media (min-width: $tablet) {
+    margin-left: 20px;
+  }
+}
+
+.list-view-movie .movie-poster img {
+  height: auto;
+
+  object-fit: cover;
+}
+
+.list-view-movie .movie-rating {
+  margin: 5px;
+}
+
+.list-view-movie .rating {
+  display: none;
+}
+
+.list-view-movie::before,
+.list-view-movie::after {
+  display: none;
+}
+
+.list-view-movie .detail-info-wrap {
+  display: none;
+}
+
+.movie-desct {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+
+  color: #ffffffc4;
+}
+
+.movie-desct .answer {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.plot {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.descr-bottom-wrapper {
+  max-height: 0;
+  overflow: hidden;
+
+  transition: 0.5s;
+}
+
+.details-input {
+  display: none;
+}
+
+.details-switch {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+
+  width: 20px;
+  height: 20px;
+
+  background-image: url("../assets/img/icon-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  transform: rotate(0deg);
+  cursor: pointer;
+  opacity: 0.3;
+
+  transition: 0.3s;
+}
+
+.details-switch:hover {
+  opacity: 1;
+}
+
+.details-input:checked + .details-switch {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.details-input:checked ~ .descr-bottom-wrapper {
+  max-height: 700px;
+  @media (min-width: $desctop) {
+    max-height: 500px;
+  }
+}
+
+.load-more-btn {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 40px auto 0 auto;
+
+  background-color: transparent;
+  background-image: url("../assets/img/icon-load-more.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  opacity: 0.2;
+
+  transition: 0.3s;
+
+  @include btn-reset;
+}
+
+.load-more-btn.hide {
+  display: none;
+}
+
+.load-more-btn:hover {
+  opacity: 1;
+}
+
+.load-more-btn:focus {
+  outline: none;
+}
+
+.back-btn,
+.scroll-top {
+  position: fixed;
+  top: 42px;
+  left: 2px;
+
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+
+  font: inherit;
+  vertical-align: middle;
+  text-align: center;
+  color: inherit;
+
+  background-color: transparent;
+  background-image: url("../assets/img/icon-back.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+
+  transition: 0.3s;
+  @media (min-width: $tablet) {
+    left: 20px;
+
+    width: 25px;
+    height: 25px;
+  }
+  @media (min-width: $desctop) {
+    left: 23px;
+
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.scroll-top {
+  top: unset;
+  right: 4px;
+  bottom: 42px;
+  left: unset;
+
+  background-image: url("../assets/img/icon-arrow.svg");
+  transform: rotate(180deg);
+  @media (min-width: $tablet) {
+    right: 20px;
+    left: unset;
+  }
+  @media (min-width: $desctop) {
+    right: 23px;
+    left: unset;
+  }
+}
+
+.back-btn:hover,
+.scroll-top:hover {
+  opacity: 1;
+}
+
+.back-btn:focus,
+.scroll-top {
+  outline: none;
+}

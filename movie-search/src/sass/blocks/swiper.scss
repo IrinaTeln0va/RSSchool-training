@@ -1,0 +1,57 @@
+.swiper-container {
+  display: block;
+  box-sizing: border-box;
+  min-height: 600px;
+  padding-bottom: 30px;
+  overflow: visible;
+}
+
+.list-view-wrap .swiper-container {
+  display: none;
+}
+
+.swiper-wrapper {
+  align-items: center;
+  min-height: 600px;
+  margin-top: 30px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  right: auto;
+  left: -20px;
+
+  font-size: 0;
+  color: #ffffff9c;
+
+  transition: 0.3s;
+}
+
+.swiper-button-next {
+  right: -20px;
+  left: auto;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  color: #ffffff;
+}
+
+.swiper-button-next.swiper-button-disabled {
+  background-image: url('../assets/img/swiper-loader.gif');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  opacity: 1;
+
+  transition: 0s;
+}
+
+.swiper-button-next.swiper-button-disabled::after {
+  color: #ffffff00;
+}
+
+.swiper-button-next.swiper-button-disabled.hide {
+  opacity: 0;
+}
+

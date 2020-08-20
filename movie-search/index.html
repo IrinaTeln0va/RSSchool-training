@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="main-header">
+    <div class="container">
+      <h1 class="logo">
+        <span class="logo-highlight">M</span>ovie<span class="logo-highlight">S</span>earch
+      </h1>
+    </div>
+  </header>
+  <main>
+    <div class="container slider-view-wrap">
+      <div class="tools-wrapper">
+        <form action="#" class="search-form">
+          <div class="search">
+            <input type="text" autocomplete="off" class="search-input" placeholder="Search movie">
+            <div id="floatingBarsG">
+              <div class="blockG" id="rotateG_01"></div>
+              <div class="blockG" id="rotateG_02"></div>
+              <div class="blockG" id="rotateG_03"></div>
+              <div class="blockG" id="rotateG_04"></div>
+              <div class="blockG" id="rotateG_05"></div>
+              <div class="blockG" id="rotateG_06"></div>
+              <div class="blockG" id="rotateG_07"></div>
+              <div class="blockG" id="rotateG_08"></div>
+            </div>
+            <button type="button" class="btn clear-search-btn"></button>
+            <button type="submit" class="btn search-btn">
+              Search
+            </button>
+            <button type="button" class="btn keyboard-btn">
+              Keyboard
+            </button>
+            <p class="error-message">
+              <span class="error-text"></span>
+              <button type="button" class="btn error-btn"></button>
+            </p>
+          </div>
+        </form>
+        <ul class="view-options">
+          <li class="slider-view">
+            <button type="button" class="view-btn slider-view-btn active"></button>
+          </li>
+          <li class="list-view">
+            <button type="button" class="view-btn list-view-btn"></button>
+          </li>
+        </ul>
+      </div>
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+        </div>
+        <div class="swiper-button-prev">left</div>
+        <div class="swiper-button-next">right</div>
+        <div class="swiper-scrollbar"></div>
+      </div>
+      <div class="list-container">
+        <div class="cards-wrapper"></div>
+        <button type="button" class=" btn back-btn"></button>
+        <button type="button" class=" btn load-more-btn"></button>
+        <div id="list-view-spinner">
+          <div class="blockG" id="rotateG_01"></div>
+          <div class="blockG" id="rotateG_02"></div>
+          <div class="blockG" id="rotateG_03"></div>
+          <div class="blockG" id="rotateG_04"></div>
+          <div class="blockG" id="rotateG_05"></div>
+          <div class="blockG" id="rotateG_06"></div>
+          <div class="blockG" id="rotateG_07"></div>
+          <div class="blockG" id="rotateG_08"></div>
+        </div>
+        <button type="button" class=" btn scroll-top"></button>
+      </div>
+    </div>
+  </main>
+  <footer class="main-footer">
+    <div class="container footer-container">
+      <p class="copyright">
+        <a href="https://rs.school/" class="copyright-link">RS School 2020q1</a>
+      </p>
+      <div class="contacts">
+        <a href="https://github.com/IrinaTeln0va" class="contacts-link">
+          Github
+        </a> 
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

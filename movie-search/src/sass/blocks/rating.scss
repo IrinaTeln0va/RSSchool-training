@@ -1,0 +1,37 @@
+.movie-rating {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  color: #ffffffbd;
+}
+
+.rating-wrapper {
+  position: relative;
+
+  width: calc(15px * 10);
+  height: 15px;
+  margin-left: 5px;
+  @media (min-width: $tablet) {
+    margin-left: 15px;
+  }
+}
+
+.rating-img {
+  position: absolute;
+  z-index: 2;
+
+  width: calc(15px * 10);
+  height: 15px;
+
+  background-image: url("../assets/img/star-fill.svg");
+  background-repeat: repeat-x;
+  background-position: left center;
+  background-size: 15px;
+}
+
+.rating-img.base {
+  z-index: 1;
+
+  background-image: url("../assets/img/star-empty.svg");
+}
